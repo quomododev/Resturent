@@ -430,7 +430,6 @@ Route::group(['middleware' =>'admin'], function () {
         Route::get('/coupon-delete/{id}',[CouponController::class,'delete'])->name('coupon.delete');
         Route::resource('coupon',CouponController::class);
          //*************** Shipping Route **********
-        Route::get('shipping-status-chnage/{id}',[ShippingController::class,'ChangeStatus'])->name('shipping.change.status');
         Route::get('/shipping-delete/{id}',[ShippingController::class,'delete'])->name('shipping.delete');
         Route::resource('shipping',ShippingController::class);
 
