@@ -1,12 +1,12 @@
 @extends('Fontend.Layouts.master2')
 @section('title')
-    <title>Manue Page</title>
+    <title>{{$setting->app_name}} - Manue Page</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Seo Description">
-    <meta name="title" content="Seo Titel">
-    <meta name="keywords" content="Seo Keyword">
+    <meta name="title" content="{{$product->seo_titel}}">
+    <meta name="description" content="{{$product->seo_description}}">
+    <meta name="keywords" content="{{$product->seo_description}}">
 @endsection
 
 @section('content')
@@ -400,7 +400,7 @@
                                 </div>
                                 <div class="form-check-btn">
                                     <div class="grid">
-                                        ${{ $price }}
+                                        {{$setting->currency_icon}}{{ $price }}
                                     </div>
                                 </div>
                             </div>
@@ -422,7 +422,7 @@
                                 </div>
                                 <div class="form-check-btn">
                                     <div class="grid">
-                                        ${{ $addon->price }}
+                                        {{$setting->currency_icon}}{{ $addon->price }}
                                     </div>
                                 </div>
                             </div>

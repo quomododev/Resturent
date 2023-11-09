@@ -434,10 +434,13 @@ Route::group(['middleware' =>'admin'], function () {
          //*************** Shipping Route **********
         Route::get('/shipping-delete/{id}',[ShippingController::class,'delete'])->name('shipping.delete');
         Route::resource('shipping',ShippingController::class);
-         //*************** Coupon Route **********
+         //*************** Time Slot Route **********
          Route::get('timeslot-status-chnage/{id}',[TimeSlotController::class,'ChangeStatus'])->name('timeslot.change.status');
          Route::get('/timeslot-delete/{id}',[TimeSlotController::class,'delete'])->name('timeslot.delete');
          Route::resource('timeslot',TimeSlotController::class);
+         //*************** Seo Setup Route **********
+         Route::get('/seo-setup-index',[SEOSetupController::class,'index'])->name('admin.seo.setup.index');
+         Route::post('seo-setup-update/{id}',[SEOSetupController::class,'SEOUpdate'])->name('page.seo.update');
 
 
         ######################################################################################################################################
@@ -800,8 +803,7 @@ Route::group(['middleware' =>'admin'], function () {
 
 
 
-    Route::get('/seo-setup-index',[SEOSetupController::class,'index'])->name('admin.seo.setup.index');
-    Route::post('seo-setup-update/{id}',[SEOSetupController::class,'SEOUpdate'])->name('page.seo.update');
+  
 
 
 

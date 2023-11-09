@@ -1,12 +1,12 @@
 @extends('Fontend.Layouts.master2')
 @section('title')
-    <title>Menu Page</title>
+    <title>{{$setting->app_name}} - Menu Page</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Seo Description">
-    <meta name="title" content="Seo Titel">
-    <meta name="keywords" content="Seo Keyword">
+    <meta name="title" content="{{$seo_setting->seo_title}}">
+    <meta name="description" content="{{$seo_setting->seo_description}}">
+    <meta name="keywords" content="{{$seo_setting->seo_description}}">
 @endsection
 
 @section('content')
@@ -170,7 +170,7 @@
                                             <div class="featured-item-text">
                                                 <div class="text-item">
                                                     <div class="left">
-                                                        <h3>${{$product->price}}</h3>
+                                                        <h3>{{$setting->currency_icon}}{{$product->price}}</h3>
                                                     </div>
                                                     {{-- <div class="right">
                                                         <div class="icon">
@@ -307,7 +307,7 @@
 
                                                 <div class="popular-inner-item-btm">
                                                     <div class="text">
-                                                        <h3>${{$product2->price}}</h3>
+                                                        <h3>{{$setting->currency_icon}}{{$product2->price}}</h3>
                                                     </div>
 
                                                     <div class="popular-inner-item-btn">
