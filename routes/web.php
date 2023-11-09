@@ -171,6 +171,8 @@ use App\Http\Controllers\WEB\Admin\DefaultAvatarController;
 use App\Http\Controllers\WEB\Admin\ProductReviewController;
 use App\Http\Controllers\WEB\Admin\CouponController;
 use App\Http\Controllers\WEB\Admin\ShippingController;
+use App\Http\Controllers\WEB\Admin\TimeSlotController;
+
 
 use App\Http\Controllers\WEB\Auth\UserLoginController;
 use App\Http\Controllers\WEB\Auth\ForgotPasswordController;
@@ -432,6 +434,10 @@ Route::group(['middleware' =>'admin'], function () {
          //*************** Shipping Route **********
         Route::get('/shipping-delete/{id}',[ShippingController::class,'delete'])->name('shipping.delete');
         Route::resource('shipping',ShippingController::class);
+         //*************** Coupon Route **********
+         Route::get('timeslot-status-chnage/{id}',[TimeSlotController::class,'ChangeStatus'])->name('timeslot.change.status');
+         Route::get('/timeslot-delete/{id}',[TimeSlotController::class,'delete'])->name('timeslot.delete');
+         Route::resource('timeslot',TimeSlotController::class);
 
 
         ######################################################################################################################################
