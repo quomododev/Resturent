@@ -15,7 +15,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.7",
         "maatwebsite/excel": "^3.1",
-        "paypal/rest-api-sdk-php": "^1.6",
+        "paypal/rest-api-sdk-php": "*",
         "razorpay/razorpay": "^2.8",
         "stripe/stripe-php": "^10.15",
         "unicodeveloper/laravel-paystack": "^1.1"

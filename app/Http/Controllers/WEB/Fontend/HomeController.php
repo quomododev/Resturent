@@ -25,6 +25,9 @@ use App\Models\Review;
 use App\Models\setting;
 use App\Models\User;
 use App\Models\blog_comment;
+use App\Models\razorpay_payment;
+use App\Models\paystack;
+
 use Validator;
 use Auth;
 
@@ -186,6 +189,8 @@ class HomeController extends Controller
     public function checkOut(){
         $data['app'] =  MobileApp::first();
         $data['section'] =  SectionTitel::first();
+        $data['razorpay'] = razorpay_payment::first();
+        $data['paystack'] = paystack::first();
         return view('Fontend.Pages.checkout',$data);
     }
 
