@@ -95,6 +95,7 @@ use App\Http\Controllers\WEB\Admin\InventoryController;
 use App\Http\Controllers\WEB\Admin\AdminProfileController;
 use App\Http\Controllers\WEB\Admin\AdminProductVariantController;
 
+
 use App\Http\Controllers\WEB\Admin\AdminPageSetupController;
 use App\Http\Controllers\WEB\Admin\AdminSliderController;;
 use App\Http\Controllers\WEB\Admin\FlashSaleProductController;
@@ -130,7 +131,7 @@ use App\Http\Controllers\WEB\User\Auth\RegisterController;
 use App\Http\Controllers\WEB\User\ProductDetailsController;
 // use App\Http\Controllers\WEB\User\WishlistController;
 // use App\Http\Controllers\WEB\User\CartController;
-use App\Http\Controllers\WEB\User\CheckoutController;
+// use App\Http\Controllers\WEB\User\CheckoutController;
 use App\Http\Controllers\WEB\User\CompleteOrderController;
 use App\Http\Controllers\WEB\User\ProductsController;
 use App\Http\Controllers\WEB\User\UserBlogController;
@@ -172,7 +173,7 @@ use App\Http\Controllers\WEB\Admin\ProductReviewController;
 use App\Http\Controllers\WEB\Admin\CouponController;
 use App\Http\Controllers\WEB\Admin\ShippingController;
 use App\Http\Controllers\WEB\Admin\TimeSlotController;
-
+use App\Http\Controllers\WEB\Admin\OrderController;
 
 use App\Http\Controllers\WEB\Auth\UserLoginController;
 use App\Http\Controllers\WEB\Auth\ForgotPasswordController;
@@ -183,6 +184,7 @@ use App\Http\Controllers\WEB\User\DashboardController as UserDashboardController
 use App\Http\Controllers\WEB\Fontend\HomeController;
 use App\Http\Controllers\WEB\Fontend\WishlistController;
 use App\Http\Controllers\WEB\Fontend\CartController;
+use App\Http\Controllers\WEB\Fontend\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -206,7 +208,6 @@ Route::get('/blog', [HomeController::class,'blog'])->name('blog');
 Route::get('/blog/{slug}', [HomeController::class,'blogDetils'])->name('blog-detils');
 Route::get('/wishlist', [HomeController::class,'wishList'])->name('wishlist');
 Route::get('/cartlist', [HomeController::class,'cartList'])->name('cartlist');
-Route::get('/checkout', [HomeController::class,'checkOut'])->name('checkout');
 Route::post('/newslatter', [HomeController::class,'newsLatter'])->name('newslatter');
 Route::post('/contact/message', [HomeController::class,'contactMessage'])->name('contact.message');
 Route::post('/product/review', [HomeController::class,'ProductReview'])->name('product.review');
@@ -215,15 +216,28 @@ Route::get('/search', [HomeController::class,'search'])->name('search');
 
 
 
+
 Route::get('/cart-view', [CartController::class,'view'])->name('wishlist.index');
 Route::get('/add-to-cart/{product}', [CartController::class,'addToCart'])->name('cart.add');
 Route::post('/cart/add', [CartController::class,'addProduct'])->name('cart.add.detils');
 Route::get('/cart', [CartController::class,'index'])->name('cart.index');
-Route::delete('/cart/remove/{product}', [CartController::class,'removeProduct'])->name('cart.remove');
+Route::get('/cart/remove/{product_id}', [CartController::class,'removeProduct'])->name('cart.remove');
 
 Route::get('/wishlist/add', [WishlistController::class,'index'])->name('wishlist.index');
 Route::get('/wishlist/add/{product_id}',[WishlistController::class,'add'])->name('wishlist.add');
 Route::get('/wishlist/remove/{product_id}',[WishlistController::class,'remove']) ->name('wishlist.remove');
+
+Route::get('/checkout', [CheckoutController::class,'delivery'])->name('checkout');
+Route::get('/pickUp', [CheckoutController::class,'pickUp'])->name('pickup');
+Route::get('/inResturent', [CheckoutController::class,'inResturent'])->name('inresturent');
+
+Route::post('/process/order', [CheckoutController::class,'processOrder'])->name('process.order');
+Route::post('/apply/coupon', [CheckoutController::class,'applyCoupon'])->name('apply.coupon');
+
+Route::get('/select/payment/method', [CheckoutController::class,'selectPayment'])->name('select.payment.method');
+Route::post('/checkout/order', [CheckoutController::class,'checkOut'])->name('checkout.order');
+
+
 
 // User Login Routes.....
 Route::group(['middleware'=>'guest'],function () {
@@ -245,8 +259,21 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user'], function () {
     Route::get('/logout', [UserLoginController::class, 'LogOut'])->name('logout');
 
     Route::get('/dashboard', [UserDashboardController::class, 'UserDashboard'])->name('user.dashboard');
+    Route::get('/edit-profile', [UserDashboardController::class, 'UserProfile'])->name('user.edit.profile');
+    Route::get('/address', [UserDashboardController::class, 'address'])->name('user.address');
+    Route::get('/address/{id}', [UserDashboardController::class, 'addressEdit'])->name('user.address.edit');
+    Route::post('/address/update/{id}', [UserDashboardController::class, 'addressUpdate'])->name('user.address.upadate');
+    Route::post('/add/new/address', [UserDashboardController::class, 'addNewAddress'])->name('add.new.address');
+    Route::get('/remove/address/{id}', [UserDashboardController::class, 'removeAddress'])->name('remove.address');
+    Route::get('/order', [UserDashboardController::class, 'order'])->name('user.order');
+    Route::get('/wishlist', [UserDashboardController::class, 'wishlist'])->name('user.wishlist');
+    Route::get('/review', [UserDashboardController::class, 'review'])->name('user.review');
+    Route::get('/change-password', [UserDashboardController::class, 'changePassword'])->name('user.change.password');
+
     Route::post('/update/profile/{id}', [UserDashboardController::class, 'UpdateProfile'])->name('user.update.profile');
     Route::post('/update/profile', [UserDashboardController::class, 'ChnagePassword'])->name('user.update.password');
+
+
    
     
 
@@ -277,7 +304,11 @@ Route::group(['middleware' =>'admin'], function () {
         Route::get('/admin-dashboard', [DashboardController::class,'index'])->name('admin.dashboard');
 
         //valide for this Resturent project
-
+        //***************** Order Route ***************************
+        Route::get('/all/order',[OrderController::class,'allOrder'])->name('all.order');
+        Route::get('/delivery/order',[OrderController::class,'deliveryOrder'])->name('delivery.order');
+        Route::get('/pickup/order',[OrderController::class,'pickupOrder'])->name('pickup.order');
+        Route::get('/inresturent/order',[OrderController::class,'inresturentOrder'])->name('inresturent.order');
         //***************** Category Route ***************************
         Route::get('/category-list',[CategoryController::class,'index'])->name('categories');
         Route::get('/category-create',[CategoryController::class,'create'])->name('category.create');

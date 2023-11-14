@@ -1,22 +1,6 @@
 $(function(){
 
 
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-
-
 // mobile nav
 const openBtn = document.querySelector("#nav-opn-btn");
 const closeBtn = document.querySelector("#nav-cls-btn");
@@ -86,6 +70,12 @@ closeBtn.addEventListener("click", closeNav);
         });
     }
 });
+
+
+
+
+
+
 
 
 

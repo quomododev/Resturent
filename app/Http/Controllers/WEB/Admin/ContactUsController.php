@@ -40,6 +40,7 @@ class ContactUsController extends Controller
         $translate->heading = $request->heading;
         $translate->title = $request->title;
         $translate->heading2 = $request->heading2;
+        $translate->address = $request->address;
         $translate->save();
 
         $message = "Update Successfully!!";
@@ -70,6 +71,7 @@ class ContactUsController extends Controller
         $translate->heading = $request->heading;
         $translate->title = $request->title;
         $translate->heading2 = $request->heading2;
+        $translate->address = $request->address;
         $translate->save();
 
         $message = "Update Successfully!!";

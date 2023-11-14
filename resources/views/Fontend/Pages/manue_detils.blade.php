@@ -393,7 +393,8 @@
                             @foreach(json_decode($product->size, true) as $size => $price)
                             <div class="together-box-item">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="size" value="{{ $size }}" id="size_{{ $loop->index }}">
+                                    <input class="form-check-input" type="radio" name="size" value="{{ $size }}" id="size_{{ $loop->index }}" data-price="{{ $price }}">
+                                    <input type="hidden" name="size_price" value="{{ $price }}" id="price_{{ $loop->index }}">
                                     <label class="form-check-label" for="size_{{ $loop->index }}">
                                         {{ $size }}
                                     </label>
@@ -404,7 +405,12 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             @endforeach
+                            <input type="hidden" name="size_price" id="selected_size_price" value="{{ 0 }}">
+
+                            
+
                             <div class="together-box-text">
                                 <h5>Select Addon (Optional)</h5>
                             </div>
@@ -415,18 +421,30 @@
                             @foreach ($addons as $addon)
                             <div class="together-box-item">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="addons[]" value="{{ $addon->name }}" id="addon_{{ $loop->parent->index }}_{{ $loop->index }}">
-                                    <label class="form-check-label" for="addon_{{ $loop->parent->index }}_{{ $loop->index }}">
-                                        {{ $addon->name }}
+                                    <input class="form-check-input" type="checkbox" name="addons[]" value="{{ $addon->id }}" id="addon_{{ $loop->parent->index }}_{{ $loop->index }}">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        {{ $addon->name }} ({{$setting->currency_icon}}{{ $addon->price }})
                                     </label>
                                 </div>
+
+
+
                                 <div class="form-check-btn">
-                                    <div class="grid">
-                                        {{$setting->currency_icon}}{{ $addon->price }}
+                                    <div class="form-check-btn">
+
+                                        <div class="grid">
+                                            {{-- <button class="btn btn-minus" onclick="updateQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
+                                            <div class="column product-qty" id="quantity">0</div>
+                                            <button class="btn btn-plus" onclick="updateQuantity(1)"><i class="fa-solid fa-plus"></i></button> --}}
+                                        </div>
+                                        {{-- <input type="text" name="qty" id="qtyInput" value="0"> --}}
+
                                     </div>
                                 </div>
                             </div>
                             @endforeach
+
+
                             @endforeach
                             <div class="together-box-inner-btn">
                                 <div class="grid">
@@ -458,16 +476,11 @@
                     <div class="blog-details-promobanner-res-df">
                         @foreach ($promotions as $promotion)
                             <div class="blog-details-promobanner">
-                                <a href="all-food.html"> <img src="{{asset($promotion['image'])}}" class="w-100"
+                                <a href="#"> <img src="{{asset($promotion['image'])}}" class="w-100"
                                         alt="img"></a>
                             </div>
                         @endforeach
                     </div>
-
-
-
-
-
                 </div>
             </div>
         </div>
@@ -892,6 +905,24 @@
     <!-- App part-end -->
 </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script>
+    function updateQuantity(change) {
+        var quantityElement = document.getElementById('quantity');
+        var currentQuantity = parseInt(quantityElement.textContent);
+        var newQuantity = currentQuantity + change;
+        newQuantity = Math.max(newQuantity, 1);
+        quantityElement.textContent = newQuantity;
+        document.getElementById('qtyInput').value = newQuantity;
+    }
+</script> --}}
+<script>
+    // Add event listener to update size_price on radio button change
+    document.querySelectorAll('input[name="size"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            document.getElementById('selected_size_price').value = this.getAttribute('data-price');
+        });
+    });
+</script>
 
 <script>
     $(document).ready(function () {

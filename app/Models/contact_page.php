@@ -31,7 +31,7 @@ class contact_page extends Model
      }
         return $this->belongsTo(TranslateContactpage::class,'id','contact_id')->where('lang_code',$lang_code);
     }
-    protected $appends = ['heading','title','heading2'];
+    protected $appends = ['heading','title','heading2','address'];
     protected $hidden = ['translate_contactus_lang'];
 
     public function getHeadingAttribute()
@@ -47,5 +47,10 @@ class contact_page extends Model
     public function getHeading2Attribute()
     {
        return $this->translate_contactus_lang->heading2; 
+    }
+
+    public function getAddressAttribute()
+    {
+       return $this->translate_contactus_lang->address; 
     }
 }

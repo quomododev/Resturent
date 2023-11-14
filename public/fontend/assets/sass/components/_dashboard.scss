@@ -1,166 +1,168 @@
 .dashboard {
     padding: 100px 0;
 
-    .dashboard-menu {
+
+    .dashboard-menu-profile-main {
+
+        border-bottom: 1px solid rgba(0, 9, 41, 0.1);
+        padding-bottom: 22px;
+
+        .dashboard-menu-profile {
+            border-radius: 6px;
+            text-align: center;
+            padding: 24px 20px 00px 20px;
+
+            .dashboard-menu-profile-text {
+                padding-top: 10px;
+
+                h4 {
+                    font-size: 24px;
+                    font-weight: 700;
+                    line-height: 150%;
+                    /* 36px */
+                    letter-spacing: -0.24px;
+                    color: var(--heading-color);
+                }
+
+                p {
+                    font-size: 16px;
+                    font-weight: 500;
+                    line-height: 160%;
+                    color: var(--grey-scale-600);
+                }
+            }
+        }
+    }
+
+    #v-pills-tab{
         padding-bottom: 100px;
         background-color: var(--grey-scale-100);
         border-radius: 15px;
 
-        .dashboard-menu-profile-main {
+        .nav-link{
+            background-color: var(--grey-scale-100);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 145%;
+            letter-spacing: -0.09px;
+            color: var(--heading-color);
+            padding: 10px 20px;
+            transition: all linear 0.3s;
+            border-bottom: 1px solid var(--grey-scale-200);
+            text-align: start;
 
-            border-bottom: 1px solid rgba(0, 9, 41, 0.1);
-            padding-bottom: 22px;
+            &.active{
+                color: var(--primary-color);
+                span{
+                    background: var(--primary-color);
 
-            .dashboard-menu-profile {
-                border-radius: 6px;
+                    svg{
+                        fill: currentColor;
+                        color: rgb(255, 255, 255);
+                    }
+                }
+
+                
+            .text{
+                height: unset;
+                width: unset;
+                background: transparent;
+            }
+            }
+
+            &:hover{
+                color: var(--primary-color);
+                span{
+                    background: var(--primary-color);
+
+                    svg{
+                        fill: currentColor;
+                        color: rgb(255, 255, 255);
+                    }
+                }
+
+                .text{
+                    height: unset;
+                    width: unset;
+                    background: transparent;
+                }
+            }
+            span{
+                display: inline-block;
+                height: 50px;
+                width: 50px;
+                background-color: #F4E7EC;
                 text-align: center;
-                padding: 24px 20px 00px 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50px;
+                transition: all 0.3s;
 
-                .dashboard-menu-profile-text {
-                    padding-top: 10px;
-
-                    h4 {
-                        font-size: 24px;
-                        font-weight: 700;
-                        line-height: 150%;
-                        /* 36px */
-                        letter-spacing: -0.24px;
-                        color: var(--heading-color);
-                    }
-
-                    p {
-                        font-size: 16px;
-                        font-weight: 500;
-                        line-height: 160%;
-                        color: var(--grey-scale-600);
-                    }
+                svg{
+                    fill: currentColor;
+                    color: var(--primary-color);
                 }
+            }
+
+            .text{
+                height: unset;
+                width: unset;
+                background: transparent;
+                text-align: start;
             }
         }
 
 
+        .logout-btn{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 145%;
+            /* 26.1px */
+            letter-spacing: -0.09px;
+            color: var(--heading-color);
+            padding: 10px 20px;
+            transition: all 0.3s;
+            border: none;
+            background-color: var(--grey-scale-100);
+            border-bottom: 1px solid var(--grey-scale-200);
+            span{
+                display: inline-block;
+                height: 50px;
+                width: 50px;
+                background-color: #F4E7EC;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50px;
+                transition: all 0.3s;
+                svg{
+                    fill: currentColor;
+                    color: var(--primary-color);
+                }
+            }
+            &:hover {
+                color: var(--primary-color);
 
-        .dashboard-menu-main {
-            ul {
-                padding-top: 8px;
+                span {
+                    background-color: var(--primary-color);
 
-                li {
-                    border-bottom: 1px solid var(--grey-scale-200);
-
-                    .logout-btn{
-                        display: flex;
-                        align-items: center;
-                        gap: 8px;
-                        font-size: 18px;
-                        font-weight: 500;
-                        line-height: 145%;
-                        /* 26.1px */
-                        letter-spacing: -0.09px;
-                        color: var(--heading-color);
-                        padding: 10px 20px;
-                        transition: all 0.3s;
-                        border: none;
-                        background-color: var(--grey-scale-100);
-                        span{
-                            display: inline-block;
-                            height: 50px;
-                            width: 50px;
-                            background-color: #F4E7EC;
-                            text-align: center;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            border-radius: 50px;
-                            transition: all 0.3s;
-                            svg{
-                                fill: currentColor;
-                                color: var(--primary-color);
-                            }
-                        }
-                        &:hover {
-                            color: var(--primary-color);
-
-                            span {
-                                background-color: var(--primary-color);
-
-                                svg {
-                                    fill: currentColor;
-                                    color: rgba(255, 255, 255, 1);
-                                }
-                            }
-                        }
+                    svg {
+                        fill: currentColor;
+                        color: rgba(255, 255, 255, 1);
                     }
-
-                    a {
-                        display: flex;
-                        align-items: center;
-                        gap: 8px;
-                        font-size: 18px;
-                        font-weight: 500;
-                        line-height: 145%;
-                        /* 26.1px */
-                        letter-spacing: -0.09px;
-                        color: var(--heading-color);
-                        padding: 10px 20px;
-                        transition: all 0.3s;
-
-                        span {
-                            display: inline-block;
-                            height: 50px;
-                            width: 50px;
-                            background-color: #F4E7EC;
-                            text-align: center;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            border-radius: 50px;
-                            transition: all 0.3s;
-
-                            svg {
-                                fill: currentColor;
-                                color: var(--primary-color);
-                            }
-                        }
-
-                        &:hover {
-                            color: var(--primary-color);
-
-                            span {
-                                background-color: var(--primary-color);
-
-                                svg {
-                                    fill: currentColor;
-                                    color: rgba(255, 255, 255, 1);
-                                }
-                            }
-                        }
-                    }
-
-                    .active {
-                        color: var(--primary-color);
-
-                        span {
-                            background-color: var(--primary-color);
-
-                            svg {
-                                fill: currentColor;
-                                color: rgba(255, 255, 255, 1);
-                            }
-                        }
-
-                    }
-
                 }
             }
         }
-
-
-
 
     }
-
-
-
 
     .dashboard-item-taitel {
         h4 {
@@ -182,6 +184,9 @@
             padding-top: 8px;
         }
     }
+
+
+
 
     .dashboard-item-mt30px {
         margin-top: 30px;
@@ -1221,3 +1226,9 @@
 
 
 }
+
+
+
+
+
+

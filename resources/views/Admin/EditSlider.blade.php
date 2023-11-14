@@ -127,6 +127,16 @@
                                                                 </div>
                                                             </div>
 
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label class="sherah-wc__form-label">Video Url*</label>
+                                                                    <div class="form-group__input">
+                                                                        <input class="sherah-wc__form-input" value="{{$slider->url}}" placeholder="Type here" type="text" name="url" >
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                           
+
 
                                                         </div>
                                                     </div>

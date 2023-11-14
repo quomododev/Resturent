@@ -42,16 +42,6 @@
 															</g>
 														  </svg>
 														  </span><span class="sherah-psidebar__title">Logo and favicon</span></a>
-															
-															
-															<a class="list-group-item" data-bs-toggle="list" href="#paypalPaymentGateway" role="tab"><span class="sherah-psidebar__icon"><svg xmlns="http://www.w3.org/2000/svg" width="14.234" height="18" viewBox="0 0 14.234 18">
-															<g id="Icon" transform="translate(-75 -187)">
-															  <path id="Path_175" data-name="Path 175" d="M-442.528,177.9a5.325,5.325,0,0,1-.653-.185,2.673,2.673,0,0,1-1.74-2.388c0-.028-.006-.056-.011-.106h-.212q-1.793,0-3.586,0c-.4,0-.664-.275-.585-.628a.507.507,0,0,1,.171-.292,3.012,3.012,0,0,0,1-1.333,8.528,8.528,0,0,0,.689-2.693c.084-.838.117-1.682.152-2.524a5.067,5.067,0,0,1,2.87-4.557.232.232,0,0,0,.147-.239,10.472,10.472,0,0,1,.045-1.437,1.961,1.961,0,0,1,1.883-1.617,2,2,0,0,1,2.048,1.183,2.575,2.575,0,0,1,.176.8c.029.361.012.726.006,1.089a.2.2,0,0,0,.13.214,5,5,0,0,1,2.794,3.694,8.984,8.984,0,0,1,.092,1.382,15.829,15.829,0,0,0,.425,3.5,5.573,5.573,0,0,0,.859,1.985,3.317,3.317,0,0,0,.517.517.535.535,0,0,1,.213.524.484.484,0,0,1-.366.406.988.988,0,0,1-.277.031q-1.758,0-3.516,0h-.219c-.026.18-.04.354-.077.523a2.71,2.71,0,0,1-2.259,2.125.4.4,0,0,0-.079.031Zm5.679-3.74c-.02-.046-.028-.068-.039-.087a7.688,7.688,0,0,1-.863-2.2,17.412,17.412,0,0,1-.423-3.991,5.27,5.27,0,0,0-.063-.787,4.018,4.018,0,0,0-5.583-3.022,3.937,3.937,0,0,0-2.428,3.79,20.762,20.762,0,0,1-.218,2.976,8.822,8.822,0,0,1-1.077,3.244.283.283,0,0,0-.018.073Zm-7.024,1.069a1.626,1.626,0,0,0,.906,1.426,1.574,1.574,0,0,0,1.766-.163,1.585,1.585,0,0,0,.643-1.263Zm2.687-12.449c0-.3.005-.594,0-.885a.942.942,0,0,0-.851-.935.962.962,0,0,0-1.162.715,6.667,6.667,0,0,0-.012,1.1A5.176,5.176,0,0,1-441.185,162.78Z" transform="translate(524.328 27.1)" />
-															</g>
-														  </svg>
-															</span><span class="sherah-psidebar__title">App Link</span></a>
-
-
 
 															<a class="list-group-item" data-bs-toggle="list" href="#google-recapcha" role="tab"><span class="sherah-psidebar__icon"><svg xmlns="http://www.w3.org/2000/svg" width="14.234" height="18" viewBox="0 0 14.234 18">
 															<g id="Icon" transform="translate(-75 -187)">
@@ -160,101 +150,6 @@
 																		</table>
 																	</div>
 																</form>
-															</div>
-
-
-															<div class="tab-pane fade" id="paypalPaymentGateway" role="tabpanel">
-																<div class="sherah-accordion accordion accordion-flush sherah__item-group sherah-default-bg sherah-border" id="sherah-accordion">
-																	<div class="sherah__item-group sherah-default-bg sherah-border mg-top-30">
-																		<h4 class="sherah-default-bg sherah-border__title">App Link</h4>
-																		<div class="sherah__item-form--group">
-																			<form class="sherah-wc__form-main p-0" action="{{route('update.app.link',$app_link->id)}}" method="POST" enctype= multipart/form-data>
-																				@csrf
-																				<div class="row">
-
-																					<div class="col-12">
-																						<div class="sherah__item-form--group mg-top-form-20">
-																							<div class="sherah-input-icon">
-																					<img id="preview-logo" style="height:150px;width:120px;" class="sherah-input-icon m-5" src="{{asset($app_link->image)}}" alt="">
-																							</div>
-																						</div>
-																					</div>
-																					<div class="col-12">
-																						<div class="sherah__item-form--group mg-top-form-20">
-																						<label class="sherah-wc__form-label">App Image *</label>
-																							<div class="sherah-input-icon">
-																								<input onchange="previewLogoImage(event)"  class="sherah-wc__form-input" type="file" name="image">
-																								
-																							</div>
-																						</div>
-																					</div>
-
-
-																					<div class="col-12">
-																						<div class="sherah__item-form--group mg-top-form-20">
-																							<label class="sherah-wc__form-label">Android App *</label>
-																							<div class="sherah-input-icon">
-																								<input class="sherah-wc__form-input" type="text" value = "{{$app_link->android_link}}" name="android_link">
-																								<div class="sherah-form-icon sherah-color1"></i></div>
-																							</div>
-																						</div>
-																					</div>
-																					
-																					<div class="col-12">
-																						<div class="sherah__item-form--group mg-top-form-20">
-																							
-																							<div class="sherah-input-icon mt-4">
-																								<img id="preview-logo" style="height:150px;width:120px;" class="sherah-input-icon m-5" src="{{asset($app_link->android_link_image)}}" alt="">
-																							</div>
-																						</div>
-																					</div>
-																					<div class="col-12">
-																						<div class="sherah__item-form--group mg-top-form-20">
-																						<label class="sherah-wc__form-label">Android App Image *</label>
-																							<div class="sherah-input-icon">
-																								<input onchange="previewLogoImage(event)"  class="sherah-wc__form-input" type="file" name="android_link_image">
-																								
-																							</div>
-																						</div>
-																					</div>
-
-																					<div class="col-12">
-																						<div class="sherah__item-form--group mg-top-form-20">
-																							<label class="sherah-wc__form-label">IOS App *</label>
-																							<div class="sherah-input-icon">
-																								<input class="sherah-wc__form-input" type="text" value="{{$app_link->ios_link}}" name="ios_link" >
-																								<div class="sherah-form-icon sherah-color1"></div>
-																							</div>
-																						</div>
-																					</div>	
-																					
-																					<div class="col-12">
-																						<div class="sherah__item-form--group mg-top-form-20">
-																							
-																							<div class="sherah-input-icon">
-																								<img id="preview-logo" style="height:150px;width:120px;" class="sherah-input-icon m-5" src="{{asset($app_link->ios_link_image)}}" alt="">
-																							</div>
-																						</div>
-																					</div>
-																					<div class="col-12">
-																						<div class="sherah__item-form--group mg-top-form-20">
-																						<label class="sherah-wc__form-label">Ios app Image *</label>
-																							<div class="sherah-input-icon">
-																								<input onchange="previewLogoImage(event)"  class="sherah-wc__form-input" type="file" name="ios_link_image">
-																								
-																							</div>
-																						</div>
-																					</div>
-																				</div>	
-																				<div class="row mg-top-30">
-																					<div class="sherah__item-form--group">
-																						<button type="submit" class="sherah-btn sherah-btn__primary">Save Now</button>
-																					</div>
-																				</div>
-																			</form>	
-																		</div>
-																	</div>
-																</div>
 															</div>
 
 															<div class="tab-pane fade" id="google-recapcha" role="tabpanel">
@@ -404,10 +299,7 @@
 																								<select name="theam">
 																									<option  value="1" {{ ( $setting->theam == 1) ? 'selected' : '' }}>Theam-1</option>
 																									<option value="2" {{ ( $setting->theam == 2) ? 'selected' : '' }}>Theam-2</option>
-																									<option value="3" {{ ( $setting->theam == 3) ? 'selected' : '' }}>Theam-3</option>
-																									<option value="4" {{ ( $setting->theam == 4) ? 'selected' : '' }}>Dark</option>
 																								</select>
-																								<div class="sherah-form-icon sherah-color1"></div>
 																							</div>
 																						</div>
 																					</div>
@@ -419,6 +311,18 @@
 																							<div class="sherah-input-icon">
 																								<input class="sherah-wc__form-input" type="text" value = "{{$setting->app_name}}" name="app_name">
 																								<div class="sherah-form-icon sherah-color1"></i></div>
+																							</div>
+																						</div>
+																					</div>
+
+																					<div class="col-12">
+																						<div class="sherah__item-form--group mg-top-form-20">
+																							<label class="sherah-wc__form-label">App Visibility *</label>
+																							<div class="sherah-input-icon">
+																								<select name="app_visibility">
+																									<option  value="1" {{ ( $setting->app_visibility == 1) ? 'selected' : '' }}>Enable</option>
+																									<option value="0" {{ ( $setting->app_visibility == 0) ? 'selected' : '' }}>Disable</option>
+																								</select>
 																							</div>
 																						</div>
 																					</div>
@@ -438,16 +342,6 @@
 																							<label class="sherah-wc__form-label">Currency Icon *</label>
 																							<div class="sherah-input-icon">
 																								<input class="sherah-wc__form-input" type="text" value = "{{$setting->currency_icon}}" name="currency_icon">
-																								<div class="sherah-form-icon sherah-color1"></i></div>
-																							</div>
-																						</div>
-																					</div>
-
-																					<div class="col-12">
-																						<div class="sherah__item-form--group mg-top-form-20">
-																							<label class="sherah-wc__form-label">Currency Rate *</label>
-																							<div class="sherah-input-icon">
-																								<input class="sherah-wc__form-input" type="text" value = "{{$setting->currency_rate}}" name="currency_rate">
 																								<div class="sherah-form-icon sherah-color1"></i></div>
 																							</div>
 																						</div>

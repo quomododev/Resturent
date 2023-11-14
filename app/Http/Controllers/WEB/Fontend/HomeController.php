@@ -26,6 +26,10 @@ use App\Models\setting;
 use App\Models\User;
 use App\Models\blog_comment;
 use App\Models\seo_setting;
+use App\Models\TimeSlot;
+use App\Models\country;
+use App\Models\addresse;
+use App\Models\contact_page as ContactUs;
 use Validator;
 use Auth;
 
@@ -39,23 +43,44 @@ class HomeController extends Controller
 
     public function index(){
         // Session::flush();
-        $data['seo_setting'] =  seo_setting::where('id',1)->first();
         $data['setting'] =  setting::first();
-        $data['slider'] = Slider::first();
-        $data['categories'] = Category::where('status', 'active')->take(5)->get();
-        $data['Allcategories'] = Category::where('status', 'active')->get();
-        $data['product'] = product::where('status', 'active')->take(15)->get();
-        $data['product2'] = product::where('status', 'active')->take(6)->get();
-        $data['promotions'] = Partner::orderBy('id','DESC')->get();
-        $data['crafting'] =  CraftingProcess::first();
-        $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
-        $data['faqAbout'] =  FaqImages::first();
-        $data['testimonials'] =  testimonial::where('status', 'active')->paginate(3);
-        $data['blogs'] = blog::where('status', 'active')->get();
-        $data['app'] =  MobileApp::first();
-        $data['section'] =  SectionTitel::first();
-        // return $data['sliders'];
-        return view('Fontend.Pages.index',$data);
+        if($data['setting']->theam == 1){
+             
+            $data['seo_setting'] =  seo_setting::where('id',1)->first();
+            $data['slider'] = Slider::first();
+            $data['categories'] = Category::where('status', 'active')->take(5)->get();
+            $data['Allcategories'] = Category::where('status', 'active')->get();
+            $data['product'] = product::where('status', 'active')->take(15)->get();
+            $data['product2'] = product::where('status', 'active')->take(6)->get();
+            $data['promotions'] = Partner::orderBy('id','DESC')->get();
+            $data['crafting'] =  CraftingProcess::first();
+            $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
+            $data['faqAbout'] =  FaqImages::first();
+            $data['testimonials'] =  testimonial::where('status', 'active')->paginate(3);
+            $data['blogs'] = blog::where('status', 'active')->get();
+            $data['app'] =  MobileApp::first();
+            $data['section'] =  SectionTitel::first();
+            return view('Fontend.Pages.index',$data);
+        }
+        else{
+             // Session::flush();
+             $data['seo_setting'] =  seo_setting::where('id',1)->first();
+             $data['slider'] = Slider::first();
+             $data['categories'] = Category::where('status', 'active')->take(5)->get();
+             $data['Allcategories'] = Category::where('status', 'active')->get();
+             $data['product'] = product::where('status', 'active')->take(15)->get();
+             $data['product2'] = product::where('status', 'active')->take(6)->get();
+             $data['promotions'] = Partner::orderBy('id','DESC')->get();
+             $data['crafting'] =  CraftingProcess::first();
+             $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
+             $data['faqAbout'] =  FaqImages::first();
+             $data['testimonials'] =  testimonial::where('status', 'active')->paginate(3);
+             $data['blogs'] = blog::where('status', 'active')->get();
+             $data['app'] =  MobileApp::first();
+             $data['section'] =  SectionTitel::first();
+             return view('Fontend.Pages.index2',$data);
+        }
+       
     }
 
     public function menu(){
@@ -190,24 +215,19 @@ class HomeController extends Controller
         return view('Fontend.Pages.wishlist',$data);
     }
 
-    public function cartList(){
+    public function cartList(Request $request){
         $data['seo_setting'] =  seo_setting::where('id',11)->first();
         $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
         $data['section'] =  SectionTitel::first();
-        $data['productIds'] = session('cart') ? array_keys(session('cart')) : [];
-        $data['cart'] = session('cart', []);
-        $data['product'] = Product::where('status', 'active')->whereIn('id', $data['productIds'])->get();
+        $data['cart'] = $request->session()->get('cart', []);
+        // $productIds = array_column($data['cart'], 'product_id');
+        // $data['product'] = Product::where('status', 'active')->whereIn('id', $productIds)->get();
+        // return $data['product'];
         return view('Fontend.Pages.cart_detils',$data);
     }
 
-    public function checkOut(){
-        $data['seo_setting'] =  seo_setting::where('id',12)->first();
-        $data['setting'] =  setting::first();
-        $data['app'] =  MobileApp::first();
-        $data['section'] =  SectionTitel::first();
-        return view('Fontend.Pages.checkout',$data);
-    }
+    
 
     public function newsLatter(Request $request){
         
