@@ -299,8 +299,8 @@ class SettingsController extends Controller
             'theam' => 'required',
             'currency_name' =>'required',
             'currency_icon' =>'required',
-            'currency_rate' =>'required',
             'vat_rate' =>'required',
+            'app_visibility' =>'required',
          
         ]);
         if($validate->fails())
@@ -316,9 +316,9 @@ class SettingsController extends Controller
                 'theam' => $request->theam,
                 'currency_name' => $request->currency_name,
                 'currency_icon' => $request->currency_icon,
-                'currency_rate' => $request->currency_rate,
                 'vat_rate' => $request->vat_rate,
                 'timezone' => $request->timezone,
+                'app_visibility' => $request->app_visibility,
                 'app_name' => $request->app_name,
             ]);
             $message = "Successfully Updated!!";

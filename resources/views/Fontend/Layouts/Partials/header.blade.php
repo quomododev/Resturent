@@ -3,8 +3,7 @@ $language = App\Models\Language::get();
 $contact =  App\Models\contact_page::first();
 $section =  App\Models\SectionTitel::first();
 $setting =  App\Models\setting::first();
-$productIds = session('cart') ? array_keys(session('cart')) : [];
-$product = \App\Models\Product::where('status', 'active')->whereIn('id', $productIds)->get();
+$cart = session()->get('cart', []);
 $totalPrice = 0;
 @endphp
 <style>
@@ -19,62 +18,9 @@ $totalPrice = 0;
     <header class="header">
         <div class="container">
             <div class="header-main">
-                {{-- <div class="header-left">
-                    <div class="header-left-btn">
-                        <div class="icon">
-                            <span>
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 7C12 8.10457 11.1046 9 10 9C8.89543 9 8 8.10457 8 7C8 5.89543 8.89543 5 10 5C11.1046 5 12 5.89543 12 7Z"
-                                        stroke-width="1.5" />
-                                    <path
-                                        d="M16 7C16 10.3137 12 15 10 15C8 15 4 10.3137 4 7C4 3.68629 6.68629 1 10 1C13.3137 1 16 3.68629 16 7Z"
-                                        stroke-width="1.5" />
-                                    <path
-                                        d="M13.0003 13H14.1268C15.314 13 16.4397 13.5273 17.1997 14.4393L18.2667 15.7196C19.3522 17.0223 18.4259 19 16.7303 19H3.27042C1.57475 19 0.648436 17.0223 1.73398 15.7196L2.80096 14.4393C3.56093 13.5273 4.68672 13 5.87384 13H7.00034"
-                                        stroke-width="1.5" stroke-linejoin="round" />
-                                </svg>
-                            </span>
-                        </div>
-
-                        <div class="location-btn">
-                            <div class="dropdown">
-                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-                                    id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown link
-                                </a>
-
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="location-btn-icon">
-                                <span>
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5.83301 8.33203L9.99967 11.6654L14.1663 8.33203" stroke="white"
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div> --}}
-
-
                 <div class="header-left-center">
                     <p>{{$section->top_ber_message}}</p>
-                    {{-- <p>It's the last day to save. The skills for now — <span>
-                        <a href="#">now on sale.</a>
-                    </span></p> --}}
                 </div>
-
-
                 <div class="header-right">
                     <div class="header-right-item">
                         <div class="header-right-inner">
@@ -88,8 +34,6 @@ $totalPrice = 0;
                                     </svg>
                                 </span>
                             </div>
-
-
                             <div class="text">
                                 <a href="tel:{{$section->top_ber_phone}}">{{$section->top_ber_phone}}</a>
                             </div>
@@ -105,48 +49,38 @@ $totalPrice = 0;
                                     </svg>
                                 </span>
                             </div>
-
-
                             <div class="text">
                                 <a href="mailto:{{$section->top_ber_email}}">{{$section->top_ber_email}}</a>
                             </div>
                         </div>
+                        <div class="location-btn">
+                            <div class="dropdown">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                    id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Select Language
+                                </a>
+        
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    @foreach ($language as $language)
+                                        <li><a class="dropdown-item" href="{{ route('set.language', $language->lang_code) }}">{{$language->name}}</a></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+        
+                            <div class="location-btn-icon">
+                                <span>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.83301 8.33203L9.99967 11.6654L14.1663 8.33203" stroke="white"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="location-btn">
-                    <div class="dropdown">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-                            id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                            Select Language
-                        </a>
-
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            @foreach ($language as $language)
-                                <li><a class="dropdown-item" href="{{ route('set.language', $language->lang_code) }}">{{$language->name}}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                    <div class="location-btn-icon">
-                        <span>
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5.83301 8.33203L9.99967 11.6654L14.1663 8.33203" stroke="white"
-                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </span>
-                    </div>
-                </div>
-
-
-
             </div>
         </div>
-
-
-
-
-
         <!-- menu part start -->
 
 
@@ -157,7 +91,6 @@ $totalPrice = 0;
                     <div class="col-lg-12">
 
                         <div class="nav-main">
-
                             <div class="nav-main">
                                 <div class="logo">
                                     <a href="{{route('index')}}"> <img src="{{asset($setting->logo)}}"
@@ -198,7 +131,6 @@ $totalPrice = 0;
         
                                     </div>
                                 </form>
-
                                 <div class="nav-btn-two">
                                     <a href="{{route('wishlist')}}">
                                         <div class="love">
@@ -263,7 +195,16 @@ $totalPrice = 0;
                                                 </div>
                                             </div>
         
-                                            @foreach ($product as $product)
+        
+        
+                                            @foreach ($cart as $item)
+                                                @php
+                                                    $product = App\Models\Product::where('status', 'active')->whereIn('id', [$item['product_id']])->first();
+                                                    $total = 0;
+                                                    $calculate = 0;
+                                                    $total = ($product['price'] * $item['qty']);
+                                                @endphp
+        
                                                 <div class="cart-dropdown-item-box">
                                                     <div class="cart-dropdown-item">
                                                         <div class="cart-dropdown-item-img">
@@ -273,13 +214,13 @@ $totalPrice = 0;
                                                             <a href="{{route('menu-detils',$product->slug)}}">
                                                                 <h3>{{$product->name}}</h3>
                                                             </a>
-                                                            <p>{{$setting->currency_icon}}{{$product->price}}</p>
+                                                            <p>${{$product->price}}</p>
                                                         </div>
                                                     </div>
         
                                                     <div class="cart-dropdown-inner">
                                                         <div class="cart-dropdown-inner-btn">
-                                                            <a href="#">
+                                                            <a href="{{route('cart.remove',$product['id'])}}">
                                                                 <span>
                                                                     <svg width="18" height="18" viewBox="0 0 18 18"
                                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -311,7 +252,7 @@ $totalPrice = 0;
                                                         <h3>Subtotal</h3>
                                                     </div>
                                                     <div class="text">
-                                                        <h3><a href="#">{{$setting->currency_icon}}{{ $totalPrice}}</a></h3>
+                                                        <h3><a href="#">${{ $totalPrice}}</a></h3>
                                                     </div>
                                                 </div>
         
@@ -418,8 +359,8 @@ $totalPrice = 0;
                                     </div>
                                     @endif
                                 </div>
-
-
+        
+        
                             </div>
 
 

@@ -54,7 +54,9 @@
 
         <div class="sign-up-main">
             <div class="sign-up-logo">
-                <img src="{{asset('fontend/assets/images/logo/logo-header.svg') }}" alt="logo">
+                <a href="{{route('index')}}">
+                    <img src="{{asset('fontend/assets/images/logo/logo-header.svg') }}" alt="logo">
+                </a>
             </div>
             @yield('user-layout')
 

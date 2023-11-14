@@ -1,56 +1,57 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-ul{
+ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-a{
+a {
     text-decoration: none;
     display: inline-block;
 }
 
 
 
-body{
-    overflow-x: hidden ;
-    font-family : 'Plus Jakarta Sans';
-   
+body {
+    overflow-x: hidden;
+    font-family: 'Plus Jakarta Sans';
+
 }
 
 
-html{
+html {
     overflow-x: hidden;
 }
 
 
 
 
-.s-padding{
+.s-padding {
     padding: 81px 0 100px 0;
 }
 
-.mt-48px{
+.mt-48px {
     margin-top: 48px;
 }
-.mb-48px{
+
+.mb-48px {
     margin-bottom: 33px;
 }
 
-.mb-30px{
+.mb-30px {
     margin-bottom: 30px;
 }
 
-.res-mb-20px{
+.res-mb-20px {
     margin-bottom: 20px;
 }
 
-.col-lg-padding-0{
+.col-lg-padding-0 {
     padding: 0;
 }
 
@@ -65,7 +66,7 @@ h4,
 h5,
 h6,
 a,
-p{
+p {
     font-family: 'Plus Jakarta Sans';
     margin: 0;
 }
@@ -73,12 +74,14 @@ p{
 
 
 
-    
+.mt-30px {
+    margin-top: 30px;
+}
 
 
 
 
-.container{
+.container {
     padding: 0;
 }
 
@@ -87,11 +90,11 @@ p{
 
 
 
-:root{
+:root {
     --primary-color: #F01543;
     --secondary-color: #FE724C;
     --heading-color: #000929;
-    --color-grey: #f5f5f7 ;
+    --color-grey: #f5f5f7;
 
     --shades-purple-red-92: #FCCBD5;
     --shades-purple-94: #E8E6F9;
@@ -113,7 +116,7 @@ p{
 
 
 
-   
+
 
 
 
@@ -138,103 +141,92 @@ p{
 
 // google font 
 @font-face {
-    font-family : 'Plus Jakarta Sans';
-    font-weight : 400;
-    src : url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_qU7NSg.ttf) format('truetype');
+    font-family: 'Plus Jakarta Sans';
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_qU7NSg.ttf) format('truetype');
+}
+
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-weight: 500;
+    src: url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_m07NSg.ttf) format('truetype');
+}
+
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-weight: 600;
+    src: url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_d0nNSg.ttf) format('truetype');
+}
+
+
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-weight: 700;
+    src: url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_TknNSg.ttf) format('truetype');
+}
+
+
+
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-weight: 800;
+    src: url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KUnNSg.ttf) format('truetype');
+}
+
+
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: italic;
+    src: url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIZaomQNQcsA88c7O9yZ4KMCoOg4KozySKCdSNG9OcqYQ0XCR_Q.ttf) format('truetype');
+}
+
+
+
+
+
+
+
+
+
+// slick-dots 
+.slick-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 48px;
+    gap: 14px;
+
+
+
+    list-style-type: none;
+
+
+    button {
+        display: block;
+        width: 16px;
+        height: 16px;
+        padding: 0;
+        border: none;
+        border-radius: 100%;
+        background-color: rgba(0, 9, 41, 0.1);
+        text-indent: -9999px;
+
+        transition: all 0.5s;
+
+
+    }
+
+    li.slick-active button {
+        background-color: #F01543;
+        transition: all 0.5s;
+
     }
 
 
-    @font-face {
-    font-family : 'Plus Jakarta Sans';
-    font-weight : 500;
-    src : url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_m07NSg.ttf) format('truetype');
-    }
 
 
-    @font-face {
-    font-family : 'Plus Jakarta Sans';
-    font-weight : 600;
-    src : url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_d0nNSg.ttf) format('truetype');
-    }
-
-
-
-    @font-face {
-    font-family : 'Plus Jakarta Sans';
-    font-weight : 700;
-    src : url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_TknNSg.ttf) format('truetype');
-    }
-
-
-
-
-    @font-face {
-    font-family : 'Plus Jakarta Sans';
-    font-weight : 800;
-    src : url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KUnNSg.ttf) format('truetype');
-    } 
-
-
-
-    @font-face {
-        font-family : 'Plus Jakarta Sans';
-        font-style : italic;
-        src : url(https://fonts.gstatic.com/s/plusjakartasans/v8/LDIZaomQNQcsA88c7O9yZ4KMCoOg4KozySKCdSNG9OcqYQ0XCR_Q.ttf) format('truetype');
-        } 
-
-
-
-
-
-
-
-
-
-    // slick-dots 
-    .slick-dots {
-        display: flex;
-        justify-content: center;
-        margin-top: 48px;
-        gap: 14px;
-
-
-        
-        list-style-type: none;
-        
-
-            button {
-                display: block;
-                width: 16px;
-                height: 16px; 
-                padding: 0;
-                border: none;
-                border-radius: 100%;
-                background-color: rgba(0, 9, 41, 0.1);
-                text-indent: -9999px;
-
-                transition: all 0.5s;
-
-               
-            }
-        
-            li.slick-active button {
-                background-color:#F01543 ;
-                transition: all 0.5s;
-
-            }
-
-
-        
-        
-    }
-
-
-    
-   
-    
-
-    
- 
-
-
-
+}

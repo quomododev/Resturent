@@ -182,56 +182,83 @@
                             </thead>
 
                             <tbody>
-                                @foreach ($product as $product)
+                                @foreach ($cart as $item)
+                                @php
+                                    $product = App\Models\Product::where('status', 'active')->whereIn('id', [$item['product_id']])->first();
+                                    $total = 0;
+                                    $calculate = 0;
+                                    $total = ($product['price'] * $item['qty']);
+                                @endphp
                                 <tr>
-                                  
                                     <td>
                                         <div class="tabel-item">
                                             <div class="tabel-img">
-                                                <img style="width: 178px; height:120px;" src="{{asset($product['tumb_image'])}}" alt="img">
+                                                @if ($product)
+                                                <img style="width: 178px; height:120px;" src="{{ asset($product['tumb_image']) }}" alt="img">
+                                                @endif
                                             </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="tabel-text">
+                                            @if ($product)
+                                            <h5>{{ $product['name'] }}</h5>
+                                            @endif
+                                            <a href="#">
+                                                @if($item['size'])
+                                                    <span>Size:</span>
+                                                @endif
+                                                @foreach ($item['size'] as $size => $price)
+                                                    {{ $size }} (<strong>{{ $setting->currency_icon }}{{ $price }}</strong>)
+                                                    @php $total = $total + ($price * $item['qty']) @endphp
+                                                @endforeach
+                                            </a>
+                                            @if (is_array($item['addons']))
+                                            <p>
+                                                @if($item['addons'])
+                                                 <span>Addons:</span>
+                                                @endif
+                                                @foreach ($item['addons'] as $addonId => $quantity)
+                                                        @php
+                                                            $addonsDb = App\Models\OptionalItem::whereIn('id', [$addonId])->get();
+                                                            $calculate += ($addonsDb->first()->price * $quantity);
+                                                        @endphp
+                                                        @if ($addonsDb->isNotEmpty())
+                                                            {{ $addonsDb->first()->name }} <span>({{ $setting->currency_icon }}{{ $addonsDb->first()->price }} * {{ $quantity }})</span>| 
+                                                        @endif
 
+                                                @endforeach
+
+                                            </p>
+                                            @endif
                                         </div>
                                     </td>
                                     <td>
                                         <div class="tabel-text">
-                                           
-                                                <h5>{{$product->name}}</h5>
+                                            @if ($product)
+                                                <h6>{{ $setting->currency_icon }}{{ $product['price'] }}</h6>
+                                            @endif
                                             
-                                            <a href="#"><span>Size :</span>
-                                               
-                                                    Small
-                                                
-                                                </a>
-                                            <p><span>Addon :</span>Soft Drinks (+{{$setting->currency_icon}}30)</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="tabel-text">
-                                            <h6>{{$setting->currency_icon}}{{$product->price}}</h6>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="tabel-text-btn">
                                             <div class="grid">
-                                                <button class="btn btn-minus "><i
-                                                        class="fa-solid fa-minus"></i></button>
-                                                <div class="column product-qty">2</div>
-                                                <button class="btn btn-plus "><i
-                                                        class="fa-solid fa-plus"></i></button>
+                                                <button class="btn btn-minus"><i class="fa-solid fa-minus"></i></button>
+                                                <div class="column product-qty">{{ $item['qty'] }}</div>
+                                                <button class="btn btn-plus"><i class="fa-solid fa-plus"></i></button>
                                             </div>
                                         </div>
-
                                     </td>
                                     <td>
                                         <div class="tabel-text">
-                                            <h6>{{$setting->currency_icon}}100000</h6>
+                                            <h6>{{ $setting->currency_icon }}{{ $total = $total +$calculate }}</h6>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="tabel-modal-btn">
                                             <button type="button" class="view-btn" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
+                                                data-bs-target="#exampleModal{{ $product['id'] }}">
                                                 <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -239,7 +266,7 @@
                                                             fill="white" />
                                                     </svg></span> View
                                             </button>
-                                            <a href="#">
+                                            <a href="{{route('cart.remove',$product['id'])}}">
                                                 <span>
                                                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -252,7 +279,157 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @endforeach
+
+                                
+                                <!-- modal  -->
+                                <div class="modal fade" id="exampleModal{{ $product['id'] }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"> </button>
+                                            <div class="modal-body">
+                                                <div class="featured-item  ">
+                                                    <div class="featured-item-img">
+                                                        <img  src="{{ asset($product['tumb_image']) }}" class="w-100"
+                                                            alt="featured-thumb">
+
+                                                        <div class="featured-item-img-overlay">
+                                                            <div class="featured-item-img-over-text">
+                                                                <div class="right-text">
+                                                                    <h5> 4.7(2.5K) </h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-body-text">
+                                                    <h3>{{ $product['name'] }} </h3>
+                                                    <h5>{{$setting->currency_icon}}{{ $product['price'] }}</h5>
+                                                </div>
+
+
+                                                <div class="modal-body-item-box">
+
+
+                                                    <div class="modal-body-item-box-text">
+                                                        <p>Select Addon <span>(Optional)</span></p>
+                                                    </div>
+
+                                                    @foreach ($item['addons'] as $addonId => $quantity)
+                                                        @php
+                                                            $addonsDb = App\Models\OptionalItem::whereIn('id', [$addonId])->get();
+                                                            $calculate += ($addonsDb->first()->price * $quantity);
+                                                        @endphp
+                                                        @if ($addonsDb->isNotEmpty())
+                                                            <div class="together-box-item">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value=""
+                                                                        id="flexCheckDefault">
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        {{ $addonsDb->first()->name }} ({{ $setting->currency_icon }}{{ $addonsDb->first()->price }})
+                                                                    </label>
+                                                                </div>
+                
+                
+                
+                                                                <div class="form-check-btn">
+                                                                    <div class="form-check-btn">
+                
+                                                                        <div class="grid">
+                                                                            <button class="btn btn-minus "><i
+                                                                                    class="fa-solid fa-minus"></i></button>
+                                                                            <div class="column product-qty">{{ $quantity }}</div>
+                                                                            <button class="btn btn-plus "><i
+                                                                                    class="fa-solid fa-plus"></i></button>
+                                                                        </div>
+                
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        @endif
+
+                                                    @endforeach
+                                                    <div class="modal-body-item-box-text">
+                                                        <p>Select Size</p>
+                                                    </div>
+                                                    @foreach ($item['size'] as $size => $price)
+                                                        <div class="together-box-item">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="radio" name="size" value="{{ $size }}" id="size_{{ $loop->index }}" data-price="{{ $price }}">
+                                                                <input type="hidden" name="size_price" value="{{ $price }}" id="price_{{ $loop->index }}">
+                                                                <label class="form-check-label" for="size_{{ $loop->index }}">
+                                                                    {{ $size }}
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check-btn">
+                                                                <div class="grid">
+                                                                    {{$setting->currency_icon}}{{ $price }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                    @endforeach
+                                                
+                                                    <div class="modal-body-item-box-text">
+                                                        <p>Select Quantity</p>
+                                                    </div>
+                                                    <div class="together-box-inner-btn">
+
+                                                        <div class="modal-main">
+                                                            <div class="together-box-inner-btn">
+                                                                <div class="grid">
+                                                                    <button class="btn btn-minus"><i class="fa-solid fa-minus"></i></button>
+                                                                    <input class="column product-qty" type="text" name="qty" value="{{ $item['qty'] }}">
+                                                                    <button class="btn btn-plus"><i class="fa-solid fa-plus"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+
+                                                    <div class="together-box-inner-btn-btm">
+                                                        <a href="#" class="main-btn-six" tabindex="-1">
+                                                            <span>
+                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
+                                                                        stroke-width="1.5" stroke-linecap="round"
+                                                                        stroke-linejoin="round">
+                                                                    </path>
+                                                                    <path
+                                                                        d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
+                                                                        stroke-width="1.5"></path>
+                                                                    <path
+                                                                        d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
+                                                                        stroke-width="1.5"></path>
+                                                                    <path d="M14 8L14 13" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                    <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                </svg>
+                                                            </span>
+                                                            Update Cart
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            
 
                             </tbody>
                         </table>
@@ -261,243 +438,6 @@
 
 
 
-                        <!-- modal  -->
-
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"> </button>
-                                    <div class="modal-body">
-                                        <div class="featured-item  ">
-                                            <div class="featured-item-img">
-                                                <img src="./assets/images/thumb/featured-1.png" class="w-100"
-                                                    alt="featured-thumb">
-
-                                                <div class="featured-item-img-overlay">
-                                                    <div class="featured-item-img-over-text">
-                                                        <div class="right-text">
-                                                            <h5> 4.7(2.5K) </h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="modal-body-text">
-                                            <h3>Eggplant Baked with Cheese </h3>
-                                            <h5>{{$setting->currency_icon}}30.00</h5>
-                                        </div>
-
-
-                                        <div class="modal-body-item-box">
-
-
-                                            <div class="modal-body-item-box-text">
-                                                <p>Select Addon <span>(Optional)</span></p>
-                                            </div>
-
-                                            <div class="together-box-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Chicken Leg ($30.00)
-                                                    </label>
-                                                </div>
-
-
-
-                                                <div class="form-check-btn">
-                                                    <div class="form-check-btn">
-
-                                                        <div class="grid">
-                                                            <button class="btn btn-minus "><i
-                                                                    class="fa-solid fa-minus"></i></button>
-                                                            <div class="column product-qty">0</div>
-                                                            <button class="btn btn-plus "><i
-                                                                    class="fa-solid fa-plus"></i></button>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                            <div class="together-box-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="flexCheckDefault1">
-                                                    <label class="form-check-label" for="flexCheckDefault1">
-                                                        Drinks ($25.00)
-                                                    </label>
-                                                </div>
-
-
-
-                                                <div class="form-check-btn">
-                                                    <div class="form-check-btn">
-
-                                                        <div class="grid">
-                                                            <button class="btn btn-minus "><i
-                                                                    class="fa-solid fa-minus"></i></button>
-                                                            <div class="column product-qty">0</div>
-                                                            <button class="btn btn-plus "><i
-                                                                    class="fa-solid fa-plus"></i></button>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                            <div class="together-box-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="flexCheckDefault2">
-                                                    <label class="form-check-label" for="flexCheckDefault2">
-                                                        Nan ($10.00)
-                                                    </label>
-                                                </div>
-
-
-
-                                                <div class="form-check-btn">
-                                                    <div class="form-check-btn">
-
-                                                        <div class="grid">
-                                                            <button class="btn btn-minus "><i
-                                                                    class="fa-solid fa-minus"></i></button>
-                                                            <div class="column product-qty">0</div>
-                                                            <button class="btn btn-plus "><i
-                                                                    class="fa-solid fa-plus"></i></button>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-                                            <div class="together-box-item">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="flexCheckDefault3">
-                                                    <label class="form-check-label" for="flexCheckDefault3">
-                                                        Extra Chess ($5.00)
-                                                    </label>
-                                                </div>
-
-
-
-                                                <div class="form-check-btn">
-                                                    <div class="form-check-btn">
-
-                                                        <div class="grid">
-                                                            <button class="btn btn-minus "><i
-                                                                    class="fa-solid fa-minus"></i></button>
-                                                            <div class="column product-qty">0</div>
-                                                            <button class="btn btn-plus "><i
-                                                                    class="fa-solid fa-plus"></i></button>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-
-
-                                            </div>
-
-                                            <div class="together-box-inner-btn">
-
-                                                <div class="modal-main">
-                                                    <div class="grid-text">
-                                                        <p>Select Quantity</p>
-                                                    </div>
-                                                    <div class="grid">
-                                                        <button class="btn btn-minus "><i
-                                                                class="fa-solid fa-minus"></i></button>
-                                                        <div class="column product-qty">2</div>
-                                                        <button class="btn btn-plus "><i
-                                                                class="fa-solid fa-plus"></i></button>
-                                                    </div>
-                                                </div>
-
-                                                <div class="modal-main modal-main-two ">
-
-                                                    <div class="grid-text">
-                                                        <p>Select Size</p>
-                                                    </div>
-                                                    <div class="together-box-inner-btn-dropdown">
-                                                        <div class="dropdown">
-                                                            <button class="btn btn-secondary dropdown-toggle"
-                                                                type="button" id="dropdownMenuButton1"
-                                                                data-bs-toggle="dropdown" aria-expanded="false">
-                                                                Small <span> $40
-                                                                    <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                        fill="none"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path d="M7 10L12 14L17 10" stroke="white"
-                                                                            stroke-width="1.5"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round"></path>
-                                                                    </svg>
-                                                                </span>
-                                                            </button>
-                                                            <ul class="dropdown-menu"
-                                                                aria-labelledby="dropdownMenuButton1">
-                                                                <li><a class="dropdown-item" href="#">xl</a></li>
-                                                                <li><a class="dropdown-item" href="#">xxl</a></li>
-                                                                <li><a class="dropdown-item" href="#">xxxl</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-
-
-
-
-                                                </div>
-
-
-
-                                            </div>
-
-                                            <div class="together-box-inner-btn-btm">
-                                                <a href="#" class="main-btn-six" tabindex="-1">
-                                                    <span>
-                                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                                stroke-width="1.5" stroke-linecap="round"
-                                                                stroke-linejoin="round">
-                                                            </path>
-                                                            <path
-                                                                d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                                stroke-width="1.5"></path>
-                                                            <path
-                                                                d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                                stroke-width="1.5"></path>
-                                                            <path d="M14 8L14 13" stroke-width="1.5"
-                                                                stroke-linecap="round" stroke-linejoin="round">
-                                                            </path>
-                                                            <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                                                stroke-linecap="round" stroke-linejoin="round">
-                                                            </path>
-                                                        </svg>
-                                                    </span>
-                                                    Add to Cart
-                                                </a>
-                                            </div>
-                                        </div>
-
-
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
 
 
@@ -565,5 +505,25 @@
     <!-- Restaurant part-end -->
 
 </main>
+<script>
+    $(document).ready(function () {
+        // Add quantity increment and decrement functionality
+        $('.btn-plus').click(function (e) {
+            e.preventDefault(); // Prevent the default form submission
+            var input = $('.product-qty');
+            var quantity = parseInt(input.val());
+            input.val(quantity + 1);
+        });
+
+        $('.btn-minus').click(function (e) {
+            e.preventDefault(); // Prevent the default form submission
+            var input = $('.product-qty');
+            var quantity = parseInt(input.val());
+            if (quantity > 1) {
+                input.val(quantity - 1);
+            }
+        });
+    });
+</script>
 
 @endsection

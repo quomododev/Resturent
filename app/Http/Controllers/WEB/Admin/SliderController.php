@@ -46,6 +46,7 @@ class SliderController extends Controller
         $slider->category_id = $request->category_id;
         $slider->image = $image_name;
         $slider->link = $request->link;
+        $slider->url = $request->url;
         $slider->status = 'active';
         $slider->save();
 
@@ -95,6 +96,7 @@ class SliderController extends Controller
         }
         $slider->image = $image_name;
         $slider->link = $request->link;
+        $slider->url = $request->url;
         $slider->status = 'active';
         $slider->save();
 

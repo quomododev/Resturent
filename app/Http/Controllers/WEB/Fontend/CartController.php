@@ -21,76 +21,83 @@ class CartController extends Controller
 
     public function addToCart(Request $request ,$product)
     {
+        $cart = session()->get('cart', []);
+        $existingProduct = collect($cart)->firstWhere('product_id', $product);
 
-        $qty = $request->input('qty');
-        
-            $cart = $request->session()->get('cart', []);
-            if (!in_array($product, $cart)) {
-                $cart[$product] = [
-                    'product_id' => $product,
-                    'size' => '',
-                    'addons' =>  [],
-                    'qty' => 1,
-                ];
-                $request->session()->put('cart', $cart);
-        
-                $message = "Added To Cart";
-                $notification = ['message' => $message, 'alert-type' => 'success'];
-            } else {
-                $message = "Already in the Cart";
-                $notification = ['message' => $message, 'alert-type' => 'info'];
-            }
-            return redirect()->back()->with($notification);
+        if ($existingProduct) {
+            $message = "Already in the Cart";
+            $notification = ['message' => $message, 'alert-type' => 'info'];
+        } else {
+            // Product does not exist in the cart, add it
+            $cartItem = [
+                'product_id' => $product,
+                'size' => [],
+                'addons' => [],
+                'qty' => 1,
+            ];
+    
+            $cart[] = $cartItem;
+            session()->put('cart', $cart);
+
+            $message = "Added To Cart";
+            $notification = ['message' => $message, 'alert-type' => 'success'];
+        }
+       
+        return redirect()->back()->with($notification);
     }
 
     public function addProduct(Request $request)
     {
-        $productId = $request->input('product_id');
-        $size = $request->input('size');
-        $addons = $request->input('addons', []);
-        $qty = $request->input('qty');
+        $cart = session()->get('cart', []);
+        $existingProduct = collect($cart)->firstWhere('product_id', $request->input('product_id'));
 
-        $cart = session('cart', []);
-        if (array_key_exists($productId, $cart)) {
-            $cart[$productId]['qty'] += $qty;
-            $cart[$productId]['size'] = $size;
-           // Merge the addons, but make sure they are unique
-            $cart[$productId]['addons'] = array_unique(array_merge($cart[$productId]['addons'], $addons));
-
+        if ($existingProduct) {
+            $message = "Already in the Cart";
+            $notification = ['message' => $message, 'alert-type' => 'info'];
         } else {
-            $cart[$productId] = [
-                'product_id' => $productId,
-                'size' => $size,
-                'addons' => $addons,
+
+            $product_id = $request->input('product_id');
+            $size = $request->input('size');
+            $size_price = $request->input('size_price');
+            $addons = $request->input('addons', []);
+            $addons_qty = $request->input('addons_qty', []);
+            $qty = $request->input('qty', 1);
+            $addonsWithQty = [];
+
+            foreach ($addons as $index => $addon) {
+                $quantity = isset($addons_qty[$index]) ? $addons_qty[$index] : 1;
+                $addonsWithQty[$addon] = $quantity;
+            }
+            
+            $cartItem = [
+                'product_id' => $product_id,
+                'size' => [
+                    $size => $size_price,
+                ],
+                'addons' => $addonsWithQty,
                 'qty' => $qty,
             ];
+
+            $cart[] = $cartItem;
+            session()->put('cart', $cart);
+
+            $message = "Added To Cart";
+            $notification = ['message' => $message, 'alert-type' => 'success'];
         }
-
-        session(['cart' => $cart]);
-
-        $message = "Added To Cart";
-        $notification = ['message' => $message, 'alert-type' => 'success'];
         return redirect()->back()->with($notification);
     }
 
-    public function index()
+    public function removeProduct(Request $request, $product_id)
     {
-        $cart = session('cart', []);
-
-        return view('cart.index', compact('cart'));
+        $cart = $request->session()->get('cart', []);
+        $productIndex = array_search($product_id, array_column($cart, 'product_id'));
+        unset($cart[$productIndex]);
+        $cart = array_values($cart);
+        $message = "Removed Successfully From Cart List";
+        $notification = ['message' => $message, 'alert-type' => 'success'];
+        $request->session()->put('cart', $cart);
+        return redirect()->back()->with($notification);
     }
 
-    public function removeProduct(Product $product)
-    {
-        $productId = $product->id;
 
-        $cart = session('cart', []);
-
-        if (isset($cart[$productId])) {
-            unset($cart[$productId]);
-            session(['cart' => $cart]);
-        }
-
-        return redirect()->route('cart.index');
-    }
 }

@@ -115,6 +115,15 @@
                                                                 </div>
                                                             </div>
 
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label class="sherah-wc__form-label">Address*</label>
+                                                                    <div class="form-group__input">
+                                                                    <input class="sherah-wc__form-input" type="text" name="address" value="{{$translate_conatctus->address}}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                     <!-- End Product Info -->
@@ -189,6 +198,15 @@
                                                                     <label class="sherah-wc__form-label">Title*</label>
                                                                     <div class="form-group__input">
                                                                     <input class="sherah-wc__form-input" type="text" name="title" value="{{$contactus->translate_contactus?->title}}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label class="sherah-wc__form-label">Address*</label>
+                                                                    <div class="form-group__input">
+                                                                    <input class="sherah-wc__form-input" type="text" name="address" value="{{$contactus->translate_contactus?->address}}">
                                                                     </div>
                                                                 </div>
                                                             </div>
