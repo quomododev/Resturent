@@ -15,11 +15,11 @@
                                                 <h2 class="sherah-breadcrumb__title">Shipping Rule</h2>
                                                 <ul class="sherah-breadcrumb__list">
                                                     <li><a href="{{route('admin.dashboard')}}">Home</a></li>
-                                                    <li class="active"><a href="{{route('categories')}}">Shipping Rule</a></li>
+                                                    <li class="active"><a href="{{route('shipping.index')}}">Shipping Rule</a></li>
                                                 </ul>
                                             </div>
                                             <!-- End Sherah Breadcrumb -->
-                                            <a href="{{route('category.create')}}" class="sherah-btn sherah-gbcolor">Create Shipping Rule</a>
+                                            <a href="{{route('shipping.create')}}" class="sherah-btn sherah-gbcolor">Create Shipping Rule</a>
                                         </div>
                                     </div>
 									<div class="sherah-table sherah-page-inner sherah-border sherah-default-bg mg-top-25">
@@ -27,52 +27,50 @@
                                             <!-- sherah Table Head -->
                                             <thead class="sherah-table__head">
                                                 <tr>
-
-
-                                                    <th class="sherah-table__column-6 sherah-table__h6">Image</th>
-													<th class="sherah-table__column-2 sherah-table__h2">Name</th>
-                                                    <th class="sherah-table__column-6 sherah-table__h6">Status</th>
-                                                    <th class="sherah-table__column-5 sherah-table__h5">Action</th>
+													<th class="sherah-table__column-1 sherah-table__h1">SN</th>
+                                                    <th class="sherah-table__column-2 sherah-table__h2">Rule</th>
+													<th class="sherah-table__column-3 sherah-table__h3">Conditions</th>
+                                                    <th class="sherah-table__column-4 sherah-table__h4">Fee</th>
+                                                    <th class="sherah-table__column-5 sherah-table__h5">Address</th>
+                                                    <th class="sherah-table__column-6 sherah-table__h6">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="sherah-table__body">
-												@foreach($categories as $index => $category)
+												@foreach($shippings as $index => $shipping)
                                                 <tr>
 
-													<td class="sherah-table__column-6 sherah-table__data-6">
-														<div class="sherah-table__vendor-img">
-                                                            <img src="{{asset($category['image'])}}" alt="#">
+													<td class="sherah-table__column-1 sherah-table__data-1">
+                                                        <div class="sherah-language-form__input">
+                                                            <input class="sherah-language-form__check" id="checkbox" name="checkbox" type="checkbox">
+                                                            <p class="crany-table__product--number"><a href="#" class="sherah-color1">{{++$index}}</a></p>
                                                         </div>
                                                     </td>
-
-                                                    <td class="sherah-table__column-2 sherah-table__data-2">
+													<td class="sherah-table__column-2 sherah-table__data-2">
 														<div class="sherah-table__product-content">
-															<p class="sherah-table__product-desc">{{$category->translate_category?->name}}</p>
+															<p class="sherah-table__product-desc">{{$shipping->shipping_rule}}</p>
+														</div>
+                                                    </td>
+													<td class="sherah-table__column-3 sherah-table__data-3">
+														<div class="sherah-table__product-content">
+															<p class="sherah-table__product-desc">${{$shipping->condition_from}} - ${{$shipping->condition_to}}</p>
+														</div>
+                                                    </td>
+													<td class="sherah-table__column-4 sherah-table__data-4">
+														<div class="sherah-table__product-content">
+															<p class="sherah-table__product-desc">${{$shipping->shipping_fee}}</p>
+														</div>
+                                                    </td>
+													<td class="sherah-table__column-5 sherah-table__data-5">
+														<div class="sherah-table__product-content">
+															<p class="sherah-table__product-desc">
+																{{ $shipping->city->name }} - {{ $shipping->city->state->name }} {{ $shipping->city->state->country->name }}
+															 </p>
 														</div>
                                                     </td>
 
-													@if($category->status == 'active')
-													<td class="sherah-table__column-6 sherah-table__data-6">
-														<div class="sherah-ptabs__notify-switch sherah-ptabs__notify-switch--two">
-															<label class="sherah__item-switch">
-																  <input id="status" onclick="changeCategoryStatus({{ $category->id }})" type="checkbox" checked="">
-																<span class="sherah__item-switch--slide sherah__item-switch--round"></span>
-															</label>
-														</div>
-													</td>
-												  @else
-												  <td class="sherah-table__column-6 sherah-table__data-6">
-														<div class="sherah-ptabs__notify-switch sherah-ptabs__notify-switch--two">
-															<label class="sherah__item-switch">
-																<input onclick="changeCategoryStatus({{ $category->id }})" type="checkbox">
-																<span class="sherah__item-switch--slide sherah__item-switch--round"></span>
-															</label>
-														</div>
-													</td>
-												  @endif
 													<td class="sherah-table__column-8 sherah-table__data-8">
 														<div class="sherah-table__status__group">
-															<a href="{{route('category-edit',$category->id)}}"  class="sherah-table__action sherah-color2 sherah-color3__bg--opactity">
+															<a href="{{route('shipping.edit',$shipping->id)}}"  class="sherah-table__action sherah-color2 sherah-color3__bg--opactity">
 																<svg class="sherah-color3__fill" xmlns="http://www.w3.org/2000/svg" width="18.29" height="18.252" viewBox="0 0 18.29 18.252">
 																	<g id="Group_132" data-name="Group 132" transform="translate(-234.958 -37.876)">
 																		<path id="Path_481" data-name="Path 481" d="M242.545,95.779h-5.319a2.219,2.219,0,0,1-2.262-2.252c-.009-1.809,0-3.617,0-5.426q0-2.552,0-5.1a2.3,2.3,0,0,1,2.419-2.419q2.909,0,5.818,0c.531,0,.87.274.9.715a.741.741,0,0,1-.693.8c-.3.026-.594.014-.892.014q-2.534,0-5.069,0c-.7,0-.964.266-.964.976q0,5.122,0,10.245c0,.687.266.955.946.955q5.158,0,10.316,0c.665,0,.926-.265.926-.934q0-2.909,0-5.818a.765.765,0,0,1,.791-.853.744.744,0,0,1,.724.808c.007,1.023,0,2.047,0,3.07s.012,2.023-.006,3.034A2.235,2.235,0,0,1,248.5,95.73a1.83,1.83,0,0,1-.458.048Q245.293,95.782,242.545,95.779Z" transform="translate(0 -39.652)" fill="#09ad95"/>
@@ -81,7 +79,7 @@
 																	</g>
 																</svg>
 															</a>
-                                                            <a href="{{route('category-destroy',$category->id)}}" onclick="confirmation(event)" style="border:none" class="sherah-table__action sherah-color2 sherah-color2__bg--offset">
+                                                            <a href="{{route('shipping.delete',$shipping->id)}}" onclick="confirmation(event)" style="border:none" class="sherah-table__action sherah-color2 sherah-color2__bg--offset">
 																<svg class="sherah-color2__fill"  xmlns="http://www.w3.org/2000/svg" width="16.247" height="18.252" viewBox="0 0 16.247 18.252">
 																	<g id="Icon" transform="translate(-160.007 -18.718)">
 																		<path id="Path_484" data-name="Path 484" d="M185.344,88.136c0,1.393,0,2.786,0,4.179-.006,1.909-1.523,3.244-3.694,3.248q-3.623.007-7.246,0c-2.15,0-3.682-1.338-3.687-3.216q-.01-4.349,0-8.7a.828.828,0,0,1,.822-.926.871.871,0,0,1,1,.737c.016.162.006.326.006.489q0,4.161,0,8.321c0,1.061.711,1.689,1.912,1.69q3.58,0,7.161,0c1.2,0,1.906-.631,1.906-1.695q0-4.311,0-8.622a.841.841,0,0,1,.708-.907.871.871,0,0,1,1.113.844C185.349,85.1,185.343,86.618,185.344,88.136Z" transform="translate(-9.898 -58.597)" />
@@ -152,23 +150,5 @@
 				)
 			}
 			})
-    }
-</script>
-
-<script>
-    function changeCategoryStatus(Id)
-    {
-        console.log(Id);
-    $.ajax({
-        type:"GET",
-        data: { _token : '{{ csrf_token() }}' },
-        url: "{{ route('admin.category.status.change', ':catId') }}".replace(':catId',Id),
-        dataType: "json",
-        success: function(response){
-			if(response.status = 200) {
-				toastr.success(response.message);
-			}
-        }
-    });
     }
 </script>

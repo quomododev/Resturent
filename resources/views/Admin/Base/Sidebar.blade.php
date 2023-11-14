@@ -33,7 +33,7 @@
 									<span class="menu-bar__name">Dashboard</span></span></a></span>
 								</li>
                                  <!-- ************** Manage Resturent Section ************* -->
-                                <li class="{{Route::is('product.list.show') || Route::is('coupon.index') || Route::is('product.create') || Route::is('optional.item') || Route::is('categories') ? 'active' : '' }}"><a href="#!" class="collapsed" data-bs-toggle="collapse" data-bs-target="#menu-item_page_setup"><span class="menu-bar__text">
+                                <li class="{{Route::is('timeslot.index') || Route::is('shipping.index') || Route::is('product.list.show') || Route::is('coupon.index') || Route::is('product.create') || Route::is('optional.item') || Route::is('categories') ? 'active' : '' }}"><a href="#!" class="collapsed" data-bs-toggle="collapse" data-bs-target="#menu-item_page_setup"><span class="menu-bar__text">
 									<span class="sherah-menu-icon sherah-svg-icon__v1">
 										<svg class="sherah-svg-icon" xmlns="http://www.w3.org/2000/svg" width="22.029" height="20.972" viewBox="0 0 22.029 20.972">
 											<g id="Icon" transform="translate(-451.809 -436.251)">
@@ -45,7 +45,7 @@
 									</span>
 									<span class="menu-bar__name">Manage Resturent</span></span><span class="sherah__toggle"></span></a></span>
 									<!-- Dropdown Menu -->
-									<div class="collapse sherah__dropdown {{Route::is('coupon.index') || Route::is('promotion.index') || Route::is('product.list.show') || Route::is('optional.item') || Route::is('categories') ? 'show' : '' }}" id="menu-item_page_setup" data-bs-parent="#sherahMenu">
+									<div class="collapse sherah__dropdown {{Route::is('timeslot.index') || Route::is('shipping.index') || Route::is('coupon.index') || Route::is('promotion.index') || Route::is('product.list.show') || Route::is('optional.item') || Route::is('categories') ? 'show' : '' }}" id="menu-item_page_setup" data-bs-parent="#sherahMenu">
 										<ul class="menu-bar__one-dropdown">
                                             <li class="{{Route::is('product.create') ? 'active' : ''}}"><a href="{{route('product.create')}}"><span class="menu-bar__text"><span class="menu-bar__name">Create Product</span></span></a></li>
                                             <li class="{{Route::is('product.list.show') ? 'active' : ''}}"><a href="{{route('product.list.show')}}"><span class="menu-bar__text"><span class="menu-bar__name">Product</span></span></a></li>
@@ -53,7 +53,8 @@
                                             <li class="{{Route::is('optional.item') ? 'active' : ''}}"><a href="{{route('optional.item')}}"><span class="menu-bar__text"><span class="menu-bar__name">Optional Items</span></span></a></li>
                                             <li class="{{Route::is('promotion.index') ? 'active' : ''}}"><a href="{{route('promotion.index')}}"><span class="menu-bar__text"><span class="menu-bar__name">Promotions</span></span></a></li>
                                             <li class="{{Route::is('coupon.index') ? 'active' : ''}}"><a href="{{route('coupon.index')}}"><span class="menu-bar__text"><span class="menu-bar__name">Coupon</span></span></a></li>
-                                            <li class="{{Route::is('promotion.index') ? 'active' : ''}}"><a href="{{route('promotion.index')}}"><span class="menu-bar__text"><span class="menu-bar__name">Shipping Rule</span></span></a></li>
+                                            <li class="{{Route::is('shipping.index') ? 'active' : ''}}"><a href="{{route('shipping.index')}}"><span class="menu-bar__text"><span class="menu-bar__name">Shipping Rule</span></span></a></li>
+                                            <li class="{{Route::is('timeslot.index') ? 'active' : ''}}"><a href="{{route('timeslot.index')}}"><span class="menu-bar__text"><span class="menu-bar__name">Time Slots</span></span></a></li>
 										</ul>
 									</div>
 								</li>

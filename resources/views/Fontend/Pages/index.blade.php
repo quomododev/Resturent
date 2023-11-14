@@ -1,16 +1,14 @@
 @extends('Fontend.Layouts.master')
 @section('title')
-    <title>Home Page</title>
+    <title>{{$setting->app_name}} - Home Page</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Seo Description">
-    <meta name="title" content="Seo Titel">
-    <meta name="keywords" content="Seo Keyword">
+    <meta name="title" content="{{$seo_setting->seo_title}}">
+    <meta name="description" content="{{$seo_setting->seo_description}}">
+    <meta name="keywords" content="{{$seo_setting->seo_description}}">
 @endsection
- <!-- header part start  -->
- {{-- @include('Fontend.Layouts.Partials.header') --}}
- <!-- header part End  -->
+
 @section('content')
     <main>
         <!-- .banner-part-start -->
@@ -220,7 +218,7 @@
                                 <div class="featured-item-text">
                                     <div class="text-item">
                                         <div class="left">
-                                            <h3>${{$product->price}}</h3>
+                                            <h3>{{$setting->currency_icon}}{{$product->price}}</h3>
                                         </div>
                                         <div class="right">
                                             <div class="icon">
@@ -517,7 +515,7 @@
                             </div>
 
                             <div class="work-item-btn">
-                                <a href="shopping-cart.html">Read more <span><svg width="16" height="16"
+                                <a href="#">Read more <span><svg width="16" height="16"
                                             viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0 8H15M15 8L8.5 1.5M15 8L8.5 14.5" stroke-width="1.5"
                                                 stroke-linejoin="round" />
@@ -622,7 +620,7 @@
                                 <div class="featured-item-text">
                                     <div class="text-item">
                                         <div class="left">
-                                            <h3>${{$product2->price}}</h3>
+                                            <h3>{{$setting->currency_icon}}{{$product2->price}}</h3>
                                         </div>
                                         <div class="right">
                                             <div class="icon">

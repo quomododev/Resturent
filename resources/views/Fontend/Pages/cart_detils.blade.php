@@ -1,12 +1,7 @@
 @extends('Fontend.Layouts.master2')
-@section('title')
-    <title>Wishlist Page</title>
-@endsection
 
-@section('meta')
-    <meta name="description" content="Seo Description">
-    <meta name="title" content="Seo Titel">
-    <meta name="keywords" content="Seo Keyword">
+@section('title')
+    <title>{{$setting->app_name}} - Cart Detils Page</title>
 @endsection
 
 @section('content')
@@ -208,12 +203,12 @@
                                                     Small
                                                 
                                                 </a>
-                                            <p><span>Addon :</span>Soft Drinks (+$30)</p>
+                                            <p><span>Addon :</span>Soft Drinks (+{{$setting->currency_icon}}30)</p>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="tabel-text">
-                                            <h6>${{$product->price}}</h6>
+                                            <h6>{{$setting->currency_icon}}{{$product->price}}</h6>
                                         </div>
                                     </td>
                                     <td>
@@ -230,7 +225,7 @@
                                     </td>
                                     <td>
                                         <div class="tabel-text">
-                                            <h6>$100000</h6>
+                                            <h6>{{$setting->currency_icon}}100000</h6>
                                         </div>
                                     </td>
                                     <td>
@@ -293,7 +288,7 @@
 
                                         <div class="modal-body-text">
                                             <h3>Eggplant Baked with Cheese </h3>
-                                            <h5>$30.00</h5>
+                                            <h5>{{$setting->currency_icon}}30.00</h5>
                                         </div>
 
 

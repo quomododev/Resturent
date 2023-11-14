@@ -1,19 +1,12 @@
 @extends('Fontend.Layouts.master2')
-@section('title')
-    <title>Wishlist Page</title>
-@endsection
 
-@section('meta')
-    <meta name="description" content="Seo Description">
-    <meta name="title" content="Seo Titel">
-    <meta name="keywords" content="Seo Keyword">
+@section('title')
+    <title>{{$setting->app_name}} - Check-Out Page</title>
 @endsection
 
 @section('content')
 <main>
-
     <!-- banner  -->
-
     <div class="inner-banner">
         <div class="container">
             <div class="row  ">
@@ -200,10 +193,6 @@
                             </div>
                         </div>
 
-                       
-                           
-
-                        
                         <div class="col-lg-6">
                             <div class="shopping-payment-btn">
                                 <a href="javascript:;" id="razorpayBtn">
@@ -274,7 +263,8 @@
                         </div>
                         <div class="col-lg-6 shopping-payment-btn-mt15px">
                             <div class="shopping-payment-btn">
-                                <a href="#">
+                                
+                                <a href="{{route('pay-with-mollie')}}">
                                     <span>
                                         <img src="{{asset('fontend/assets/images/small/address-cart-4.png') }}" alt="img">
                                     </span>
@@ -320,8 +310,12 @@
                         </div>
                         <div class="col-lg-6 shopping-payment-btn-mt15px">
                             <div class="shopping-payment-btn">
-                                <a href="javascript:;" class="payment-stripe-button">
+                                <a href="javascript:;" data-toggle="modal"     
+                                data-target=".bd-example-modal-lg" >
                                     <span>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Stripe
+                                        </button>
                                         <img src="{{asset('fontend/assets/images/small/address-cart-6.png') }}" alt="img">
                                     </span>
                                 </a>
@@ -343,11 +337,9 @@
                         </div>
                         <div class="col-lg-6 shopping-payment-btn-mt15px">
                             <div class="shopping-payment-btn">
-                                <a href="#">
-                                    <span>
-                                        <img src="{{asset('fontend/assets/images/small/address-cart-7.png') }}" alt="img">
-                                    </span>
-                                </a>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bankPayment">
+                                        Bank Payment
+                                        </button>
                                 <div class="btn-two">
                                     <span>
                                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -366,7 +358,7 @@
                         </div>
                         <div class="col-lg-6 shopping-payment-btn-mt15px">
                             <div class="shopping-payment-btn">
-                                <a href="#">
+                                <a onclick="flutterwavePayment()" href="javascript:;">
                                     <span>
                                         <img src="{{asset('fontend/assets/images/small/address-cart-8.png') }}" alt="img">
                                     </span>
@@ -570,29 +562,121 @@
                                 </div>
                             </div>
 
-
-
-
-
                         </div>
-
-
-
-
-
                     </div>
-
-
                 </div>
-
-
-
-
             </div>
         </div>
     </section>
 
+<!-- Button trigger modal -->
 
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="payment-popup__top payment-popup__top--digital">
+        <div class="payment-popup">
+            <h4 class="payment-popup__title">Stripe Payment</h4>
+            <div class="payment-popup__inner">
+                <div class="payment-popup__header">
+                    <h4 class="payment-popup__heading">Total<b></b></h4>
+                </div>
+                <!-- Sign in Form -->
+
+                    <form role="form" action="{{ route('pay-with-stripe') }}" method="POST" class="require-validation ecom-wc__form-main p-0" data-cc-on-file="false" data-stripe-publishable-key="{{ $stripe->stripe_key }}" id="payment-form">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group homec-form-input">
+                                    <input class="ecom-wc__form-input card-number" type="text" name="card_number" placeholder="Card Number" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group homec-form-input">
+                                    <input class="ecom-wc__form-input card-expiry-month" type="text" name="month" placeholder="Month" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group homec-form-input">
+                                    <input class="ecom-wc__form-input card-expiry-year" type="text" name="year" placeholder="Year" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group homec-form-input">
+                                    <input class="ecom-wc__form-input card-cvc" type="text" name="cvc" placeholder="CVV">
+                                </div>
+                            </div>
+                            <div class="col-12 mg-top-20">
+                                <button type="submit" class="homec-btn homec-btn__second  homec-btn--payment"><span>Payment Now</span></button>
+                            </div>
+
+                            <div class="col-12 error d-none">
+                                <div class="payment-popup__error">Please provide your valid card information</div>
+                            </div>
+
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>`
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="bankPayment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="payment-popup">
+        <h4 class="payment-popup__title">Bank Payment</h4>
+        <div class="payment-popup__inner">
+            <div class="payment-popup__header">
+                <h4 class="payment-popup__heading">Total<b></b></h4>
+            </div>
+            <ul class="payment-popup__bank-list">
+                
+            </ul>
+            <!-- Sign in Form -->
+            <form class="ecom-wc__form-main p-0"  method="post" action="{{ route('bank-payment') }}">
+                @csrf
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group homec-form-input">
+                            <textarea class="ecom-wc__form-input" type="text" name="tnx_info" placeholder="Transaction information"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="col-12 mg-top-20">
+                        <button type="submit" class="homec-btn homec-btn__second  homec-btn--payment"><span>Payment Now</span></button>
+                    </div>
+                </div>
+            </form>
+            <!-- End Sign in Form -->
+        </div>
+    </div>
+    <!-- End Payment Popup -->
+      </div>
+      
+    </div>
+  </div>
+</div>
 
 
     <!-- Shopping Cart end  -->
@@ -630,13 +714,66 @@
     </section>
     <!-- Restaurant part-end -->
 </main>
+
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="payment-popup__top payment-popup__top--digital">
+        <div class="payment-popup">
+            <h4 class="payment-popup__title">{{__('user.Stripe Payment')}}</h4>
+            <div class="payment-popup__inner">
+                <div class="payment-popup__header">
+                    <h4 class="payment-popup__heading">{{__('user.Total')}} <b></b></h4>
+                </div>
+                <!-- Sign in Form -->
+
+                    <form role="form" action="{{ route('pay-with-stripe') }}" method="POST" class="require-validation ecom-wc__form-main p-0" data-cc-on-file="false" data-stripe-publishable-key="{{ $stripe->stripe_key }}" id="payment-form">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group homec-form-input">
+                                    <input class="ecom-wc__form-input card-number" type="text" name="card_number" placeholder="{{__('user.Card Number')}}" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group homec-form-input">
+                                    <input class="ecom-wc__form-input card-expiry-month" type="text" name="month" placeholder="{{__('user.Month')}}" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="form-group homec-form-input">
+                                    <input class="ecom-wc__form-input card-expiry-year" type="text" name="year" placeholder="{{__('user.Year')}}" autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group homec-form-input">
+                                    <input class="ecom-wc__form-input card-cvc" type="text" name="cvc" placeholder="{{__('user.CVV')}}">
+                                </div>
+                            </div>
+                            <div class="col-12 mg-top-20">
+                                <button type="submit" class="homec-btn homec-btn__second  homec-btn--payment"><span>{{__('user.Payment Now')}}</span></button>
+                            </div>
+
+                            <div class="col-12 error d-none">
+                                <div class="payment-popup__error">{{__('user.Please provide your valid card information')}}</div>
+                            </div>
+
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>`
+</div>
+
 {{-- start stripe payment --}}
 
 
 
 {{-- start stripe payment --}}
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    
     <script>
         $(function() {
             var $form = $(".require-validation");
@@ -686,11 +823,16 @@
                     $form.get(0).submit();
                 }
             }
-
+            
             $("#razorpayBtn").on("click", function(){
                 console.log("sjdsdahfsdjfsd");
                 $("#myForm").submit();
-            })
+            });
+
+            $("#molliBtn").on("click", function(){
+                console.log("sjdsdahfsdjfsd");
+                $("#molliform").submit();
+            });
             /*====================================
                 Payment Button
             ======================================*/
@@ -717,8 +859,9 @@
             });
 
             // Add event listener to the bank button
-            $('.payment-bank-button').on("click", ()=>{
-                $('.payment-popup__top--bank').toggleClass('active');
+            $('.payment-bank-button').on("click", (e)=>{
+                console.log(e);
+                // $('.payment-popup__top--bank').toggleClass('active');
             });
 
             // Add event listener to the body
@@ -741,7 +884,61 @@
         });
     </script>
     {{-- end stripe payment --}}
+    {{-- start flutterwave payment --}}
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    @php
+        $payable_amount = 100 * $flutterwave->currency_rate;
+        $payable_amount = round($payable_amount, 2);
 
+    @endphp
+
+    <script>
+        function flutterwavePayment() {
+
+            FlutterwaveCheckout({
+                public_key: "{{ $flutterwave->public_key }}",
+                tx_ref: "{{ substr(rand(0,time()),0,10) }}",
+                amount: {{ $payable_amount }},
+                currency: "{{ $flutterwave->currency_code }}",
+                country: "{{ $flutterwave->country_code }}",
+                payment_options: " ",
+                customer: {
+                email: "{{ 'user@gmail.com' }}",
+                phone_number: "{{ '0185974455' }}",
+                name: "{{ 'shihab' }}",
+                },
+                callback: function (data) {
+                    var tnx_id = data.transaction_id;
+                    var _token = "{{ csrf_token() }}";
+                    $.ajax({
+                        type: 'post',
+                        data : {tnx_id,_token},
+                        url: "{{ url('pay-with-flutterwave') }}",
+                        success: function (response) {
+                            if(response.status == 'success'){
+                                toastr.success(response.message);
+                                window.location.href = "{{ route('user.dashboard') }}";
+                            }else{
+                                toastr.error(response.message);
+                                window.location.reload();
+                            }
+                        },
+                        error: function(err) {
+
+                        }
+                    });
+                },
+                customizations: {
+                title: "{{ $flutterwave->title }}",
+                logo: "{{ asset($flutterwave->logo) }}",
+                },
+            });
+        }
+    </script>
+    {{-- end flutterwave payment --}}
+
+
+{{-- paystack start --}}
     {{-- paystack start --}}
 
     <script src="https://js.paystack.co/v1/inline.js"></script>

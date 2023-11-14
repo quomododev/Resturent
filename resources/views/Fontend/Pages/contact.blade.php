@@ -1,12 +1,13 @@
 @extends('Fontend.Layouts.master2')
+
 @section('title')
-    <title>Contact Page</title>
+    <title>{{$setting->app_name}} - Contact Page</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Seo Description">
-    <meta name="title" content="Seo Titel">
-    <meta name="keywords" content="Seo Keyword">
+    <meta name="title" content="{{$seo_setting->seo_title}}">
+    <meta name="description" content="{{$seo_setting->seo_description}}">
+    <meta name="keywords" content="{{$seo_setting->seo_description}}">
 @endsection
 
 @section('content')

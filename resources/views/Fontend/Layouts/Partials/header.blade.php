@@ -19,7 +19,7 @@ $totalPrice = 0;
     <header class="header">
         <div class="container">
             <div class="header-main">
-                <div class="header-left">
+                {{-- <div class="header-left">
                     <div class="header-left-btn">
                         <div class="icon">
                             <span>
@@ -64,7 +64,7 @@ $totalPrice = 0;
                         </div>
 
                     </div>
-                </div>
+                </div> --}}
 
 
                 <div class="header-left-center">
@@ -273,7 +273,7 @@ $totalPrice = 0;
                                                             <a href="{{route('menu-detils',$product->slug)}}">
                                                                 <h3>{{$product->name}}</h3>
                                                             </a>
-                                                            <p>${{$product->price}}</p>
+                                                            <p>{{$setting->currency_icon}}{{$product->price}}</p>
                                                         </div>
                                                     </div>
         
@@ -311,7 +311,7 @@ $totalPrice = 0;
                                                         <h3>Subtotal</h3>
                                                     </div>
                                                     <div class="text">
-                                                        <h3><a href="#">${{ $totalPrice}}</a></h3>
+                                                        <h3><a href="#">{{$setting->currency_icon}}{{ $totalPrice}}</a></h3>
                                                     </div>
                                                 </div>
         

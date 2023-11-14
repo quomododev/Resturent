@@ -163,6 +163,8 @@ use App\Http\Controllers\WEB\Admin\DefaultAvatarController;
 use App\Http\Controllers\WEB\Admin\ProductReviewController;
 use App\Http\Controllers\WEB\Admin\CouponController;
 use App\Http\Controllers\WEB\Admin\ShippingController;
+use App\Http\Controllers\WEB\Admin\TimeSlotController;
+
 
 use App\Http\Controllers\WEB\Auth\UserLoginController;
 use App\Http\Controllers\WEB\Auth\ForgotPasswordController;
@@ -423,9 +425,15 @@ Route::group(['middleware' =>'admin'], function () {
         Route::get('/coupon-delete/{id}',[CouponController::class,'delete'])->name('coupon.delete');
         Route::resource('coupon',CouponController::class);
          //*************** Shipping Route **********
-        Route::get('shipping-status-chnage/{id}',[ShippingController::class,'ChangeStatus'])->name('shipping.change.status');
         Route::get('/shipping-delete/{id}',[ShippingController::class,'delete'])->name('shipping.delete');
         Route::resource('shipping',ShippingController::class);
+         //*************** Time Slot Route **********
+         Route::get('timeslot-status-chnage/{id}',[TimeSlotController::class,'ChangeStatus'])->name('timeslot.change.status');
+         Route::get('/timeslot-delete/{id}',[TimeSlotController::class,'delete'])->name('timeslot.delete');
+         Route::resource('timeslot',TimeSlotController::class);
+         //*************** Seo Setup Route **********
+         Route::get('/seo-setup-index',[SEOSetupController::class,'index'])->name('admin.seo.setup.index');
+         Route::post('seo-setup-update/{id}',[SEOSetupController::class,'SEOUpdate'])->name('page.seo.update');
 
 
         ######################################################################################################################################
@@ -788,8 +796,7 @@ Route::group(['middleware' =>'admin'], function () {
 
 
 
-    Route::get('/seo-setup-index',[SEOSetupController::class,'index'])->name('admin.seo.setup.index');
-    Route::post('seo-setup-update/{id}',[SEOSetupController::class,'SEOUpdate'])->name('page.seo.update');
+  
 
 
 
@@ -932,13 +939,18 @@ Route::get('/paypal-payment-cancled-for-product', [PaymentController::class, 'pa
 Route::get('/status', [PaymentController::class, 'getPaymentStatus'])->name('status');
 
 //...........................Stripe....................//
-Route::post('/stripe-payment', [PaymentController::class, 'StripePayment'])->name('strip.payment');
+Route::post('/pay-with-stripe', [PaymentController::class, 'payWithStripe'])->name('pay-with-stripe');
 //..................Razorpay Payment........................//
-Route::post('/razorpay-payment', [PaymentController::class, 'RazorpayPayment'])->name('pay-with-razorpay');
+Route::post('/razorpay-payment', [PaymentController::class, 'payWithRazorpay'])->name('pay-with-razorpay');
 //..................Flutterwave Payment........................//
-Route::post('/flutterwave-payment', [PaymentController::class, 'paywithFlutterwave'])->name('flutterwave.payment');
+Route::post('/flutterwave-payment', [PaymentController::class, 'paywithFlutterwave'])->name('pay-with-flutterwave');
 //..................Paystack Payment........................//
 Route::post('/paystack-payment', [PaymentController::class, 'paywithPaystack'])->name('pay-with-paystack');
 //..................Instamojo Payment........................//
 Route::get('/instamojo-payment', [PaymentController::class, 'paywithInstamojo'])->name('pay-with-instamojo');
 Route::get('/response-instamojo', [PaymentController::class, 'instamojoResponse'])->name('response-instamojo');
+
+Route::get('/pay-with-mollie', [PaymentController::class, 'payWithMollie'])->name('pay-with-mollie');
+Route::get('/mollie-payment-success', [PaymentController::class, 'molliePaymentSuccess'])->name('mollie-payment-success');
+
+Route::post('/bank-payment', [PaymentController::class, 'bankPayment'])->name('bank-payment');

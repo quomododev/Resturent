@@ -27,7 +27,9 @@ use App\Models\User;
 use App\Models\blog_comment;
 use App\Models\razorpay_payment;
 use App\Models\paystack;
-
+use App\Models\flutterwave;
+use App\Models\seo_setting;
+use App\Models\stripe_payment;
 use Validator;
 use Auth;
 
@@ -41,6 +43,8 @@ class HomeController extends Controller
 
     public function index(){
         // Session::flush();
+        $data['seo_setting'] =  seo_setting::where('id',1)->first();
+        $data['setting'] =  setting::first();
         $data['slider'] = Slider::first();
         $data['categories'] = Category::where('status', 'active')->take(5)->get();
         $data['Allcategories'] = Category::where('status', 'active')->get();
@@ -59,6 +63,8 @@ class HomeController extends Controller
     }
 
     public function menu(){
+        $data['seo_setting'] =  seo_setting::where('id',2)->first();
+        $data['setting'] =  setting::first();
         $data['product'] = product::where('status', 'active')->take(9)->get();
         $data['product2'] = product::where('status', 'active')->take(12)->get();
         $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
@@ -94,7 +100,8 @@ class HomeController extends Controller
         }else{
             $data['product'] = $products;
             $data['product2'] = $products;
-    
+            $data['seo_setting'] =  seo_setting::where('id',2)->first();
+            $data['setting'] =  setting::first();
             $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
             $data['Allcategories'] = Category::where('status', 'active')->get();
             $data['faqAbout'] =  FaqImages::first();
@@ -104,6 +111,8 @@ class HomeController extends Controller
     }
 
     public function categoyWise($id){
+        $data['seo_setting'] =  seo_setting::where('id',2)->first();
+        $data['setting'] =  setting::first();
         $data['product'] = product::where('category_id',$id)->where('status', 'active')->take(9)->get();
         $data['product2'] = product::where('category_id',$id)->where('status', 'active')->take(12)->get();
         $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
@@ -125,6 +134,8 @@ class HomeController extends Controller
     }
 
     public function about(){
+        $data['seo_setting'] =  seo_setting::where('id',3)->first();
+        $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
         $data['section'] =  SectionTitel::first();
         $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
@@ -139,6 +150,8 @@ class HomeController extends Controller
     }
 
     public function contact(){
+        $data['seo_setting'] =  seo_setting::where('id',6)->first();
+        $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
         $data['section'] =  SectionTitel::first();
         $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
@@ -148,6 +161,8 @@ class HomeController extends Controller
     }
 
     public function blog(){
+        $data['seo_setting'] =  seo_setting::where('id',9)->first();
+        $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
         $data['section'] =  SectionTitel::first();
         $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
@@ -170,6 +185,8 @@ class HomeController extends Controller
     }
 
     public function wishList(){
+        $data['seo_setting'] =  seo_setting::where('id',10)->first();
+        $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
         $data['section'] =  SectionTitel::first();
         $wishlist = session('wishlist', []);
@@ -178,6 +195,8 @@ class HomeController extends Controller
     }
 
     public function cartList(){
+        $data['seo_setting'] =  seo_setting::where('id',11)->first();
+        $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
         $data['section'] =  SectionTitel::first();
         $data['productIds'] = session('cart') ? array_keys(session('cart')) : [];
@@ -187,10 +206,14 @@ class HomeController extends Controller
     }
 
     public function checkOut(){
+        $data['seo_setting'] =  seo_setting::where('id',12)->first();
+        $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
         $data['section'] =  SectionTitel::first();
         $data['razorpay'] = razorpay_payment::first();
         $data['paystack'] = paystack::first();
+        $data['flutterwave'] = flutterwave::first();
+        $data['stripe'] = stripe_payment::first();
         return view('Fontend.Pages.checkout',$data);
     }
 
@@ -235,10 +258,8 @@ class HomeController extends Controller
            $message = "Contact Message Send Succesfully";
            $notification = array('message' => $message, 'alert-type' => 'success');
            return redirect()->back()->with($notification);
-
-        
     }
-
+    
     public function ProductReview(Request $request){
 
         $validate = Validator::make($request->all(), [

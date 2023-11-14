@@ -22,16 +22,23 @@ use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 use App\Models\purches_plan;
-use App\Models\RazorpayPayment;
+use App\Models\razorpay_payment as RazorpayPayment;
 use App\Models\InstamojoPayment;
+use App\Models\stripe_payment;
+use App\Models\PaystackAndMollie;
 use App\Models\pricing_plan as PricingPlan;
 use App\Models\paypal_payment as PaypalPayment;
+
+Use Stripe;
 use Redirect;
 use Mail;
 use Auth;
 use Session;
 use URL;
 use Notification;
+use Razorpay\Api\Api;
+
+use Mollie\Laravel\Facades\Mollie;
 
 class PaymentController extends Controller
 {
@@ -161,9 +168,7 @@ class PaymentController extends Controller
         $notification = array('messege'=>$notification,'alert-type'=>'error');
         return redirect()->route('payment', $pricing_plan->plan_slug)->with($notification);
     }
-
-
-
+    
     public function createOrder($user, $pricing_plan, $payment_method, $payment_status, $tnx_info,$phone){
 
         if($pricing_plan->plan_type == 'monthly'){
@@ -196,6 +201,7 @@ class PaymentController extends Controller
         $order->save();
         return $order;
     }
+    
 
     public function sendMailToClient($user, $order){
         MailHelper::setMailConfig();
@@ -274,13 +280,13 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function bankPayment(Request $request, $slug){
+    public function bankPayment(Request $request){
 
-        if(env('APP_MODE') == 'DEMO'){
-            $notification = trans('user_validation.This Is Demo Version. You Can Not Change Anything');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
-            return redirect()->back()->with($notification);
-        }
+        // if(env('APP_MODE') == 'DEMO'){
+        //     $notification = trans('user_validation.This Is Demo Version. You Can Not Change Anything');
+        //     $notification=array('messege'=>$notification,'alert-type'=>'error');
+        //     return redirect()->back()->with($notification);
+        // }
 
         $rules = [
             'tnx_info'=>'required',
@@ -290,30 +296,30 @@ class PaymentController extends Controller
         ];
         $this->validate($request, $rules,$customMessages);
 
-        $pricing_plan = PricingPlan::where(['plan_slug' => $slug])->first();
+        //$pricing_plan = PricingPlan::where(['plan_slug' => $slug])->first();
         $user = Auth::guard('web')->user();
-        $order = $this->createOrder($user, $pricing_plan, 'Bank payment', 'pending', $request->tnx_info);
+        //$order = $this->createOrder($user, $pricing_plan, 'Bank payment', 'pending', $request->tnx_info);
         $this->sendMailToClient($user, $order);
 
-        $notification = trans('user_validation.Your order has been placed. please wait for admin payment approval');
+        $notification = 'Your order has been placed. please wait for admin payment approval';
         $notification = array('messege'=>$notification,'alert-type'=>'success');
         return redirect()->route('user.dashboard')->with($notification);
     }
 
-    public function payWithStripe(Request $request, $slug){
+    public function payWithStripe(Request $request){
 
-        if(env('APP_MODE') == 'DEMO'){
-            $notification = trans('user_validation.This Is Demo Version. You Can Not Change Anything');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
-            return redirect()->back()->with($notification);
-        }
+        // if(env('APP_MODE') == 'DEMO'){
+        //     $notification = trans('user_validation.This Is Demo Version. You Can Not Change Anything');
+        //     $notification=array('messege'=>$notification,'alert-type'=>'error');
+        //     return redirect()->back()->with($notification);
+        // }
 
-        $pricing_plan = PricingPlan::where(['plan_slug' => $slug])->first();
+        //$pricing_plan = PricingPlan::where(['plan_slug' => $slug])->first();
 
-        $user = Auth::guard('web')->user();
-
-        $stripe = StripePayment::first();
-        $payableAmount = round($pricing_plan->plan_price * $stripe->currency_rate,2);
+        //$user = Auth::guard('web')->user();
+        
+        $stripe = stripe_payment::first();
+        $payableAmount = round(100 * $stripe->currency_rate,2);
         Stripe\Stripe::setApiKey($stripe->stripe_secret);
 
         $result = Stripe\Charge::create ([
@@ -323,17 +329,17 @@ class PaymentController extends Controller
                 "description" => env('APP_NAME')
             ]);
 
-        $order = $this->createOrder($user, $pricing_plan, 'Stripe', 'success', $result->balance_transaction);
+        //$order = $this->createOrder($user, $pricing_plan, 'Stripe', 'success', $result->balance_transaction);
 
-        $this->sendMailToClient($user, $order);
+        //$this->sendMailToClient($user, $order);
 
-        $notification = trans('user_validation.You have successfully enrolled this package');
+        $notification = 'You have successfully enrolled this package';
         $notification = array('messege'=>$notification,'alert-type'=>'success');
-        return redirect()->route('user.dashboard')->with($notification);
+        return redirect()->back()->with($notification);
 
     }
 
-    public function payWithRazorpay(Request $request, $slug){
+    public function payWithRazorpay(Request $request){
         if(env('APP_MODE') == 'DEMO'){
             $notification = trans('user_validation.This Is Demo Version. You Can Not Change Anything');
             $notification=array('messege'=>$notification,'alert-type'=>'error');
@@ -374,14 +380,8 @@ class PaymentController extends Controller
         }
     }
 
-    public function payWithFlutterwave(Request $request, $slug){
-
-        if(env('APP_MODE') == 'DEMO'){
-            $notification = trans('user_validation.This Is Demo Version. You Can Not Change Anything');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
-            return redirect()->back()->with($notification);
-        }
-
+    public function payWithFlutterwave(Request $request, $slug)
+     {
         $flutterwave = Flutterwave::first();
         $curl = curl_init();
         $tnx_id = $request->tnx_id;
@@ -403,7 +403,6 @@ class PaymentController extends Controller
         ));
 
         $response = curl_exec($curl);
-
         curl_close($curl);
         $response = json_decode($response);
         if($response->status == 'success'){
@@ -421,7 +420,7 @@ class PaymentController extends Controller
         }
     }
 
-    public function payWithMollie(Request $request, $slug){
+    public function payWithMollie(Request $request){
 
         if(env('APP_MODE') == 'DEMO'){
             $notification = trans('user_validation.This Is Demo Version. You Can Not Change Anything');
@@ -429,11 +428,11 @@ class PaymentController extends Controller
             return redirect()->back()->with($notification);
         }
 
-        $pricing_plan = PricingPlan::where(['plan_slug' => $slug])->first();
-        $user = Auth::guard('web')->user();
+        // $pricing_plan = PricingPlan::where(['plan_slug' => $slug])->first();
+        // $user = Auth::guard('web')->user();
 
         $mollie = PaystackAndMollie::first();
-        $price = $pricing_plan->plan_price * $mollie->mollie_currency_rate;
+        $price = 100 * $mollie->mollie_currency_rate;
         $price = round($price,2);
         $price = sprintf('%0.2f', $price);
 
@@ -450,8 +449,8 @@ class PaymentController extends Controller
         ]);
 
         $payment = Mollie::api()->payments()->get($payment->id);
-        session()->put('payment_id',$payment->id);
-        session()->put('pricing_plan',$pricing_plan);
+        // session()->put('payment_id',$payment->id);
+        // session()->put('pricing_plan',$pricing_plan);
         return redirect($payment->getCheckoutUrl(), 303);
     }
 
@@ -522,8 +521,6 @@ class PaymentController extends Controller
             return response()->json(['status' => 'faild' , 'message' => $notification]);
         }
     }
-
-
     public function payWithInstamojo(){
 
         // if(env('APP_MODE') == 'DEMO'){
@@ -634,155 +631,5 @@ class PaymentController extends Controller
             return redirect()->route('payment', $pricing_plan->plan_slug)->with($notification);
         }
     }
-
-
-
-    public function createOrderx($user, $pricing_plan, $payment_method, $payment_status, $tnx_info){
-
-        if($pricing_plan->expired_time == 'monthly'){
-            $expiration_date = date('Y-m-d', strtotime('30 days'));
-        }elseif($pricing_plan->expired_time == 'yearly'){
-            $expiration_date = date('Y-m-d', strtotime('365 days'));
-        }elseif($pricing_plan->expired_time == 'lifetime'){
-            $expiration_date = 'lifetime';
-        }
-
-        if($payment_status == 'success'){
-            Order::where('agent_id', $user->id)->update(['order_status' => 'expired']);
-        }
-
-        $order = new Order();
-        $order->order_id = substr(rand(0,time()),0,10);
-        $order->agent_id = $user->id;
-        $order->pricing_plan_id = $pricing_plan->id;
-        $order->plan_type = $pricing_plan->plan_type;
-        $order->plan_price = $pricing_plan->plan_price;
-        $order->plan_name = $pricing_plan->plan_name;
-        $order->expired_time = $pricing_plan->expired_time;
-        $order->number_of_property = $pricing_plan->number_of_property;
-        $order->featured_property = $pricing_plan->featured_property;
-        $order->featured_property_qty = $pricing_plan->featured_property_qty;
-        $order->top_property = $pricing_plan->top_property;
-        $order->top_property_qty = $pricing_plan->top_property_qty;
-        $order->urgent_property = $pricing_plan->urgent_property;
-        $order->urgent_property_qty = $pricing_plan->urgent_property_qty;
-        if($payment_status == 'success'){
-            $order->order_status = 'active';
-        }else{
-            $order->order_status = 'pending';
-        }
-        $order->payment_status = $payment_status;
-        $order->transaction_id = $tnx_info;
-        $order->payment_method = $payment_method;
-        $order->expiration_date = $expiration_date;
-        $order->save();
-
-        $user_properties = Property::where('agent_id', $user->id)->orderBy('id','desc')->get();
-
-        if($payment_status == 'success'){
-
-            if($expiration_date == 'lifetime'){
-                Property::where('agent_id', $user->id)->update(['expired_date' => null]);
-            }else{
-                Property::where('agent_id', $user->id)->update(['expired_date' => $expiration_date]);
-            }
-
-            if($user_properties->count() > 0){
-                if($order->number_of_property != -1){
-                    $i = 0;
-                    foreach($user_properties as $index => $user_property){
-                        if($i <= $order->number_of_property){
-                            $user_property->status = 'enable';
-                            $user_property->save();
-                        }else{
-                            $user_property->status = 'disable';
-                            $user_property->save();
-                        }
-                        $i++;
-                    }
-                }
-
-                if($order->featured_property == 'enable'){
-                    if($order->featured_property_qty != -1){
-                        $i = 0;
-                        foreach($user_properties as $index => $user_property){
-                            if($i <= $order->number_of_property){
-                                $user_property->is_featured = 'enable';
-                                $user_property->save();
-                            }else{
-                                $user_property->is_featured = 'disable';
-                                $user_property->save();
-                            }
-                            $i++;
-                        }
-                    }
-                }else{
-                    foreach($user_properties as $index => $user_property){
-                        $user_property->is_featured = 'disable';
-                        $user_property->save();
-                    }
-                }
-
-                if($order->top_property == 'enable'){
-                    if($order->top_property_qty != -1){
-                        $i = 0;
-                        foreach($user_properties as $index => $user_property){
-                            if($i <= $order->number_of_property){
-                                $user_property->is_top = 'enable';
-                                $user_property->save();
-                            }else{
-                                $user_property->is_top = 'disable';
-                                $user_property->save();
-                            }
-                            $i++;
-                        }
-                    }
-                }else{
-                    foreach($user_properties as $index => $user_property){
-                        $user_property->is_top = 'disable';
-                        $user_property->save();
-                    }
-                }
-
-                if($order->urgent_property == 'enable'){
-                    if($order->urgent_property_qty != -1){
-                        $i = 0;
-                        foreach($user_properties as $index => $user_property){
-                            if($i <= $order->number_of_property){
-                                $user_property->is_urgent = 'enable';
-                                $user_property->save();
-                            }else{
-                                $user_property->is_urgent = 'disable';
-                                $user_property->save();
-                            }
-                            $i++;
-                        }
-                    }
-                }else{
-                    foreach($user_properties as $index => $user_property){
-                        $user_property->is_urgent = 'disable';
-                        $user_property->save();
-                    }
-                }
-            }
-        }
-
-        return $order;
-    }
-
-
-    public function sendMailToClientx($user, $order){
-        MailHelper::setMailConfig();
-
-        $setting = Setting::first();
-
-        $template=EmailTemplate::where('id',6)->first();
-        $subject=$template->subject;
-        $message=$template->description;
-        $message = str_replace('{{user_name}}',$user->name,$message);
-        $message = str_replace('{{total_amount}}',$setting->currency_icon.$order->plan_price,$message);
-        $message = str_replace('{{payment_method}}',$order->payment_method,$message);
-        $message = str_replace('{{payment_status}}',$order->payment_status,$message);
-        Mail::to($user->email)->send(new OrderSuccessfully($message,$subject));
-    }
+    
 }

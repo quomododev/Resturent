@@ -1,12 +1,13 @@
 @extends('Fontend.Layouts.master2')
+
 @section('title')
-    <title>Wishlist Page</title>
+    <title>{{$setting->app_name}} - Wishlist Page</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Seo Description">
-    <meta name="title" content="Seo Titel">
-    <meta name="keywords" content="Seo Keyword">
+    <meta name="title" content="{{$seo_setting->seo_title}}">
+    <meta name="description" content="{{$seo_setting->seo_description}}">
+    <meta name="keywords" content="{{$seo_setting->seo_description}}">
 @endsection
 
 @section('content')
@@ -108,7 +109,7 @@
 
                                         <div class="popular-inner-item-btm">
                                             <div class="text">
-                                                <h3>${{$product->price}}</h3>
+                                                <h3>{{$setting->currency_icon}}{{$product->price}}</h3>
                                             </div>
 
 
