@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     public function allOrder(){
-        return view()
+        return view();
     }
 }
