@@ -131,7 +131,8 @@ use App\Http\Controllers\WEB\User\Auth\RegisterController;
 use App\Http\Controllers\WEB\User\ProductDetailsController;
 // use App\Http\Controllers\WEB\User\WishlistController;
 // use App\Http\Controllers\WEB\User\CartController;
-// use App\Http\Controllers\WEB\User\CheckoutController;
+//
+use App\Http\Controllers\WEB\User\CheckoutController;
 use App\Http\Controllers\WEB\User\CompleteOrderController;
 use App\Http\Controllers\WEB\User\ProductsController;
 use App\Http\Controllers\WEB\User\UserBlogController;
@@ -146,14 +147,6 @@ use App\Http\Controllers\WEB\User\UserPricingPlanController;
 use App\Http\Controllers\WEB\User\UserWhyChooseUsController;
 use App\Http\Controllers\WEB\User\UserAboutUsController;
 use App\Http\Controllers\WEB\User\AddressController;
-
-
-
-use App\Http\Controllers\StripeController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\RozarpayController;
-use App\Http\Controllers\SslCommerzPaymentController;
-
 
 
 // Resturen Project
@@ -184,7 +177,6 @@ use App\Http\Controllers\WEB\User\DashboardController as UserDashboardController
 use App\Http\Controllers\WEB\Fontend\HomeController;
 use App\Http\Controllers\WEB\Fontend\WishlistController;
 use App\Http\Controllers\WEB\Fontend\CartController;
-use App\Http\Controllers\WEB\Fontend\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -972,16 +964,23 @@ Route::resource('User-address',AddressController::class);
 
 //................Payment.............//
 Route::post('/paypal', [PaymentController::class, 'payWithpaypal'])->name('paypal');
-Route::get('/paypal-payment-success-for-product', [PaymentController::class, 'paypalPaymentSuccess'])->name('paypal-payment-success-for-product');
-Route::get('/paypal-payment-cancled-for-product', [PaymentController::class, 'paypalPaymentCancled'])->name('paypal-payment-cancled-for-product');
+Route::get('/paypal-payment-success-for-product', [PaymentController::class, 'paypalPaymentSuccess'])->name('paypal-payment-success');
+Route::get('/paypal-payment-cancled-for-product', [PaymentController::class, 'paypalPaymentCancled'])->name('paypal-payment-cancled');
+Route::get('/status', [PaymentController::class, 'getPaymentStatus'])->name('status');
+
 //...........................Stripe....................//
-Route::post('/stripe-payment', [PaymentController::class, 'StripePayment'])->name('strip.payment');
+Route::post('/pay-with-stripe', [PaymentController::class, 'payWithStripe'])->name('pay-with-stripe');
 //..................Razorpay Payment........................//
-Route::post('/razorpay-payment', [PaymentController::class, 'RazorpayPayment'])->name('razorpay.payment');
+Route::post('/razorpay-payment', [PaymentController::class, 'payWithRazorpay'])->name('pay-with-razorpay');
 //..................Flutterwave Payment........................//
-Route::post('/flutterwave-payment', [PaymentController::class, 'paywithFlutterwave'])->name('flutterwave.payment');
+Route::post('/flutterwave-payment', [PaymentController::class, 'paywithFlutterwave'])->name('pay-with-flutterwave');
 //..................Paystack Payment........................//
-Route::post('/paystack-payment', [PaymentController::class, 'paywithPaystack'])->name('pay.with.paystack');
+Route::post('/paystack-payment', [PaymentController::class, 'paywithPaystack'])->name('pay-with-paystack');
 //..................Instamojo Payment........................//
-Route::post('/instamojo-payment', [PaymentController::class, 'paywithInstamojo'])->name('pay.with.instamojo-for-product');
-Route::get('/response-instamojo-for-product', [PaymentController::class, 'instamojoResponse'])->name('response-instamojo-for-product');
+Route::get('/instamojo-payment', [PaymentController::class, 'paywithInstamojo'])->name('pay-with-instamojo');
+Route::get('/response-instamojo', [PaymentController::class, 'instamojoResponse'])->name('response-instamojo');
+
+Route::get('/pay-with-mollie', [PaymentController::class, 'payWithMollie'])->name('pay-with-mollie');
+Route::get('/mollie-payment-success', [PaymentController::class, 'molliePaymentSuccess'])->name('mollie-payment-success');
+
+Route::post('/bank-payment', [PaymentController::class, 'bankPayment'])->name('bank-payment');

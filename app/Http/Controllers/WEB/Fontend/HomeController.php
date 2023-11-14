@@ -25,11 +25,12 @@ use App\Models\Review;
 use App\Models\setting;
 use App\Models\User;
 use App\Models\blog_comment;
+use App\Models\razorpay_payment;
+use App\Models\paystack;
+use App\Models\flutterwave;
 use App\Models\seo_setting;
-use App\Models\TimeSlot;
-use App\Models\country;
-use App\Models\addresse;
-use App\Models\contact_page as ContactUs;
+
+
 use Validator;
 use Auth;
 
@@ -227,7 +228,6 @@ class HomeController extends Controller
         return view('Fontend.Pages.cart_detils',$data);
     }
 
-    
 
     public function newsLatter(Request $request){
         
@@ -270,8 +270,6 @@ class HomeController extends Controller
            $message = "Contact Message Send Succesfully";
            $notification = array('message' => $message, 'alert-type' => 'success');
            return redirect()->back()->with($notification);
-
-        
     }
 
     public function ProductReview(Request $request){
