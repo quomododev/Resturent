@@ -184,7 +184,7 @@
                             <tbody>
                                 @foreach ($cart as $item)
                                 @php
-                                    $product = App\Models\Product::where('status', 'active')->whereIn('id', [$item['product_id']])->first();
+                                    $product = App\Models\product::where('status', 'active')->whereIn('id', [$item['product_id']])->first();
                                     $total = 0;
                                     $calculate = 0;
                                     $total = ($product['price'] * $item['qty']);

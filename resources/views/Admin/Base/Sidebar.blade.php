@@ -59,7 +59,8 @@
 									</div>
 								</li>
 								<!-- ************ Order ************ -->
-								<li><a href="#!" class="collapsed" data-bs-toggle="collapse" data-bs-target="#menu-item__orders"><span class="menu-bar__text">
+								<li class="{{ Route::is('all.order') || Route::is('delivery.order') || Route::is('pickup.order') || Route::is('inresturent.order') ? 'active' : '' }}">
+									<a href="#!" class="collapsed" data-bs-toggle="collapse" data-bs-target="#menu-item__orders"><span class="menu-bar__text">
 									<span class="sherah-menu-icon sherah-svg-icon__v1">
 										<svg  class="sherah-svg-icon" xmlns="http://www.w3.org/2000/svg" width="17.092" height="17.873" viewBox="0 0 17.092 17.873">
 											<g id="Icon" transform="translate(-409.241 -375.497)">
@@ -68,14 +69,14 @@
 											</g>
 										</svg>											  
 									</span>
-									<span class="menu-bar__name">Orders</span></span><span class="sherah__toggle"></span></a></span>
+									<span class="menu-bar__name {{Route::is('all.order') || Route::is('delivery.order') || Route::is('pickup.order') || Route::is('inresturent.order')  ? 'show' : '' }}">Orders</span></span><span class="sherah__toggle"></span></a></span>
 									<!-- Dropdown Menu -->
 									<div class="collapse sherah__dropdown" id="menu-item__orders" data-bs-parent="#sherahMenu">
 										<ul class="menu-bar__one-dropdown">
-											<li><a href=""><span class="menu-bar__text"><span class="menu-bar__name">All Order</span></span></a></li>
-											<li><a href=""><span class="menu-bar__text"><span class="menu-bar__name">Delivery Order</span></span></a></li>
-											<li><a href=""><span class="menu-bar__text"><span class="menu-bar__name">PickUp Order</span></span></a></li>
-											<li><a href=""><span class="menu-bar__text"><span class="menu-bar__name">InResturent Order</span></span></a></li>
+											<li class="{{Route::is('all.order') ? 'active' : ''}}"><a href="{{route('all.order')}}"><span class="menu-bar__text"><span class="menu-bar__name">All Order</span></span></a></li>
+											<li class="{{Route::is('delivery.order') ? 'active' : ''}}"><a href="{{route('delivery.order')}}"><span class="menu-bar__text"><span class="menu-bar__name">Delivery Order</span></span></a></li>
+											<li class="{{Route::is('pickup.order') ? 'active' : ''}}"><a href="{{route('pickup.order')}}"><span class="menu-bar__text"><span class="menu-bar__name">PickUp Order</span></span></a></li>
+											<li class="{{Route::is('inresturent.order') ? 'active' : ''}}"><a href="{{route('inresturent.order')}}"><span class="menu-bar__text"><span class="menu-bar__name">InResturent Order</span></span></a></li>
 										</ul>
 									</div>
 								</li>

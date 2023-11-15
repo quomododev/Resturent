@@ -21,6 +21,10 @@ use App\Models\Coupon;
 use App\Models\ApplyCoupon;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\razorpay_payment;
+use App\Models\paystack;
+use App\Models\flutterwave;
+use App\Models\stripe_payment;
 use App\Models\contact_page as ContactUs;
 use Validator;
 use Auth;
@@ -215,6 +219,11 @@ class CheckoutController extends Controller
     }
 
     public function selectPayment(Request $request){
+        $data['razorpay'] = razorpay_payment::first();
+        $data['paystack'] = paystack::first();
+        $data['flutterwave'] = flutterwave::first();
+        $data['stripe'] = stripe_payment::first();
+
         $data['seo_setting'] =  seo_setting::where('id',12)->first();
         $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();

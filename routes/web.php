@@ -132,7 +132,7 @@ use App\Http\Controllers\WEB\User\ProductDetailsController;
 // use App\Http\Controllers\WEB\User\WishlistController;
 // use App\Http\Controllers\WEB\User\CartController;
 //
-use App\Http\Controllers\WEB\User\CheckoutController;
+
 use App\Http\Controllers\WEB\User\CompleteOrderController;
 use App\Http\Controllers\WEB\User\ProductsController;
 use App\Http\Controllers\WEB\User\UserBlogController;
@@ -177,6 +177,8 @@ use App\Http\Controllers\WEB\User\DashboardController as UserDashboardController
 use App\Http\Controllers\WEB\Fontend\HomeController;
 use App\Http\Controllers\WEB\Fontend\WishlistController;
 use App\Http\Controllers\WEB\Fontend\CartController;
+use App\Http\Controllers\WEB\Fontend\CheckoutController;
+use App\Http\Controllers\WEB\Fontend\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -296,11 +298,14 @@ Route::group(['middleware' =>'admin'], function () {
         Route::get('/admin-dashboard', [DashboardController::class,'index'])->name('admin.dashboard');
 
         //valide for this Resturent project
+
         //***************** Order Route ***************************
         Route::get('/all/order',[OrderController::class,'allOrder'])->name('all.order');
         Route::get('/delivery/order',[OrderController::class,'deliveryOrder'])->name('delivery.order');
         Route::get('/pickup/order',[OrderController::class,'pickupOrder'])->name('pickup.order');
         Route::get('/inresturent/order',[OrderController::class,'inresturentOrder'])->name('inresturent.order');
+        Route::get('/order/detils/{id}',[OrderController::class,'OrderDetils'])->name('order.detils');
+        Route::get('/order/delete/{id}',[OrderController::class,'OrderDelete'])->name('order.delete');
         //***************** Category Route ***************************
         Route::get('/category-list',[CategoryController::class,'index'])->name('categories');
         Route::get('/category-create',[CategoryController::class,'create'])->name('category.create');
