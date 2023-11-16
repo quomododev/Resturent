@@ -33,6 +33,8 @@ class CheckoutController extends Controller
 {
     public function delivery(Request $request){
         if(Auth::user()){
+            $foods = session('cart', []);
+            return $foods;
             $data['seo_setting'] =  seo_setting::where('id',12)->first();
             $data['setting'] =  setting::first();
             $data['app'] =  MobileApp::first();

@@ -21,9 +21,12 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
-use App\Models\purches_plan;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Cart;
 use App\Models\razorpay_payment as RazorpayPayment;
 use App\Models\InstamojoPayment;
+use App\Models\Flutterwave;
 use App\Models\stripe_payment;
 use App\Models\PaystackAndMollie;
 use App\Models\pricing_plan as PricingPlan;
@@ -170,50 +173,51 @@ class PaymentController extends Controller
         return redirect()->route('payment', $pricing_plan->plan_slug)->with($notification);
     }
     
-    public function createOrder($user, $pricing_plan, $payment_method, $payment_status, $tnx_info,$phone){
-
-        if($pricing_plan->plan_type == 'monthly'){
-            $expiration_date = date('Y-m-d', strtotime('30 days'));
-        }elseif($pricing_plan->plan_type == 'yearly'){
-            $expiration_date = date('Y-m-d', strtotime('365 days'));
-        }
-
-        if($payment_status == 'success'){
-            purches_plan::where('user_id', $user->id)->update(['purches_status' => 'expired']);
-        }
-
-        $order = new purches_plan();
-        $order->purches_id = substr(rand(0,time()),0,10);
+    public function createOrder($user, $foods,$cart,$payment_method, $payment_status, $tnx_info)
+    {
+        $order = new Order();
         $order->user_id = $user->id;
-        $order->plan_id = $pricing_plan->id;
-        $order->plan_type = $pricing_plan->plan_type;
-        $order->amount = $pricing_plan->plan_price;
-        $order->plan_name = $pricing_plan->plan_name;
-        $order->phone = $phone;
-        if($payment_status == 'success'){
-            $order->purches_status = 'active';
-        }else{
-            $order->purches_status = 'pending';
-        }
-        $order->payment_status = $payment_status;
-        $order->transection_id = $tnx_info;
+        $order->type = $cart->type;
+        $order->number_of_gest = $cart->plan_type;
+        $order->address_id = $cart->address_id;
+        $order->delevery_day = $cart->delevery_day;
+        $order->delevery_time_id = $cart->delevery_time_id;
+        $order->coupon = $cart->coupon;
+        $order->delevery_charge = $cart->delevery_charge;
+        $order->vat_charge = $cart->vat_charge;
+        $order->total = $cart->total;
+        $order->grand_total = $cart->grand_total;
         $order->payment_method = $payment_method;
-        $order->expiration_date = $expiration_date;
+        $order->payment_status = $payment_status;
+        $order->tnx_info = $tnx_info;
+        if($payment_status == 'success'){
+            $order->order_status = 1;
+        }
         $order->save();
+
+        foreach ($foods as $food) {
+            $orderItem = new OrderItem();
+            $orderItem->order_id = $order->id;
+            $orderItem->product_id = $food['product_id']; 
+            $orderItem->size = $food['size']; 
+            $orderItem->addons = $food['addons'];
+            $orderItem->qty = $food['qty'];
+            $orderItem->save();
+        }
+
         return $order;
     }
     
 
     public function sendMailToClient($user, $order){
+    
         MailHelper::setMailConfig();
-
         $setting = setting::first();
-
         $template=EmailTemplate::where('id',6)->first();
         $subject=$template->subject;
         $message=$template->description;
         $message = str_replace('{{user_name}}',$user->name,$message);
-        $message = str_replace('{{total_amount}}',$setting->currency_icon.$order->plan_price,$message);
+        $message = str_replace('{{total_amount}}',$setting->currency_icon.$order->grand_total,$message);
         $message = str_replace('{{payment_method}}',$order->payment_method,$message);
         $message = str_replace('{{payment_status}}',$order->payment_status,$message);
         Mail::to($user->email)->send(new OrderSuccessfully($message,$subject));
@@ -341,11 +345,11 @@ class PaymentController extends Controller
     }
 
     public function payWithRazorpay(Request $request){
-        if(env('APP_MODE') == 'DEMO'){
-            $notification = trans('user_validation.This Is Demo Version. You Can Not Change Anything');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
-            return redirect()->back()->with($notification);
-        }
+        // if(env('APP_MODE') == 'DEMO'){
+        //     $notification = trans('user_validation.This Is Demo Version. You Can Not Change Anything');
+        //     $notification=array('messege'=>$notification,'alert-type'=>'error');
+        //     return redirect()->back()->with($notification);
+        // }
 
         $razorpay = RazorpayPayment::first();
         $input = $request->all();
@@ -356,32 +360,32 @@ class PaymentController extends Controller
                 $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment['amount']));
                 $payId = $response->id;
 
-                $pricing_plan = PricingPlan::where(['plan_slug' => $slug])->first();
+                $foods = session('cart', []);
+                //return $foods;
+                $user = Auth::User();
+                $cart = Cart::where('user_id',$user->id)->first();
+                $order = $this->createOrder($user,$foods,$cart, 'Razorpay', 'success', $payId);
+                //$this->sendMailToClient($user, $order);
 
-                $user = Auth::guard('web')->user();
-                $order = $this->createOrder($user, $pricing_plan, 'Razorpay', 'success', $payId);
-
-                $this->sendMailToClient($user, $order);
-
-                $notification = trans('user_validation.You have successfully enrolled this package');
+                $notification = 'You have successfully enrolled this package';
                 $notification = array('messege'=>$notification,'alert-type'=>'success');
                 return redirect()->route('user.dashboard')->with($notification);
 
             }catch (Exception $e) {
                 $pricing_plan = PricingPlan::where(['plan_slug' => $slug])->first();
-                $notification = trans('user_validation.Payment Faild');
+                $notification = 'Payment Faild';
                 $notification = array('messege'=>$notification,'alert-type'=>'error');
                 return redirect()->route('payment', $pricing_plan->plan_slug)->with($notification);
             }
         }else{
             $pricing_plan = PricingPlan::where(['plan_slug' => $slug])->first();
-            $notification = trans('user_validation.Payment Faild');
+            $notification = 'Payment Faild';
             $notification = array('messege'=>$notification,'alert-type'=>'error');
             return redirect()->route('payment', $pricing_plan->plan_slug)->with($notification);
         }
     }
 
-    public function payWithFlutterwave(Request $request, $slug)
+    public function paywithFlutterwave(Request $request)
      {
         $flutterwave = Flutterwave::first();
         $curl = curl_init();
@@ -408,10 +412,12 @@ class PaymentController extends Controller
         $response = json_decode($response);
         if($response->status == 'success'){
 
-            $pricing_plan = PricingPlan::where(['plan_slug' => $slug])->first();
-            $user = Auth::guard('web')->user();
-            $order = $this->createOrder($user, $pricing_plan, 'Flutterwave', 'success', $tnx_id);
-            $this->sendMailToClient($user, $order);
+
+            $foods = session('cart', []);
+            $user = Auth::User();
+            $cart = Cart::where('user_id',$user->id)->get();
+            $order = $this->createOrder($user,$foods,$cart,'Flutterwave', 'success', $tnx_id);
+            //$this->sendMailToClient($user, $order);
 
             $notification = trans('user_validation.You have successfully enrolled this package');
             return response()->json(['status' => 'success' , 'message' => $notification]);
@@ -423,11 +429,11 @@ class PaymentController extends Controller
 
     public function payWithMollie(Request $request){
 
-        if(env('APP_MODE') == 'DEMO'){
-            $notification = trans('user_validation.This Is Demo Version. You Can Not Change Anything');
-            $notification=array('messege'=>$notification,'alert-type'=>'error');
-            return redirect()->back()->with($notification);
-        }
+        // if(env('APP_MODE') == 'DEMO'){
+        //     $notification = trans('user_validation.This Is Demo Version. You Can Not Change Anything');
+        //     $notification=array('messege'=>$notification,'alert-type'=>'error');
+        //     return redirect()->back()->with($notification);
+        // }
 
         // $pricing_plan = PricingPlan::where(['plan_slug' => $slug])->first();
         // $user = Auth::guard('web')->user();
@@ -450,8 +456,7 @@ class PaymentController extends Controller
         ]);
 
         $payment = Mollie::api()->payments()->get($payment->id);
-        // session()->put('payment_id',$payment->id);
-        // session()->put('pricing_plan',$pricing_plan);
+         session()->put('payment_id',$payment->id);
         return redirect($payment->getCheckoutUrl(), 303);
     }
 
@@ -462,9 +467,12 @@ class PaymentController extends Controller
         Mollie::api()->setApiKey($mollie_api_key);
         $payment = Mollie::api()->payments->get(session()->get('payment_id'));
         if ($payment->isPaid()){
-            $user = Auth::guard('web')->user();
-            $order = $this->createOrder($user, $pricing_plan, 'Mollie', 'success', session()->get('payment_id'));
-            $this->sendMailToClient($user, $order);
+
+            $foods = session('cart', []);
+            $user = Auth::User();
+            $cart = Cart::where('user_id',$user->id)->get();
+            $order = $this->createOrder($user,$foods,$cart,'Flutterwave', 'success', session()->get('payment_id'));
+            //$this->sendMailToClient($user, $order);
 
             $notification = trans('user_validation.You have successfully enrolled this package');
             $notification = array('messege'=>$notification,'alert-type'=>'success');

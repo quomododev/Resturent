@@ -1,12 +1,7 @@
 
-
-
-
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-
 
 
 use App\Http\Controllers\WEB\Admin\AdminOrderController;
@@ -978,7 +973,7 @@ Route::post('/pay-with-stripe', [PaymentController::class, 'payWithStripe'])->na
 //..................Razorpay Payment........................//
 Route::post('/razorpay-payment', [PaymentController::class, 'payWithRazorpay'])->name('pay-with-razorpay');
 //..................Flutterwave Payment........................//
-Route::post('/flutterwave-payment', [PaymentController::class, 'paywithFlutterwave'])->name('pay-with-flutterwave');
+Route::post('/pay-with-flutterwave', [PaymentController::class, 'paywithFlutterwave'])->name('pay-with-flutterwave');
 //..................Paystack Payment........................//
 Route::post('/paystack-payment', [PaymentController::class, 'paywithPaystack'])->name('pay-with-paystack');
 //..................Instamojo Payment........................//
