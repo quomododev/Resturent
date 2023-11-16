@@ -39,7 +39,7 @@
 							<div class="sherah-wc__inner" style="background-image: url({{asset($setting->login_page_bg)}});">
 								<!-- Logo -->
 								<div class="sherah-wc__logo">
-									<a href="index.html"><img src="{{asset($setting->logo)}}" alt="#"></a>
+									<a href="index.html"><img src="{{asset($setting->stiky_logo)}}" alt="#"></a>
 								</div>
 								<!-- Middle Image -->
 								<div class="sherah-wc__middle">

@@ -1154,6 +1154,8 @@ p {
   line-height: 54px;
   border-radius: 10px;
 }
+
+
 .main-btn-three:hover {
   color: #fff;
 }
@@ -3246,10 +3248,7 @@ p {
 .dashboard .popular-item-box:hover .popular-item-box-img::after {
   animation: shine 800ms;
 }
-.dashboard .popular-item-box:hover .popular-inner-item-btn .main-btn-five {
-  color: #fff;
-}
-.dashboard .popular-item-box:hover .popular-inner-item-btn .main-btn-five::before {
+/* .dashboard .popular-item-box:hover .popular-inner-item-btn .main-btn-five::before {
   transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
   transition: transform 0.4s cubic-bezier(0.1, 0, 0.3, 1);
 }
@@ -3258,12 +3257,12 @@ p {
   transition-duration: 0.05s;
   transition-delay: 0.4s;
   transition-timing-function: linear;
-}
-.dashboard .popular-item-box:hover .popular-inner-item-btn .main-btn-five span svg {
+} */
+/* .dashboard .popular-item-box:hover .popular-inner-item-btn .main-btn-five span svg {
   stroke: currentColor;
   color: #fff;
   transition: all 0.3s;
-}
+} */
 .dashboard .popular-item-box .popular-item-box-img {
   overflow: hidden;
   border-radius: 12px 0px 0px 12px;
@@ -3368,6 +3367,10 @@ p {
   padding: 8.762px 11.683px;
   font-size: 14px;
 }
+.dashboard .popular-item-box .popular-inner-box .popular-inner-item-btm .popular-inner-item-btn {
+  gap: 20px;
+}
+
 .dashboard .popular-item-box .popular-inner-box .popular-inner-item-btm .popular-inner-item-btn a span {
   line-height: 0;
   stroke: currentColor;
@@ -4519,16 +4522,22 @@ p {
   border-radius: 10px;
   padding: 7px;
   display: flex;
-  align-items: center;
-  gap: 16px;
+  /* align-items: center; */
+  justify-content: center;
+  /* gap: 16px; */
   font-size: 16px;
   font-weight: 500;
   line-height: 160%;
   color: var(--heading-color);
+  width: 100%;
 }
 .food-details-section .together-box .together-box-inner-btn .btn-minus {
   background-color: #FFF8ED;
   color: #FFC403;
+  border: 1px solid #f0154467;
+}
+.food-details-section .together-box .together-box-inner-btn .grid .column {
+  text-align: center;
 }
 .food-details-section .together-box .together-box-inner-btn .btn-plus {
   background-color: var(--primary-color);
@@ -4570,7 +4579,7 @@ p {
   color: #fff;
 }
 .food-details-section .blog-details-promobanner {
-  margin-top: 130px;
+  margin-top: 30px;
   margin-bottom: 30px;
 }
 
@@ -7513,12 +7522,60 @@ p {
 
 
 
+.ecom-wc__form-input{
+  width: 100%;
+  border: 1px solid var(--primary-color);
+  padding: 0px 15px;
+  border-radius: 5px;
+}
+
+
+.btn--payment,
+.homec-btn--payment{
+  padding: 15px 15px;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  margin-top: 17px;
+}
+
+.card-number,
+.card-expiry-month,
+.card-expiry-year,
+.card-cvc{
+  padding: 15px 15px;
+}
+.ecom-wc__form-input:focus{
+  border-color: gray;
+  outline: none;
+}
+
+.card-expiry-month,
+.card-expiry-year{
+  margin: 24px 0;
+}
+
+
+.payment-popup__heading{
+  padding: 10px 0 20px 0;
+}
+
+.flutterwave img{
+  height: 100px;
+  width: 150px;
+  margin-top: -10px;
+}
+
+
+
+
+
 
 
 
 
 
 /*# sourceMappingURL=style.css.map */
-=======
-}/*# sourceMappingURL=style.css.map */
->>>>>>> 514cf8954ca77f4fb673a4324eb7c900319f2ea8
+
+

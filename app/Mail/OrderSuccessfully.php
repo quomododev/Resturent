@@ -23,6 +23,6 @@ class OrderSuccessfully extends Mailable
     {
         $template = $this->template;
         $subject = $this->subject;
-        return $this->subject($this->subject)->view('User.order_email_template', compact('template'));
+        return $this->subject($this->subject)->view('Fontend.User.order_email_template', compact('template'));
     }
 }

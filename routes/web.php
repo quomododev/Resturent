@@ -963,7 +963,7 @@ Route::resource('User-address',AddressController::class);
 
 
 //................Payment.............//
-Route::post('/paypal', [PaymentController::class, 'payWithpaypal'])->name('paypal');
+Route::get('/paypal', [PaymentController::class, 'payWithpaypal'])->name('paypal');
 Route::get('/paypal-payment-success-for-product', [PaymentController::class, 'paypalPaymentSuccess'])->name('paypal-payment-success');
 Route::get('/paypal-payment-cancled-for-product', [PaymentController::class, 'paypalPaymentCancled'])->name('paypal-payment-cancled');
 Route::get('/status', [PaymentController::class, 'getPaymentStatus'])->name('status');
