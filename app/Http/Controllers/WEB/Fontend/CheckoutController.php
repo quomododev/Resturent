@@ -33,8 +33,7 @@ class CheckoutController extends Controller
 {
     public function delivery(Request $request){
         if(Auth::user()){
-            $foods = session('cart', []);
-            return $foods;
+           
             $data['seo_setting'] =  seo_setting::where('id',12)->first();
             $data['setting'] =  setting::first();
             $data['app'] =  MobileApp::first();
@@ -170,6 +169,7 @@ class CheckoutController extends Controller
 
     public function processOrder(Request $request){
         if(Auth::user()){
+            
             $rules = [
                 'delevery_day'=>'required',
                 'delevery_time'=>'required',
@@ -232,6 +232,8 @@ class CheckoutController extends Controller
         $data['section'] =  SectionTitel::first();
         $data['cart_data'] =  Cart::where('user_id',auth::user()->id)->first();
         $data['cart'] = $request->session()->get('cart', []);
+        $cart =  Cart::where('user_id',Auth::user()->id)->first();
+        $data['order_total'] =  $cart->grand_total;
         return view('Fontend.Pages.select_payment',$data);
     }
 

@@ -47,9 +47,6 @@
 
     <!-- banner  -->
 
-    @php
-        $foods = session('cart', []);
-    @endphp
 
     <!-- Shopping Cart  start -->
 
@@ -116,7 +113,9 @@
                             <form id="myForm" action="{{ route('pay-with-razorpay') }}" method="POST" class="d-none">
                                 @csrf
                                 @php
-                                    $payable_amount =  * $razorpay->currency_rate;
+                                    
+                                   
+                                    $payable_amount =  $order_total * $razorpay->currency_rate;
                                     $payable_amount = round($payable_amount, 2);
                                 @endphp
                                 <script src="https://checkout.razorpay.com/v1/checkout.js"
