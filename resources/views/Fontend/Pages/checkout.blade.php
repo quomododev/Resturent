@@ -123,13 +123,13 @@
                                                                 <div class="shopping-cart-new-address-from-inner">
                                                                     <label class="form-label">First Name</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="exampleFormControlInput7" name="fname" value="{{old('fname')}}" placeholder="First Name">
+                                                                        id="exampleFormControlInput7" name="fname" value="{{old('fname')}}" >
                                                                 </div>
                                                                 <div class="shopping-cart-new-address-from-inner">
                                                                     <label for="exampleFormControlInput1"
                                                                         class="form-label">Last Name</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="exampleFormControlInput8"  name="lname" value="{{old('lname')}}" placeholder="Last  Name">
+                                                                        id="exampleFormControlInput8"  name="lname" value="{{old('lname')}}" >
                                                                 </div>
                                                             </div>
                                                             <div class="shopping-cart-new-address-from-item">
@@ -137,13 +137,13 @@
                                                                     <label for="exampleFormControlInput1"
                                                                         class="form-label">Phone</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="exampleFormControlInput9"  name="phone" value="{{old('phone')}}" placeholder="+888 ******** ">
+                                                                        id="exampleFormControlInput9"  name="phone" value="{{old('phone')}}" >
                                                                 </div>
                                                                 <div class="shopping-cart-new-address-from-inner">
                                                                     <label for="exampleFormControlInput1"
                                                                         class="form-label">Email</label>
                                                                     <input type="email" class="form-control"
-                                                                        id="exampleFormControlInput10" name="email" value="{{old('email')}}" placeholder="example@gmail.com">
+                                                                        id="exampleFormControlInput10" name="email" value="{{old('email')}}" >
                                                                 </div>
                                                             </div>
                                                             <div class="shopping-cart-new-address-from-item">
@@ -174,7 +174,7 @@
                                                                     <label for="exampleFormControlInput1"
                                                                         class="form-label">Address</label>
                                                                     <input type="text" class="form-control"
-                                                                        id="exampleFormControlInput11" name="address" value="{{old('address')}}" placeholder="Address">
+                                                                        id="exampleFormControlInput11" name="address" value="{{old('address')}}" >
                                                                 </div>
                                                             </div>
                                                             <div class="shopping-cart-new-address-from-btn">
@@ -277,8 +277,7 @@
                                                 </select>
                                             </div>
                                             <div class="delivery-from-item delivery-from-item-two ">
-                                                <label for="exampleFormControlInput1" class="form-label">Time
-                                                    Schedule</label>
+                                                <label for="exampleFormControlInput1" class="form-label">Time Schedule</label>
                                                 <select class="form-select" aria-label="Default select example" required name="delevery_time">
                                                     <option disabled>Select Time Schedule</option>
                                                     @foreach ($slots as $slot)

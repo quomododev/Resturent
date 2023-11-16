@@ -42,7 +42,7 @@
                                             d="M19.0312 24.0625H9.96875C9.7284 24.0625 9.49789 23.967 9.32793 23.7971C9.15798 23.6271 9.0625 23.3966 9.0625 23.1562C9.0625 22.9159 9.15798 22.6854 9.32793 22.5154C9.49789 22.3455 9.7284 22.25 9.96875 22.25H19.0312C19.2716 22.25 19.5021 22.3455 19.6721 22.5154C19.842 22.6854 19.9375 22.9159 19.9375 23.1562C19.9375 23.3966 19.842 23.6271 19.6721 23.7971C19.5021 23.967 19.2716 24.0625 19.0312 24.0625Z" />
                                     </svg>
                                 </span>
-                                Get your Menu
+                                {{$LangMessage->get_your_menu}}
                             </a>
 
                             <a class="my-video-links" data-autoplay="true" data-vbtype="video"
@@ -61,7 +61,7 @@
                                 </div>
 
 
-                                Watch Video
+                                {{$LangMessage->watch_video}}
 
                             </a>
 
@@ -94,7 +94,7 @@
 
                     <div class="col-lg-6">
                         <div class="categories-head-btn">
-                            <a href="{{route('menu')}}" class="main-btn">See more</a>
+                            <a href="{{route('menu')}}" class="main-btn">{{$LangMessage->see_more}}</a>
                         </div>
                     </div>
                 </div>
@@ -181,7 +181,7 @@
                                             <h3>{{$setting->currency_icon}}{{$product->price}}</h3>
                                         </div>
                                         <div class="right">
-                                            <div class="icon">
+                                            {{-- <div class="icon">
                                                 <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
@@ -189,7 +189,7 @@
                                                             fill="#FFB23E" />
                                                     </svg></span>
                                             </div>
-                                            <h5> 4.7(2.5K)</h5>
+                                            <h5> 4.7(2.5K)</h5> --}}
                                         </div>
                                     </div>
 
@@ -239,7 +239,7 @@
                                                             stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </span>
-                                                Add to Cart
+                                                {{$LangMessage->add_to_cart}}
                                             </a>
                                         </div>
                                     </div>
@@ -318,7 +318,7 @@
                             </div>
 
                             <div class="work-item-btn">
-                                <a href="#">Read more <span><svg width="16" height="16"
+                                <a href="#">{{$LangMessage->read_more}} <span><svg width="16" height="16"
                                             viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0 8H15M15 8L8.5 1.5M15 8L8.5 14.5" stroke-width="1.5"
                                                 stroke-linejoin="round" />
@@ -364,7 +364,7 @@
                             </div>
 
                             <div class="work-item-btn">
-                                <a href="#">Read more <span><svg width="16" height="16"
+                                <a href="#">{{$LangMessage->read_more}} <span><svg width="16" height="16"
                                             viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0 8H15M15 8L8.5 1.5M15 8L8.5 14.5" stroke-width="1.5"
                                                 stroke-linejoin="round" />
@@ -415,7 +415,7 @@
                             </div>
 
                             <div class="work-item-btn">
-                                <a href="#">Read more <span><svg width="16" height="16"
+                                <a href="#">{{$LangMessage->read_more}}<span><svg width="16" height="16"
                                             viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0 8H15M15 8L8.5 1.5M15 8L8.5 14.5" stroke-width="1.5"
                                                 stroke-linejoin="round" />
@@ -475,7 +475,7 @@
                             </div>
 
                             <div class="work-item-btn">
-                                <a href="#">Read more <span><svg width="16" height="16"
+                                <a href="#">{{$LangMessage->read_more}} <span><svg width="16" height="16"
                                             viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0 8H15M15 8L8.5 1.5M15 8L8.5 14.5" stroke-width="1.5"
                                                 stroke-linejoin="round" />
@@ -515,7 +515,7 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-8">
                             <ul class="shaf-filter course-filter j ">
-                                <li class="active" data-group="all">All Category</li>
+                                <li class="active" data-group="all">{{$LangMessage->all_category}}</li>
                                 @php
                                     $categoryLoop = $Allcategories->each(function($Allcategory) {
                                         echo "<li data-group='{$Allcategory->id}'>{$Allcategory->name}</li>";
@@ -569,7 +569,7 @@
                                             @endphp
                                             @if ($discountPercentage != 100.00)
                                                 <div class="right-text">
-                                                    <h5>{{ number_format($discountPercentage, 2) }}% Off </h5>
+                                                    <h5>{{ number_format($discountPercentage, 2) }}% {{$LangMessage->off}} </h5>
                                                 </div>
                                             @endif
                                             </div>
@@ -583,15 +583,15 @@
                                             <h3>{{$setting->currency_icon}}{{$product2->price}}</h3>
                                         </div>
                                         <div class="right">
-                                            <div class="icon">
+                                            {{-- <div class="icon">
                                                 <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path
                                                             d="M10.0328 3.27141C10.8375 1.5762 13.1625 1.5762 13.9672 3.27141L15.3579 6.20118C15.6774 6.87435 16.2951 7.34094 17.0096 7.44888L20.1193 7.91869C21.9187 8.19053 22.6371 10.4895 21.3351 11.8091L19.0849 14.0896C18.5679 14.6136 18.332 15.3685 18.454 16.1084L18.9852 19.3285C19.2926 21.1918 17.4116 22.6126 15.8022 21.7329L13.0208 20.2126C12.3817 19.8633 11.6183 19.8633 10.9792 20.2126L8.19776 21.7329C6.58839 22.6126 4.70742 21.1918 5.01479 19.3286L5.54599 16.1084C5.66804 15.3685 5.43211 14.6136 4.91508 14.0896L2.66488 11.8091C1.36287 10.4895 2.08133 8.19053 3.88066 7.91869L6.99037 7.44888C7.70489 7.34094 8.32257 6.87435 8.64211 6.20118L10.0328 3.27141Z"
                                                             fill="#FFB23E" />
                                                     </svg></span>
-                                            </div>
-                                            <h5> 4.7(2.5K)</h5>
+                                            </div> --}}
+                                            {{-- <h5> 4.7(2.5K)</h5> --}}
                                         </div>
                                     </div>
 
@@ -641,7 +641,7 @@
                                                             stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </span>
-                                                Add to Cart
+                                                {{$LangMessage->add_to_cart}}
                                             </a>
                                         </div>
                                     </div>
@@ -656,7 +656,7 @@
 
                         <div class="col-lg-12">
                             <div class="traditional-btn">
-                                <a href="{{route('menu')}}" class="main-btn-four">Browser All</a>
+                                <a href="{{route('menu')}}" class="main-btn-four">{{$LangMessage->see_more}}</a>
                             </div>
                         </div>
 
@@ -724,8 +724,8 @@
                                                     {{$faqAbout->first_description}}
                                                 </h2>
 
-                                                <h4>Success
-                                                    <br> Event
+                                                <h4>{{$LangMessage->success}}
+                                                    <br> {{$LangMessage->event}}
                                                 </h4>
                                             </div>
                                         </div>
@@ -751,8 +751,8 @@
                                                     {{$faqAbout->secend_description}}
                                                 </h2>
 
-                                                <h4>Success
-                                                    <br> Event
+                                                <h4>{{$LangMessage->success}}
+                                                    <br> {{$LangMessage->event}}
                                                 </h4>
                                             </div>
                                         </div>
@@ -838,7 +838,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="news-taitel-btn">
-                            <a href="{{route('blog')}}" class="main-btn-four">Browser All</a>
+                            <a href="{{route('blog')}}" class="main-btn-four">{{$LangMessage->see_more}}</a>
                         </div>
                     </div>
                 </div>
@@ -859,7 +859,7 @@
                                         </div>
 
                                         <div class="news-img-overlay-btn">
-                                            <a href="{{route('blog-detils',$blog->slug)}}">Read More <span>
+                                            <a href="{{route('blog-detils',$blog->slug)}}">{{$LangMessage->read_more}} <span>
                                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M0 8H15M15 8L8.5 1.5M15 8L8.5 14.5" stroke-width="2"
@@ -892,10 +892,10 @@
                         <div class="restaurant-taitel-btn">
                             <a href="{{ $app->play_store }}"> <span>
                                     <img src="{{asset('fontend/assets/images/icon/Google_Play.png') }}" alt="icon">
-                                </span> Google Play</a>
+                                </span> {{$LangMessage->google_play}}</a>
                             <a href="{{ $app->i_store }}" class=" restaurant-taitel-btn-two"> <span>
                                     <img src="{{asset('fontend/assets/images/icon/apple.png') }}" alt="icon">
-                                </span> I Store</a>
+                                </span> {{$LangMessage->i_store}}</a>
                         </div>
                     </div>
 

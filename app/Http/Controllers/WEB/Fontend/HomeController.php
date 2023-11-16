@@ -29,6 +29,7 @@ use App\Models\razorpay_payment;
 use App\Models\paystack;
 use App\Models\flutterwave;
 use App\Models\seo_setting;
+use App\Models\LangMessage;
 
 
 use Validator;
@@ -43,10 +44,10 @@ class HomeController extends Controller
     }
 
     public function index(){
-        // Session::flush();
+        Session::flush();
         $data['setting'] =  setting::first();
         if($data['setting']->theam == 1){
-             
+            $data['LangMessage'] =  LangMessage::first();
             $data['seo_setting'] =  seo_setting::where('id',1)->first();
             $data['slider'] = Slider::first();
             $data['categories'] = Category::where('status', 'active')->take(5)->get();
@@ -65,6 +66,7 @@ class HomeController extends Controller
         }
         else{
              // Session::flush();
+             $data['LangMessage'] =  LangMessage::first();
              $data['seo_setting'] =  seo_setting::where('id',1)->first();
              $data['slider'] = Slider::first();
              $data['categories'] = Category::where('status', 'active')->take(5)->get();
@@ -85,6 +87,7 @@ class HomeController extends Controller
     }
 
     public function menu(){
+        $data['LangMessage'] =  LangMessage::first();
         $data['seo_setting'] =  seo_setting::where('id',2)->first();
         $data['setting'] =  setting::first();
         $data['product'] = product::where('status', 'active')->take(9)->get();
@@ -120,6 +123,7 @@ class HomeController extends Controller
             $notification = ['message' => $message, 'alert-type' => 'info'];
             return redirect()->back()->with($notification);
         }else{
+            $data['LangMessage'] =  LangMessage::first();
             $data['product'] = $products;
             $data['product2'] = $products;
             $data['seo_setting'] =  seo_setting::where('id',2)->first();
@@ -133,6 +137,7 @@ class HomeController extends Controller
     }
 
     public function categoyWise($id){
+        $data['LangMessage'] =  LangMessage::first();
         $data['seo_setting'] =  seo_setting::where('id',2)->first();
         $data['setting'] =  setting::first();
         $data['product'] = product::where('category_id',$id)->where('status', 'active')->take(9)->get();
@@ -145,6 +150,7 @@ class HomeController extends Controller
     }
 
     public function menuDetils($slug){
+        $data['LangMessage'] =  LangMessage::first();
         $data['app'] =  MobileApp::first();
         $data['section'] =  SectionTitel::first();
         $data['product'] = product::where('status','active')->where('slug',$slug)->first();
@@ -156,6 +162,7 @@ class HomeController extends Controller
     }
 
     public function about(){
+        $data['LangMessage'] =  LangMessage::first();
         $data['seo_setting'] =  seo_setting::where('id',3)->first();
         $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
@@ -172,6 +179,7 @@ class HomeController extends Controller
     }
 
     public function contact(){
+        $data['LangMessage'] =  LangMessage::first();
         $data['seo_setting'] =  seo_setting::where('id',6)->first();
         $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
@@ -183,6 +191,7 @@ class HomeController extends Controller
     }
 
     public function blog(){
+        $data['LangMessage'] =  LangMessage::first();
         $data['seo_setting'] =  seo_setting::where('id',9)->first();
         $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
@@ -194,6 +203,7 @@ class HomeController extends Controller
     }
 
     public function blogDetils($slug){
+        $data['LangMessage'] =  LangMessage::first();
         $data['app'] =  MobileApp::first();
         $data['section'] =  SectionTitel::first();
         $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
@@ -207,6 +217,7 @@ class HomeController extends Controller
     }
 
     public function wishList(){
+        $data['LangMessage'] =  LangMessage::first();
         $data['seo_setting'] =  seo_setting::where('id',10)->first();
         $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
@@ -217,6 +228,7 @@ class HomeController extends Controller
     }
 
     public function cartList(Request $request){
+        $data['LangMessage'] =  LangMessage::first();
         $data['seo_setting'] =  seo_setting::where('id',11)->first();
         $data['setting'] =  setting::first();
         $data['app'] =  MobileApp::first();
