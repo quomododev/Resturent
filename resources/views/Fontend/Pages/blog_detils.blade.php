@@ -1,6 +1,6 @@
 @extends('Fontend.Layouts.master2')
 @section('title')
-    <title>{{$setting->app_name}} - Blog Page</title>
+    <title>{{$setting->app_name}} -  {{$LangMessage->blog_details}}</title>
 @endsection
 
 @section('meta')
@@ -17,12 +17,12 @@
             <div class="row  ">
                 <div class="col-lg-12">
                     <div class="inner-banner-head">
-                        <h1>Blog Details</h1>
+                        <h1>{{$LangMessage->blog_details}}</h1>
                     </div>
 
                     <div class="inner-banner-item">
                         <div class="left">
-                            <a href="{{'index'}}">Home</a>
+                            <a href="{{'index'}}">{{$LangMessage->home}}</a>
                         </div>
                         <div class="icon">
                             <span>
@@ -34,7 +34,7 @@
                             </span>
                         </div>
                         <div class="left">
-                            <span>Blog Details</span>
+                            <span>{{$LangMessage->blog_details}}</span>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                         <div class="col-lg-6 col-md-6  col-lg-padding-0">
                             <div class="blog-details-tag">
                                 <div class="blog-details-tag-text">
-                                    <h4>Tag:</h4>
+                                    <h4>{{$LangMessage->tag}}:</h4>
                                 </div>
 
                                 <ul class="tag">
@@ -84,7 +84,7 @@
                         <div class="col-lg-6 col-md-6  col-lg-padding-0  ">
                             <div class="blog-details-tag blog-details-tag-two ">
                                 <div class="blog-details-tag-text">
-                                    <h4>Share:</h4>
+                                    <h4>{{$LangMessage->share}}:</h4>
                                 </div>
 
                                 <ul class="Share">
@@ -167,7 +167,7 @@
                         <div class="col-lg-11">
                             <div class="comment-box">
                                 <div class="comment-box-head">
-                                    <h2>{{$comment->count()}} Comments</h2>
+                                    <h2>{{$comment->count()}} {{$LangMessage->comments}}</h2>
                                 </div>
                                 @foreach ($comment as $comment)
                                 @php
@@ -204,9 +204,9 @@
                         <div class="col-lg-11">
                             <div class="comment-from-box-main">
                                 <div class="comment-from-box-text">
-                                    <h3>Leave a Comment</h3>
+                                    <h3>{{$LangMessage->leave_a_comment}}</h3>
 
-                                    <p>Required fields are marked *</p>
+                                    <p>{{$LangMessage->required_fields_are_marked}} *</p>
                                 </div>
 
                                 <form action="{{route('blog.comment')}}" method="POST">
@@ -231,7 +231,7 @@
                                                 </div>
 
                                                 <div class="from-btn">
-                                                    <button type="submit" class="main-btn-four">Submit Now</button>
+                                                    <button type="submit" class="main-btn-four">{{$LangMessage->submit_now}}</button>
                                                 </div>
 
                                             </div>
@@ -251,7 +251,7 @@
                 <div class="col-lg-4 blog-details-pl ">
                     <div class="search-box">
                         <div class="search-box-text">
-                            <h4>Search</h4>
+                            <h4>{{$LangMessage->submit_now}}</h4>
                         </div>
 
                         <div class="search-box-item">
@@ -279,7 +279,7 @@
 
                     <div class="latest-blog-box">
                         <div class="latest-blog-box-text">
-                            <h3>Latest Blog</h3>
+                            <h3>{{$LangMessage->latest_blog}}</h3>
                         </div>
 
                         <div class="latest-blog-box-item">
@@ -348,7 +348,7 @@
                     <div class="blog-details-follow-us">
 
                         <div class="blog-details-follow-us-text">
-                            <h3>Follow Us</h3>
+                            <h3>{{$LangMessage->follow_us}}</h3>
                         </div>
                         <ul class="follow">
                             <li>
@@ -503,8 +503,8 @@
                                                 {{$faqAbout->first_description}}
                                             </h2>
 
-                                            <h4>Success
-                                                <br> Event
+                                            <h4>{{$LangMessage->success}}
+                                                <br> {{$LangMessage->event}}
                                             </h4>
                                         </div>
                                     </div>
@@ -530,8 +530,8 @@
                                                 {{$faqAbout->secend_description}}
                                             </h2>
 
-                                            <h4>Success
-                                                <br> Event
+                                            <h4>{{$LangMessage->success}}
+                                                <br> {{$LangMessage->event}}
                                             </h4>
                                         </div>
                                     </div>
@@ -570,10 +570,10 @@
                     <div class="restaurant-taitel-btn">
                         <a href="{{ $app->play_store }}"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/Google_Play.png') }}" alt="icon">
-                            </span> Google Play</a>
+                            </span> {{$LangMessage->google_play}}</a>
                         <a href="{{ $app->i_store }}" class=" restaurant-taitel-btn-two"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/apple.png') }}" alt="icon">
-                            </span> I Store</a>
+                            </span> {{$LangMessage->i_store}}</a>
                     </div>
                 </div>
 

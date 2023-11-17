@@ -1,6 +1,6 @@
 @extends('Fontend.Layouts.master')
 @section('title')
-    <title>{{$setting->app_name}} - Home Page</title>
+    <title>{{$setting->app_name}} -  {{$LangMessage->home}}</title>
 @endsection
 
 @section('meta')

@@ -1,7 +1,7 @@
 @extends('Fontend.Layouts.master2')
 
 @section('title')
-    <title>{{$setting->app_name}} - Cart Detils Page</title>
+    <title>{{$setting->app_name}} - {{$LangMessage->shopping_cart}}</title>
 @endsection
 
 @section('content')
@@ -14,12 +14,12 @@
             <div class="row  ">
                 <div class="col-lg-12">
                     <div class="inner-banner-head">
-                        <h1>Shopping Cart</h1>
+                        <h1>{{$LangMessage->shopping_cart}}</h1>
                     </div>
 
                     <div class="inner-banner-item">
                         <div class="left">
-                            <a href="{{route('index')}}">Home</a>
+                            <a href="{{route('index')}}">{{$LangMessage->index}}</a>
                         </div>
                         <div class="icon">
                             <span>
@@ -31,7 +31,7 @@
                             </span>
                         </div>
                         <div class="left">
-                            <span>Shopping Cart</span>
+                            <span>{{$LangMessage->shopping_cart}}</span>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                                 <tr class="tabel-main-top">
                                     
                                     <th>
-                                        Image
+                                        {{$LangMessage->image}}
                                         <span>
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -78,7 +78,7 @@
                                         </span>
                                     </th>
                                     <th>
-                                        Details
+                                        {{$LangMessage->details}}
                                         <span>
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -98,7 +98,7 @@
                                         </span>
                                     </th>
                                     <th>
-                                        Price
+                                        {{$LangMessage->price}}
                                         <span>
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +118,7 @@
                                         </span>
                                     </th>
                                     <th>
-                                        Quantity
+                                        {{$LangMessage->quantity}}
                                         <span>
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -138,7 +138,7 @@
                                         </span>
                                     </th>
                                     <th>
-                                        Total
+                                        {{$LangMessage->total}}
                                         <span>
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -158,7 +158,7 @@
                                         </span>
                                     </th>
                                     <th class="details-control-two">
-                                        Action
+                                        {{$LangMessage->action}}
                                         <span>
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -206,7 +206,7 @@
                                             @endif
                                             <a href="#">
                                                 @if($item['size'])
-                                                    <span>Size:</span>
+                                                    <span>{{$LangMessage->size}}:</span>
                                                 @endif
                                                 @foreach ($item['size'] as $size => $price)
                                                     {{ $size }} (<strong>{{ $setting->currency_icon }}{{ $price }}</strong>)
@@ -216,7 +216,7 @@
                                             @if (is_array($item['addons']))
                                             <p>
                                                 @if($item['addons'])
-                                                 <span>Addons:</span>
+                                                 <span>{{$LangMessage->addons}}:</span>
                                                 @endif
                                                 @foreach ($item['addons'] as $addonId => $quantity)
                                                         @php
@@ -264,7 +264,7 @@
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
                                                             d="M21.1303 14.1469C22.2899 12.9268 22.2899 11.0732 21.1303 9.8531C19.1745 7.79533 15.8155 5 12 5C8.18448 5 4.82549 7.79533 2.86971 9.8531C1.7101 11.0732 1.7101 12.9268 2.86971 14.1469C4.82549 16.2047 8.18448 19 12 19C15.8155 19 19.1745 16.2047 21.1303 14.1469ZM12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
                                                             fill="white" />
-                                                    </svg></span> View
+                                                    </svg></span> {{$LangMessage->view}}
                                             </button>
                                             <a href="{{route('cart.remove',$product['id'])}}">
                                                 <span>
@@ -297,7 +297,7 @@
                                                         <div class="featured-item-img-overlay">
                                                             <div class="featured-item-img-over-text">
                                                                 <div class="right-text">
-                                                                    <h5> 4.7(2.5K) </h5>
+                                                                    {{-- <h5> 4.7(2.5K) </h5> --}}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -315,7 +315,7 @@
 
 
                                                     <div class="modal-body-item-box-text">
-                                                        <p>Select Addon <span>(Optional)</span></p>
+                                                        <p>{{$LangMessage->select_addon}} <span>({{$LangMessage->optional}})</span></p>
                                                     </div>
 
                                                     @foreach ($item['addons'] as $addonId => $quantity)
@@ -353,7 +353,7 @@
 
                                                     @endforeach
                                                     <div class="modal-body-item-box-text">
-                                                        <p>Select Size</p>
+                                                        <p>{{$LangMessage->select_size}}</p>
                                                     </div>
                                                     @foreach ($item['size'] as $size => $price)
                                                         <div class="together-box-item">
@@ -374,7 +374,7 @@
                                                     @endforeach
                                                 
                                                     <div class="modal-body-item-box-text">
-                                                        <p>Select Quantity</p>
+                                                        <p> {{$LangMessage->select_quantity}}</p>
                                                     </div>
                                                     <div class="together-box-inner-btn">
 
@@ -416,7 +416,7 @@
                                                                     </path>
                                                                 </svg>
                                                             </span>
-                                                            Update Cart
+                                                            {{$LangMessage->update_cart}}
                                                         </a>
                                                     </div>
                                                 </div>
@@ -435,22 +435,12 @@
                         </table>
 
 
-
-
-
-
-
-
-
-
-
-
                     </div>
 
 
                     <div class="tabel-main-btn">
                         <a href="{{route('checkout')}}" class="main-btn-six">
-                            Process to Checkout
+                            {{$LangMessage->process_to_checkout}}
                             <span>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -470,7 +460,7 @@
 
     <!-- Shopping Cart end  -->
 
-    <!-- Restaurant part-start -->
+    <!-- App part-start -->
     <section class="restaurant">
         <div class="container">
             <div class="row align-items-center">
@@ -484,10 +474,10 @@
                     <div class="restaurant-taitel-btn">
                         <a href="{{ $app->play_store }}"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/Google_Play.png') }}" alt="icon">
-                            </span> Google Play</a>
+                            </span> {{$LangMessage->google_play}}</a>
                         <a href="{{ $app->i_store }}" class=" restaurant-taitel-btn-two"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/apple.png') }}" alt="icon">
-                            </span> I Store</a>
+                            </span> {{$LangMessage->i_store}}</a>
                     </div>
                 </div>
 
@@ -502,7 +492,7 @@
             </div>
         </div>
     </section>
-    <!-- Restaurant part-end -->
+    <!-- App part-end -->
 
 </main>
 <script>

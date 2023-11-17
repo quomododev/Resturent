@@ -1,7 +1,7 @@
 @extends('Fontend.Layouts.master2')
 
 @section('title')
-    <title>{{$setting->app_name}} - Blog Page</title>
+    <title>{{$setting->app_name}} - {{$LangMessage->blog}}</title>
 @endsection
 
 @section('meta')
@@ -20,12 +20,12 @@
             <div class="row  ">
                 <div class="col-lg-12">
                     <div class="inner-banner-head">
-                        <h1>Blog</h1>
+                        <h1>{{$LangMessage->blog}}</h1>
                     </div>
 
                     <div class="inner-banner-item">
                         <div class="left">
-                            <a href="{{route('index')}}">Home</a>
+                            <a href="{{route('index')}}">{{$LangMessage->home}}</a>
                         </div>
                         <div class="icon">
                             <span>
@@ -37,7 +37,7 @@
                             </span>
                         </div>
                         <div class="left">
-                            <span>Blog</span>
+                            <span>{{$LangMessage->blog}}</span>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                                     </div>
 
                                     <div class="news-img-overlay-btn">
-                                        <a href="{{route('blog-detils',$blog->slug)}}">Read More <span>
+                                        <a href="{{route('blog-detils',$blog->slug)}}">{{$LangMessage->read_more}} <span>
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M0 8H15M15 8L8.5 1.5M15 8L8.5 14.5" stroke-width="2"
@@ -178,8 +178,8 @@
                                                 {{$faqAbout->first_description}}
                                             </h2>
 
-                                            <h4>Success
-                                                <br> Event
+                                            <h4>{{$LangMessage->success}}
+                                                <br> {{$LangMessage->event}}
                                             </h4>
                                         </div>
                                     </div>
@@ -205,8 +205,8 @@
                                                 {{$faqAbout->secend_description}}
                                             </h2>
 
-                                            <h4>Success
-                                                <br> Event
+                                            <h4>{{$LangMessage->success}}
+                                                <br> {{$LangMessage->event}}
                                             </h4>
                                         </div>
                                     </div>
@@ -245,10 +245,10 @@
                     <div class="restaurant-taitel-btn">
                         <a href="{{ $app->play_store }}"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/Google_Play.png') }}" alt="icon">
-                            </span> Google Play</a>
+                            </span> {{$LangMessage->google_play}}</a>
                         <a href="{{ $app->i_store }}" class=" restaurant-taitel-btn-two"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/apple.png') }}" alt="icon">
-                            </span> I Store</a>
+                            </span> {{$LangMessage->i_store}}</a>
                     </div>
                 </div>
 
