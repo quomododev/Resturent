@@ -5,18 +5,22 @@ namespace App\Http\Controllers\WEB\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\product;
-use App\Models\order;
-use Carbon\Carbon;
-use App\Models\PricingPlan;
-use App\Models\purches_plan;
 use App\Models\User;
+use App\Models\setting;
+use App\Models\Order;
 use DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('Admin.Dashboard');
+        $data['setting'] =  setting::first();
+        $data['totalUser'] =  User::count();
+        $data['totalProduct'] =  product::count();
+        $data['totalOrder'] =  Order::count();
+        $data['totalSales'] = Order::where('grand_total', '!=', null)->sum('grand_total');
+        $data['order'] = Order::with('userName')->orderBy('id', 'desc')->paginate(10);
+        return view('Admin.Dashboard',$data);
     }
     //     $recent_order = order::with('OrderProducts','GetUser')->orderBy('id','Desc')->paginate(5);
     //     $top_products = Product::orderByDesc('sold_quantity')->take(10)->get();
@@ -120,4 +124,6 @@ class DashboardController extends Controller
     //     'last_7days_product_qty','last_7days_days','last_7days_total_revenue','last_7days_total_quantity'
     // ));
     // }
+
+
 }

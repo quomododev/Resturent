@@ -73,15 +73,15 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                {{-- <div class="col-lg-6">
                     <div class="categories-head-btn">
                         <a href="{{route('menu')}}" class="main-btn">{{$LangMessage->see_more}}</a>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <div class="row">
-                <div class="categories-main-box mt-48px">
+                <div class="categories-main-box mt-48px customer-item-slick">
                     @foreach ($categories as $category)
                     <a href="{{route('category.manue',$category->id)}}">
                         <div class="categories-item  " data-aos="fade-up">
@@ -298,14 +298,6 @@
                             <p>{{$crafting->detils_1}}</p>
                         </div>
 
-                        <div class="work-item-btn">
-                            <a href="#">{{$LangMessage->read_more}} <span><svg width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0 8H15M15 8L8.5 1.5M15 8L8.5 14.5" stroke-width="1.5"
-                                            stroke-linejoin="round" />
-                                    </svg></span></a>
-                        </div>
-
                         <div class="work-item-img">
                             <span>
                                 <svg width="35" height="63" viewBox="0 0 35 63" fill="none"
@@ -323,15 +315,7 @@
                         <div class="work-item-icon">
                             <div class="icon">
                                 <span>
-                                    <svg width="18" height="20" viewBox="0 0 18 20" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M12.4424 13.9028C14.302 11.9966 16 9.14151 16 6.85714C16 3.07005 12.866 0 9 0C5.13401 0 2 3.07005 2 6.85714C2 9.14151 3.69796 11.9966 5.55756 13.9028C6.78087 15.1567 8.07413 16 9 16C9.92587 16 11.2191 15.1567 12.4424 13.9028ZM9 9C10.1046 9 11 8.10457 11 7C11 5.89543 10.1046 5 9 5C7.89543 5 7 5.89543 7 7C7 8.10457 7.89543 9 9 9Z"
-                                            fill="white" />
-                                        <path opacity="0.4" fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M4.05541 14.4922C1.61238 15.0286 0 15.9512 0 16.9993C0 18.6561 4.02944 19.9993 9 19.9993C13.9706 19.9993 18 18.6561 18 16.9993C18 15.9512 16.3876 15.0286 13.9446 14.4922C13.8031 14.6493 13.6601 14.8019 13.5161 14.9495C12.8438 15.6386 12.1214 16.2478 11.4009 16.6952C10.7141 17.1216 9.87298 17.4992 9 17.4992C8.12701 17.4992 7.28586 17.1216 6.59907 16.6952C5.87856 16.2478 5.15617 15.6386 4.48387 14.9495C4.33993 14.8019 4.19692 14.6493 4.05541 14.4922Z"
-                                            fill="white" />
-                                    </svg>
+                                   <img src="{{asset('fontend/assets/images/icon/select_food.png') }}" alt="">
                                 </span>
                             </div>
 
@@ -344,13 +328,7 @@
                             <p>{{$crafting->detils_2}}</p>
                         </div>
 
-                        <div class="work-item-btn">
-                            <a href="#">{{$LangMessage->read_more}} <span><svg width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0 8H15M15 8L8.5 1.5M15 8L8.5 14.5" stroke-width="1.5"
-                                            stroke-linejoin="round" />
-                                    </svg></span></a>
-                        </div>
+                       
 
                         <div class="work-item-img">
                             <span>
@@ -395,13 +373,7 @@
                             <p>{{$crafting->detils_3}}</p>
                         </div>
 
-                        <div class="work-item-btn">
-                            <a href="#">{{$LangMessage->read_more}}<span><svg width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0 8H15M15 8L8.5 1.5M15 8L8.5 14.5" stroke-width="1.5"
-                                            stroke-linejoin="round" />
-                                    </svg></span></a>
-                        </div>
+                       
 
                         <div class="work-item-img">
                             <span>
@@ -455,13 +427,7 @@
                             <p>{{$crafting->detils_4}}</p>
                         </div>
 
-                        <div class="work-item-btn">
-                            <a href="#">{{$LangMessage->read_more}} <span><svg width="16" height="16"
-                                        viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M0 8H15M15 8L8.5 1.5M15 8L8.5 14.5" stroke-width="1.5"
-                                            stroke-linejoin="round" />
-                                    </svg></span></a>
-                        </div>
+                       
 
                         <div class="work-item-img">
                             <span>
@@ -769,7 +735,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row customer-item-slick-testonimal">
                 @foreach ($testimonials as $testimonial)
                     <div class="col-lg-4 col-md-6" data-aos="fade-up">
 

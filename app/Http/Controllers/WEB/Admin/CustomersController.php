@@ -11,34 +11,12 @@ class CustomersController extends Controller
 {
     public function index()
     {
-        $customers = User::where('email_verified',1)
-                          ->where('is_approved',1)
-                          ->with('GetOrder')
+        $customers = User::where('status','active')
                           ->orderBy('id','DESC')
-                          ->paginate(10);
+                          ->paginate(5);
         return view('Admin.Customers',compact('customers'));
     }
-    public function CustomerDetails($id)
-    {
-        $customer = User::where('id',$id)->with('GetOrder')->first();
-        $last_order = order::where('user_id',$id)->orderBy('id','DESC')->first();
-        $fisrt_order = order::where('user_id',$id)->orderBy('id','ASC')->first();
-        $order = order::where('user_id',$id)->get();
-        //return $order;
-        $total_order_amount = $order->sum('total_amount');
-        $no_of_order = count($order);
-        if($no_of_order > 0)
-        {
-            $average_order_value = $total_order_amount/$no_of_order;
-        }
-        else{
-            $average_order_value = 0;
-        }
-        
-        $avg = number_format($average_order_value, 2, '.');
-        //return $avg;
-        return view('Admin.CustomerDetails',compact('customer','last_order','fisrt_order','avg','total_order_amount','no_of_order'));
-    }
+   
     public function PendingCustomer()
     {
         $pending_customer = User::where('email_verified',1)

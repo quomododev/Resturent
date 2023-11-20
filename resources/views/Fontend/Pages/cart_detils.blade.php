@@ -244,15 +244,21 @@
                                     <td>
                                         <div class="tabel-text-btn">
                                             <div class="grid">
-                                                <button class="btn btn-minus"><i class="fa-solid fa-minus"></i></button>
-                                                <div class="column product-qty">{{ $item['qty'] }}</div>
-                                                <button class="btn btn-plus"><i class="fa-solid fa-plus"></i></button>
+                                                <a href="{{route('cart.decrement',$product['id'])}}" class="btn btn-minus-custom">
+                                                    <i class="fa-solid fa-minus"></i>
+                                                </a>
+                                                    <div class="column product-qty">{{ $item['qty'] }}</div>
+                                                    <input class="column product-qty" type="hidden" name="qty" value="{{ $item['qty'] }}">
+                                                <a href="{{route('cart.increment',$product['id'])}}" class="btn btn-plus-custom">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                </a>
+                                               
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="tabel-text">
-                                            <h6>{{ $setting->currency_icon }}{{ $total = $total +$calculate }}</h6>
+                                            <h6>{{ $setting->currency_icon }}{{ $item['total'] }}</h6>
                                         </div>
                                     </td>
                                     <td>
@@ -310,55 +316,24 @@
                                                     <h5>{{$setting->currency_icon}}{{ $product['price'] }}</h5>
                                                 </div>
 
-
-                                                <div class="modal-body-item-box">
-
-
-                                                    <div class="modal-body-item-box-text">
-                                                        <p>{{$LangMessage->select_addon}} <span>({{$LangMessage->optional}})</span></p>
-                                                    </div>
-
-                                                    @foreach ($item['addons'] as $addonId => $quantity)
-                                                        @php
-                                                            $addonsDb = App\Models\OptionalItem::whereIn('id', [$addonId])->get();
-                                                            $calculate += ($addonsDb->first()->price * $quantity);
-                                                        @endphp
-                                                        @if ($addonsDb->isNotEmpty())
-                                                            <div class="together-box-item">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value=""
-                                                                        id="flexCheckDefault">
-                                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                                        {{ $addonsDb->first()->name }} ({{ $setting->currency_icon }}{{ $addonsDb->first()->price }})
-                                                                    </label>
-                                                                </div>
-                
-                
-                
-                                                                <div class="form-check-btn">
-                                                                    <div class="form-check-btn">
-                
-                                                                        <div class="grid">
-                                                                            <button class="btn btn-minus "><i
-                                                                                    class="fa-solid fa-minus"></i></button>
-                                                                            <div class="column product-qty">{{ $quantity }}</div>
-                                                                            <button class="btn btn-plus "><i
-                                                                                    class="fa-solid fa-plus"></i></button>
-                                                                        </div>
-                
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        @endif
-
-                                                    @endforeach
-                                                    <div class="modal-body-item-box-text">
-                                                        <p>{{$LangMessage->select_size}}</p>
-                                                    </div>
-                                                    @foreach ($item['size'] as $size => $price)
+                                                <form action="{{route('update.order.cart',$product['id'])}}" method="POST">
+                                                    @csrf
+                                                    <div class="modal-body-item-box pb-2">
+                                                        <div class="together-box-text">
+                                                            <h5>{{$LangMessage->select_size}}</h5>
+                                                        </div>
+                                                        @foreach(json_decode($product->size, true) as $size => $price)
                                                         <div class="together-box-item">
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="size" value="{{ $size }}" id="size_{{ $loop->index }}" data-price="{{ $price }}">
+                                                                    @php
+                                                                        $cart_size = null;
+                                                                        foreach ($item['size'] as $sizes => $prices) {
+                                                                            $cart_size = $sizes;
+                                                                        }
+                                                                    @endphp   
+                                                                    <input class="form-check-input" type="radio" name="size" value="{{ $size }}" id="size_{{ $loop->index }}" data-price="{{ $price }}"
+                                                                    @if($cart_size == $size) checked @endif>
+                                                                
                                                                 <input type="hidden" name="size_price" value="{{ $price }}" id="price_{{ $loop->index }}">
                                                                 <label class="form-check-label" for="size_{{ $loop->index }}">
                                                                     {{ $size }}
@@ -370,56 +345,76 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    
-                                                    @endforeach
-                                                
-                                                    <div class="modal-body-item-box-text">
-                                                        <p> {{$LangMessage->select_quantity}}</p>
-                                                    </div>
-                                                    <div class="together-box-inner-btn">
+                                                        
+                                                        @endforeach
 
-                                                        <div class="modal-main">
-                                                            <div class="together-box-inner-btn">
-                                                                <div class="grid">
-                                                                    <button class="btn btn-minus"><i class="fa-solid fa-minus"></i></button>
-                                                                    <input class="column product-qty" type="text" name="qty" value="{{ $item['qty'] }}">
-                                                                    <button class="btn btn-plus"><i class="fa-solid fa-plus"></i></button>
-                                                                </div>
-                                                            </div>
+                                                        <div class="together-box-text pb-2">
+                                                            <h5>{{$LangMessage->select_addon}} ({{$LangMessage->optional}})</h5>
                                                         </div>
+                                                        @foreach(json_decode($product->items, true) as $id)
+                                                        @php
+                                                        $addons = App\Models\OptionalItem::where('id', $id)->get();
+                                                        @endphp
+                                                            @foreach ($addons as $addon)
+                                                            <div class="together-box-item">
+                                                                <div class="form-check">
+                                                                
+                                                                    <input class="form-check-input" type="checkbox" name="addons[]" value="{{ $addon->id }}" id="addon_{{ $loop->parent->index }}_{{ $loop->index }}"
+                                                                        @if(isset($item['addons'][$addon->id])) checked @endif>
+                                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                                        {{ $addon->name }} ({{$setting->currency_icon}}{{ $addon->price }})
+                                                                    </label>
+                                                                </div>
+                                                                
+                                                                <div class="form-check-btn">
+                                                                    <div class="form-check-btn">
+                                                                        <div class="grid">
+                                                                            <button class="btn btn-minus" data-addon-index="{{ $loop->parent->index }}_{{ $loop->index }}"><i class="fa-solid fa-minus"></i></button>
+                                                                            <div class="column product-qty" id="quantityUpdate_{{ $loop->parent->index }}_{{ $loop->index }}">
+                                                                                @if(isset($item['addons'][$addon->id])){{ $item['addons'][$addon->id] }}@else 0 @endif
+                                                                            </div>
+                                                                            <input type="hidden" name="addons_qty[]" id="qtyInput_{{ $loop->parent->index }}_{{ $loop->index }}" value="@if(isset($item['addons'][$addon->id])){{ $item['addons'][$addon->id] }}@else 0 @endif">
+                                                                            <button class="btn btn-plus" data-addon-index="{{ $loop->parent->index }}_{{ $loop->index }}"><i class="fa-solid fa-plus"></i></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            
+                                                            </div>
+                                                            @endforeach
+                                                        @endforeach
 
+                                                        <input class="column product-qty" type="hidden" name="qty" id="qtyInput" value="{{$item['qty']}}">
 
-
+                                                    
+                                                        <div class="together-box-inner-btn-btm">
+                                                            <button type="submit" class="main-btn-six" tabindex="-1">
+                                                                <span>
+                                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
+                                                                            stroke-width="1.5" stroke-linecap="round"
+                                                                            stroke-linejoin="round">
+                                                                        </path>
+                                                                        <path
+                                                                            d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
+                                                                            stroke-width="1.5"></path>
+                                                                        <path
+                                                                            d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
+                                                                            stroke-width="1.5"></path>
+                                                                        <path d="M14 8L14 13" stroke-width="1.5"
+                                                                            stroke-linecap="round" stroke-linejoin="round">
+                                                                        </path>
+                                                                        <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
+                                                                            stroke-linecap="round" stroke-linejoin="round">
+                                                                        </path>
+                                                                    </svg>
+                                                                </span>
+                                                                {{$LangMessage->update_cart}}
+                                                            </button>
+                                                        </div>
                                                     </div>
-
-                                                    <div class="together-box-inner-btn-btm">
-                                                        <a href="#" class="main-btn-six" tabindex="-1">
-                                                            <span>
-                                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                                        stroke-width="1.5" stroke-linecap="round"
-                                                                        stroke-linejoin="round">
-                                                                    </path>
-                                                                    <path
-                                                                        d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path
-                                                                        d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                                        stroke-width="1.5"></path>
-                                                                    <path d="M14 8L14 13" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                    <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                    </path>
-                                                                </svg>
-                                                            </span>
-                                                            {{$LangMessage->update_cart}}
-                                                        </a>
-                                                    </div>
-                                                </div>
+                                                </form>
 
 
 
@@ -496,24 +491,38 @@
 
 </main>
 <script>
+    
     $(document).ready(function () {
-        // Add quantity increment and decrement functionality
-        $('.btn-plus').click(function (e) {
-            e.preventDefault(); // Prevent the default form submission
-            var input = $('.product-qty');
-            var quantity = parseInt(input.val());
-            input.val(quantity + 1);
-        });
-
-        $('.btn-minus').click(function (e) {
-            e.preventDefault(); // Prevent the default form submission
-            var input = $('.product-qty');
-            var quantity = parseInt(input.val());
-            if (quantity > 1) {
-                input.val(quantity - 1);
+        $(".btn-minus, .btn-plus").on("click", function (e) {
+            e.preventDefault();
+            var addonIndex = $(this).data("addon-index");
+            var currentQuantity = parseInt($("#quantityUpdate_" + addonIndex).text());
+            if ($(this).hasClass("btn-minus")) {
+                currentQuantity = Math.max(currentQuantity - 1, 0);
+            } else if ($(this).hasClass("btn-plus")) {
+                currentQuantity++;
             }
+            $("#quantityUpdate_" + addonIndex).text(currentQuantity);
+            $("#qtyInput_" + addonIndex).val(currentQuantity);
         });
     });
 </script>
+{{-- <script>
+    $(document).ready(function () {
+        $("#btn-minus").on("click", function (e) {
+            e.preventDefault();
+            var currentQuantity = parseInt($("#qtyInput").val());
+            currentQuantity = Math.max(currentQuantity - 1, 1);
+            $("#qtyInput").val(currentQuantity);
+        });
+
+        $("#btn-plus").on("click", function (e) {
+            e.preventDefault();
+            var currentQuantity = parseInt($("#qtyInput").val());
+            currentQuantity++;
+            $("#qtyInput").val(currentQuantity);
+        });
+    });
+</script> --}}
 
 @endsection

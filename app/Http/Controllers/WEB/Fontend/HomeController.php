@@ -30,6 +30,7 @@ use App\Models\paystack;
 use App\Models\flutterwave;
 use App\Models\seo_setting;
 use App\Models\LangMessage;
+use App\Models\terms_and_condition;
 
 
 use Validator;
@@ -44,13 +45,12 @@ class HomeController extends Controller
     }
 
     public function index(){
-        Session::flush();
         $data['setting'] =  setting::first();
         if($data['setting']->theam == 1){
             $data['LangMessage'] =  LangMessage::first();
             $data['seo_setting'] =  seo_setting::where('id',1)->first();
             $data['slider'] = Slider::first();
-            $data['categories'] = Category::where('status', 'active')->take(5)->get();
+            $data['categories'] = Category::where('status', 'active')->take(10)->get();
             $data['Allcategories'] = Category::where('status', 'active')->get();
             $data['product'] = product::where('status', 'active')->take(15)->get();
             $data['product2'] = product::where('status', 'active')->take(6)->get();
@@ -58,18 +58,17 @@ class HomeController extends Controller
             $data['crafting'] =  CraftingProcess::first();
             $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
             $data['faqAbout'] =  FaqImages::first();
-            $data['testimonials'] =  testimonial::where('status', 'active')->paginate(3);
+            $data['testimonials'] =  testimonial::where('status', 'active')->paginate(10);
             $data['blogs'] = blog::where('status', 'active')->get();
             $data['app'] =  MobileApp::first();
             $data['section'] =  SectionTitel::first();
             return view('Fontend.Pages.index',$data);
         }
         else{
-             // Session::flush();
              $data['LangMessage'] =  LangMessage::first();
              $data['seo_setting'] =  seo_setting::where('id',1)->first();
              $data['slider'] = Slider::first();
-             $data['categories'] = Category::where('status', 'active')->take(5)->get();
+             $data['categories'] = Category::where('status', 'active')->take(10)->get();
              $data['Allcategories'] = Category::where('status', 'active')->get();
              $data['product'] = product::where('status', 'active')->take(15)->get();
              $data['product2'] = product::where('status', 'active')->take(6)->get();
@@ -77,7 +76,7 @@ class HomeController extends Controller
              $data['crafting'] =  CraftingProcess::first();
              $data['faqs'] =  Faq::where('status', 'active')->orderBy('id','DESC')->paginate(4);
              $data['faqAbout'] =  FaqImages::first();
-             $data['testimonials'] =  testimonial::where('status', 'active')->paginate(3);
+             $data['testimonials'] =  testimonial::where('status', 'active')->paginate(10);
              $data['blogs'] = blog::where('status', 'active')->get();
              $data['app'] =  MobileApp::first();
              $data['section'] =  SectionTitel::first();
@@ -234,9 +233,6 @@ class HomeController extends Controller
         $data['app'] =  MobileApp::first();
         $data['section'] =  SectionTitel::first();
         $data['cart'] = $request->session()->get('cart', []);
-        // $productIds = array_column($data['cart'], 'product_id');
-        // $data['product'] = Product::where('status', 'active')->whereIn('id', $productIds)->get();
-        // return $data['product'];
         return view('Fontend.Pages.cart_detils',$data);
     }
 
@@ -349,5 +345,17 @@ class HomeController extends Controller
         }
         
         
+    }
+
+    public function tremsOfServices()
+    {
+        $data['trems_condation'] = terms_and_condition::with('termsandcondition_translate')->first();
+        return view('Fontend.Pages.trems_and_services',$data);
+    }
+
+    public function privacyPolicy()
+    {
+        $data['privecy'] = terms_and_condition::with('termsandcondition_translate')->first();
+        return view('Fontend.Pages.privacy_policy',$data);
     }
 }

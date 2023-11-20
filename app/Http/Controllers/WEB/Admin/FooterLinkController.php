@@ -59,11 +59,12 @@ class FooterLinkController extends Controller
             'title' => 'required|string',
             'link' => 'required|string',
         ]);
+
         
-        $country = footer_link::find($id);  
+        $footer_link = footer_link::find($id);  
         $footer_link->link = $request->link;
         $footer_link->column = $request->column;
-        $country->save();
+        $footer_link->save();
 
         $translate = TranslateFooterLink::where('footer_link_id',$id)->where('lang_code','en')->first();  
         $translate->footer_link_id = $translate->footer_link_id;

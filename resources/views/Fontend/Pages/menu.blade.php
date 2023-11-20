@@ -1,6 +1,6 @@
 @extends('Fontend.Layouts.master2')
 @section('title')
-    <title>{{$setting->app_name}} - Menu Page</title>
+    <title>{{$setting->app_name}} - {{$LangMessage->all_food}}</title>
 @endsection
 
 @section('meta')
@@ -20,12 +20,12 @@
             <div class="row  ">
                 <div class="col-lg-12">
                     <div class="inner-banner-head">
-                        <h1>All Food Menu</h1>
+                        <h1>{{$LangMessage->all_food}}</h1>
                     </div>
 
                     <div class="inner-banner-item">
                         <div class="left">
-                            <a href="{{route('index')}}">Home</a>
+                            <a href="{{route('index')}}">{{$LangMessage->home}}</a>
                         </div>
                         <div class="icon">
                             <span>
@@ -37,7 +37,7 @@
                             </span>
                         </div>
                         <div class="left">
-                            <span>Food Details</span>
+                            <span>{{$LangMessage->all_food}}</span>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                         <div class="food-details-btn-box-item">
                             <form action="{{route('search')}}" method="GET" class="food-details-btn-box-item">
                                 <select class="form-select" name="category" aria-label="Default select example">
-                                    <option @readonly(true)>Select Category</option>
+                                    <option @readonly(true)>{{$LangMessage->select_category}}</option>
                                     @foreach ($Allcategories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
@@ -68,7 +68,7 @@
                                 </select>
                                 <div class="food-details-btn-search-box">
                                     <input type="text" name="keyword" class="form-control" id="exampleFormControlInput7"
-                                        placeholder="Enter keyword here">
+                                        placeholder="{{$LangMessage->enter_keyword_here}}">
                                     <div class="food-details-btn-search-btn">
                                         <button type="submit" class="icon"> <span>
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -231,7 +231,7 @@
                                                                         stroke-linecap="round" stroke-linejoin="round" />
                                                                 </svg>
                                                             </span>
-                                                            Add to Cart
+                                                            {{$LangMessage->add_to_cart}}
                                                         </a>
                                                     </div>
                                                 </div>
@@ -262,7 +262,7 @@
                                         <div class="popular-item-box">
                                             <div class="popular-item-box-img">
                                                 <img src="{{asset($product2['tumb_image'])}}" alt="thumb">
-                                                <div class="popular-item-box-img-overlay">
+                                                {{-- <div class="popular-item-box-img-overlay">
                                                     <div class="icon">
                                                         <span>
                                                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -277,7 +277,7 @@
                                                     <div class="text">
                                                         <p>4.7(2.5K)</p>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
 
                                             <div class="popular-inner-box">
@@ -333,7 +333,8 @@
                                                                     </path>
                                                                 </svg>
                                                             </span>
-                                                            Add to Cart
+
+                                                           {{$LangMessage->add_to_cart}}
                                                         </a>
                                                     </div>
                                                 </div>
@@ -353,7 +354,7 @@
                 </div>
             </div>
 
-            <div class="row blog-mt-48px">
+            {{-- <div class="row blog-mt-48px">
                 <div class="col-lg-7 col-md-6 ">
                     <div class="next-prev-btn">
                         <ul>
@@ -386,7 +387,7 @@
                         </ul>
                     </nav>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
 
@@ -458,8 +459,8 @@
                                             {{$faqAbout->first_description}}
                                         </h2>
 
-                                        <h4>Success
-                                            <br> Event
+                                        <h4>{{$LangMessage->success}}
+                                            <br> {{$LangMessage->search}}
                                         </h4>
                                     </div>
                                 </div>
@@ -485,8 +486,8 @@
                                             {{$faqAbout->secend_description}}
                                         </h2>
 
-                                        <h4>Success
-                                            <br> Event
+                                        <h4>{{$LangMessage->success}}
+                                            <br> {{$LangMessage->search}}
                                         </h4>
                                     </div>
                                 </div>
@@ -525,10 +526,10 @@
                 <div class="restaurant-taitel-btn">
                     <a href="{{ $app->play_store }}"> <span>
                             <img src="{{asset('fontend/assets/images/icon/Google_Play.png') }}" alt="icon">
-                        </span> Google Play</a>
+                        </span> {{$LangMessage->google_play}}</a>
                     <a href="{{ $app->i_store }}" class=" restaurant-taitel-btn-two"> <span>
                             <img src="{{asset('fontend/assets/images/icon/apple.png') }}" alt="icon">
-                        </span> I Store</a>
+                        </span> {{$LangMessage->i_store}}</a>
                 </div>
             </div>
 

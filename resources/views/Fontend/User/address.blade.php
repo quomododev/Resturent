@@ -68,128 +68,8 @@
 
                         </div>
                     </div>
-                    
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-five ">
-                            <div class="modal-content">
-                                <div class="modal-body modal-body-five ">
-                                    <form action="{{route('add.new.address')}}" method="POST">
-                                        @csrf
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="shopping-cart-new-address-top-item">
-                                                    <div class="shopping-cart-new-address-taitel">
-                                                        <h4>Add new Address</h4>
-                                                    </div>
 
-                                                    <div class="shopping-cart-new-address-top-btn">
-                                                        <a href="{{route('user.address')}}">
-                                                            <span>
-                                                                <svg width="24" height="24" viewBox="0 0 24 24"
-                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <path
-                                                                        d="M5 8H15C17.2091 8 19 9.79086 19 12V12C19 14.2091 17.2091 16 15 16H5M5 8L9 5M5 8L9 11"
-                                                                        stroke="#394150" stroke-width="1.5"
-                                                                        stroke-linecap="round"
-                                                                        stroke-linejoin="round" />
-                                                                </svg>
-                                                            </span>
-
-                                                            Back
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="shopping-cart-new-address-from">
-                                                    <div class="shopping-cart-new-address-from-item">
-                                                        <div class="shopping-cart-new-address-from-inner">
-                                                            <label class="form-label">First Name</label>
-                                                            <input type="text" class="form-control"
-                                                                id="exampleFormControlInput7" name="fname" value="{{old('fname')}}" placeholder="First Name">
-                                                        </div>
-                                                        <div class="shopping-cart-new-address-from-inner">
-                                                            <label for="exampleFormControlInput1"
-                                                                class="form-label">Last Name</label>
-                                                            <input type="text" class="form-control"
-                                                                id="exampleFormControlInput8"  name="lname" value="{{old('lname')}}" placeholder="Last  Name">
-                                                        </div>
-                                                    </div>
-                                                    <div class="shopping-cart-new-address-from-item">
-                                                        <div class="shopping-cart-new-address-from-inner">
-                                                            <label for="exampleFormControlInput1"
-                                                                class="form-label">Phone</label>
-                                                            <input type="text" class="form-control"
-                                                                id="exampleFormControlInput9"  name="phone" value="{{old('phone')}}" placeholder="+888 ******** ">
-                                                        </div>
-                                                        <div class="shopping-cart-new-address-from-inner">
-                                                            <label for="exampleFormControlInput1"
-                                                                class="form-label">Email</label>
-                                                            <input type="email" class="form-control"
-                                                                id="exampleFormControlInput10" name="email" value="{{old('email')}}" placeholder="example@gmail.com">
-                                                        </div>
-                                                    </div>
-                                                    <div class="shopping-cart-new-address-from-item">
-                                                        <div class="shopping-cart-new-address-from-inner">
-                                                            <label class="form-label">Country</label>
-                                                            <select class="form-select" name="country_id" id="country" aria-label="Default select example">
-                                                                <option value="" aria-readonly="true">Select Country</option>
-                                                                @foreach ($countries as $country)
-                                                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="shopping-cart-new-address-from-inner">
-                                                            <label class="form-label">State</label>
-                                                            <select class="form-select" name="state_id" id="state" aria-label="Default select example">
-                                                                <option value="">Select State</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="shopping-cart-new-address-from-item">
-                                                        <div class="shopping-cart-new-address-from-inner">
-                                                            <label for="exampleFormControlInput1" class="form-label">City</label>
-                                                            <select class="form-select" name="city_id" id="city" aria-label="Default select example">
-                                                                <option value="">Select City</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="shopping-cart-new-address-from-inner">
-                                                            <label for="exampleFormControlInput1"
-                                                                class="form-label">Address</label>
-                                                            <input type="text" class="form-control"
-                                                                id="exampleFormControlInput11" name="address" value="{{old('address')}}" placeholder="Address">
-                                                        </div>
-                                                    </div>
-                                                    <div class="shopping-cart-new-address-from-btn">
-                                                        <div class="check-btn">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="1"
-                                                                    id="flexCheckDefault" name="home">
-                                                                <label class="form-check-label" for="flexCheckDefault">
-                                                                    Home
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" value="1"
-                                                                    id="flexCheckDefault1" name="office">
-                                                                <label class="form-check-label" for="flexCheckDefault1">
-                                                                    Office
-                                                                </label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="check-btn-two">
-                                                            <button type="submit" class="main-btn-four"> Save now</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
                     
 
                     <div class="row">
@@ -252,12 +132,138 @@
                         @endforeach
                     </div>
 
+                    
+
                        
                 </div>
             </div>
         </div>
+
+        
     </section>
     <!-- dashboard end  -->
+     <!-- Modal -->
+     <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+     <div class="modal-dialog modal-dialog-five ">
+         <div class="modal-content">
+             <div class="modal-body modal-body-five ">
+                 <form action="{{route('add.new.address')}}" method="POST">
+                     @csrf
+                     <div class="row">
+                         <div class="col-lg-12">
+                             <div class="shopping-cart-new-address-top-item">
+                                 <div class="shopping-cart-new-address-taitel">
+                                     <h4>{{$LangMessage->add_new_address}}</h4>
+                                 </div>
+
+                                 <div class="shopping-cart-new-address-top-btn">
+                                     <a href="{{route('user.address')}}">
+                                         <span>
+                                             <svg width="24" height="24" viewBox="0 0 24 24"
+                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                 <path
+                                                     d="M5 8H15C17.2091 8 19 9.79086 19 12V12C19 14.2091 17.2091 16 15 16H5M5 8L9 5M5 8L9 11"
+                                                     stroke="#394150" stroke-width="1.5"
+                                                     stroke-linecap="round"
+                                                     stroke-linejoin="round" />
+                                             </svg>
+                                         </span>
+
+                                         {{$LangMessage->back}}
+                                     </a>
+                                 </div>
+                             </div>
+                             <div class="shopping-cart-new-address-from">
+                                 <div class="shopping-cart-new-address-from-item">
+                                     <div class="shopping-cart-new-address-from-inner">
+                                         <label class="form-label">{{$LangMessage->first_name}}</label>
+                                         <input type="text" class="form-control"
+                                             id="exampleFormControlInput7" name="fname" value="{{old('fname')}}" >
+                                     </div>
+                                     <div class="shopping-cart-new-address-from-inner">
+                                         <label for="exampleFormControlInput1"
+                                             class="form-label">{{$LangMessage->last_name}}</label>
+                                         <input type="text" class="form-control"
+                                             id="exampleFormControlInput8"  name="lname" value="{{old('lname')}}" >
+                                     </div>
+                                 </div>
+                                 <div class="shopping-cart-new-address-from-item">
+                                     <div class="shopping-cart-new-address-from-inner">
+                                         <label for="exampleFormControlInput1"
+                                             class="form-label">{{$LangMessage->phone}}</label>
+                                         <input type="text" class="form-control"
+                                             id="exampleFormControlInput9"  name="phone" value="{{old('phone')}}" >
+                                     </div>
+                                     <div class="shopping-cart-new-address-from-inner">
+                                         <label for="exampleFormControlInput1"
+                                             class="form-label">{{$LangMessage->email}}</label>
+                                         <input type="email" class="form-control"
+                                             id="exampleFormControlInput10" name="email" value="{{old('email')}}" >
+                                     </div>
+                                 </div>
+                                 <div class="shopping-cart-new-address-from-item">
+                                     <div class="shopping-cart-new-address-from-inner">
+                                         <label class="form-label">{{$LangMessage->country}}</label>
+                                         <select class="form-select" name="country_id" id="country" aria-label="Default select example">
+                                             <option value="" aria-readonly="true">{{$LangMessage->select_country}}</option>
+                                             @foreach ($countries as $country)
+                                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                             @endforeach
+                                         </select>
+                                     </div>
+                                     <div class="shopping-cart-new-address-from-inner">
+                                         <label class="form-label">{{$LangMessage->state}}</label>
+                                         <select class="form-select" name="state_id" id="state" aria-label="Default select example">
+                                             <option value="">{{$LangMessage->select_state}}</option>
+                                         </select>
+                                     </div>
+                                 </div>
+                                 <div class="shopping-cart-new-address-from-item">
+                                     <div class="shopping-cart-new-address-from-inner">
+                                         <label for="exampleFormControlInput1" class="form-label">{{$LangMessage->city}}</label>
+                                         <select class="form-select" name="city_id" id="city" aria-label="Default select example">
+                                             <option value="">{{$LangMessage->select_city}}</option>
+                                         </select>
+                                     </div>
+                                     <div class="shopping-cart-new-address-from-inner">
+                                         <label for="exampleFormControlInput1"
+                                             class="form-label">{{$LangMessage->address}}</label>
+                                         <input type="text" class="form-control"
+                                             id="exampleFormControlInput11" name="address" value="{{old('address')}}" >
+                                     </div>
+                                 </div>
+                                 <div class="shopping-cart-new-address-from-btn">
+                                     <div class="check-btn">
+                                         <div class="form-check">
+                                             <input class="form-check-input" type="checkbox" value="1"
+                                                 id="flexCheckDefault" name="home">
+                                             <label class="form-check-label" for="flexCheckDefault">
+                                                 {{$LangMessage->home}}
+                                             </label>
+                                         </div>
+                                         <div class="form-check">
+                                             <input class="form-check-input" type="checkbox" value="1"
+                                                 id="flexCheckDefault1" name="office">
+                                             <label class="form-check-label" for="flexCheckDefault1">
+                                                 {{$LangMessage->office}}
+                                             </label>
+                                         </div>
+                                     </div>
+
+                                     <div class="check-btn-two">
+                                         <button type="submit" class="main-btn-four">{{$LangMessage->save_now}}</button>
+                                     </div>
+
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div>
 
     <!-- Restaurant part-start -->
     @include('Fontend.User.app')

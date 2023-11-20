@@ -1,6 +1,6 @@
 @extends('Fontend.Layouts.master2')
 @section('title')
-    <title>{{$setting->app_name}} - Manue Page</title>
+    <title>{{$setting->app_name}} - {{$LangMessage->food_details}}</title>
 @endsection
 
 @section('meta')
@@ -19,12 +19,12 @@
             <div class="row  ">
                 <div class="col-lg-12">
                     <div class="inner-banner-head">
-                        <h1>Food Details</h1>
+                        <h1>{{$LangMessage->food_details}}</h1>
                     </div>
 
                     <div class="inner-banner-item">
                         <div class="left">
-                            <a href="{{route('index')}}">Home</a>
+                            <a href="{{route('index')}}">{{$LangMessage->home}}</a>
                         </div>
                         <div class="icon">
                             <span>
@@ -36,7 +36,7 @@
                             </span>
                         </div>
                         <div class="left">
-                            <span>Food Details</span>
+                            <span>{{$LangMessage->food_details}}</span>
                         </div>
                     </div>
                 </div>
@@ -89,17 +89,17 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                                    aria-selected="true">Food Details </button>
+                                    aria-selected="true">{{$LangMessage->food_details}}</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-profile" type="button" role="tab"
-                                    aria-controls="pills-profile" aria-selected="false">Food Video</button>
+                                    aria-controls="pills-profile" aria-selected="false">{{$LangMessage->Food_video}}</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-contact" type="button" role="tab"
-                                    aria-controls="pills-contact" aria-selected="false">Review</button>
+                                    aria-controls="pills-contact" aria-selected="false">{{$LangMessage->review}}</button>
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
@@ -325,29 +325,28 @@
                                 <div class="sent-review">
                                     <div class="comment-from-box-main">
                                         <div class="comment-from-box-text">
-                                            <h3>Sent Review</h3>
+                                            <h3>{{$LangMessage->sent_review}}</h3>
 
-                                            <p>Required fields are marked *</p>
+                                            <p>{{$LangMessage->required_fields_are_marked}} *</p>
                                         </div>
                                         <form action="{{route('product.review')}}" method="POST">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{$product->id}}">
                                             <div class="from-box">
                                                 <div class="from-item">
-                                                    <div class="from-inner-df">
-                                                        <div class="from-inner from-inner-rate ">
-                                                            <div class="rate">
-                                                                <input type="radio" id="star5" name="rating" value="5" />
-                                                                <label for="star5" title="text">5 stars</label>
-                                                                <input type="radio" id="star4" name="rating" value="4" />
-                                                                <label for="star4" title="text">4 stars</label>
-                                                                <input type="radio" id="star3" name="rating" value="3" />
-                                                                <label for="star3" title="text">3 stars</label>
-                                                                <input type="radio" id="star2" name="rating" value="2" />
-                                                                <label for="star2" title="text">2 stars</label>
-                                                                <input type="radio" id="star1" name="rating" value="1" />
-                                                                <label for="star1" title="text">1 star</label>
-                                                            </div>
+                                                    <div id="full-stars-example-two">
+                                                        <div class="rating-group">
+                                                            <input disabled checked class="rating__input rating__input--none" name="rating" id="rating3-none" value="1" type="radio">
+                                                            <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating" id="rating3-1" value="2" type="radio">
+                                                            <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating" id="rating3-2" value="3" type="radio">
+                                                            <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating" id="rating3-3" value="4" type="radio">
+                                                            <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating3" id="rating3-4" value="5" type="radio">
+                                                            <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+                                                            <input class="rating__input" name="rating"id="rating3-5" value="5" type="radio">
                                                         </div>
                                                     </div>
 
@@ -357,7 +356,7 @@
                                                     </div>
 
                                                     <div class="from-btn">
-                                                        <button type="submit" class="main-btn-four">Submit Now</button>
+                                                        <button type="submit" class="main-btn-four">{{$LangMessage->submit_now}}</button>
                                                     </div>
 
                                                 </div>
@@ -388,7 +387,7 @@
                         <input type="hidden" value="{{$product->id}}" name="product_id">
                         <div class="together-box">
                             <div class="together-box-text">
-                                <h5>Select Size</h5>
+                                <h5>{{$LangMessage->select_size}}</h5>
                             </div>
                             @foreach(json_decode($product->size, true) as $size => $price)
                             <div class="together-box-item">
@@ -412,7 +411,7 @@
                             
 
                             <div class="together-box-text">
-                                <h5>Select Addon (Optional)</h5>
+                                <h5>{{$LangMessage->select_addon}} ({{$LangMessage->optional}})</h5>
                             </div>
                             @foreach(json_decode($product->items, true) as $id)
                             @php
@@ -433,11 +432,12 @@
                                     <div class="form-check-btn">
 
                                         <div class="grid">
-                                            {{-- <button class="btn btn-minus" onclick="updateQuantity(-1)"><i class="fa-solid fa-minus"></i></button>
-                                            <div class="column product-qty" id="quantity">0</div>
-                                            <button class="btn btn-plus" onclick="updateQuantity(1)"><i class="fa-solid fa-plus"></i></button> --}}
+                                            <button class="btn btn-minus" data-addon-index="{{ $loop->parent->index }}_{{ $loop->index }}"><i class="fa-solid fa-minus"></i></button>
+                                            <div class="column product-qty" id="quantityUpdate_{{ $loop->parent->index }}_{{ $loop->index }}">0</div>
+                                            <input type="hidden" name="addons_qty[]" id="qtyInput_{{ $loop->parent->index }}_{{ $loop->index }}" value="1">
+                                            <button class="btn btn-plus" data-addon-index="{{ $loop->parent->index }}_{{ $loop->index }}"><i class="fa-solid fa-plus"></i></button>
                                         </div>
-                                        {{-- <input type="text" name="qty" id="qtyInput" value="0"> --}}
+                                       
 
                                     </div>
                                 </div>
@@ -448,9 +448,9 @@
                             @endforeach
                             <div class="together-box-inner-btn">
                                 <div class="grid">
-                                    <button class="btn btn-minus"><i class="fa-solid fa-minus"></i></button>
-                                    <input class="column product-qty" type="text" name="qty" value="1">
-                                    <button class="btn btn-plus"><i class="fa-solid fa-plus"></i></button>
+                                    <button class="btn btn-minus" id="btn-minus"><i class="fa-solid fa-minus"></i></button>
+                                    <input class="column product-qty" type="text" name="qty" id="qtyInput" value="1">
+                                    <button class="btn btn-plus" id="btn-plus"><i class="fa-solid fa-plus"></i></button>
                                 </div>
                             </div>
                             <div class="together-box-inner-btn-btm">
@@ -464,7 +464,7 @@
                                             <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                         </svg>
                                     </span>
-                                    Add to Cart
+                                    {{$LangMessage->add_to_cart}}
                                 </button>
                                 
                             </div>
@@ -486,390 +486,6 @@
         </div>
     </section>
 
-
-
-    <!-- Food Details  part end -->
-
-    {{-- <section class="food-details food-details-two">
-        <div class="container">
-
-            <div class="row responsive-df">
-
-                <div class="col-lg-12">
-                    <div class="recent-order-text">
-                        <h5>Recent Order</h5>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="fade-right">
-                    <div class="featured-item  ">
-                        <div class="featured-item-img">
-                            <img src="./assets/images/thumb/featured-1.png" class="w-100" alt="featured-thumb">
-
-                            <div class="featured-item-img-overlay">
-                                <div class="featured-item-img-over-text">
-                                    <div class="left-text">
-                                        <div class="icon">
-                                            <span>
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M4.31804 6.31804C3.90017 6.7359 3.5687 7.23198 3.34255 7.77795C3.1164 8.32392 3 8.90909 3 9.50004C3 10.091 3.1164 10.6762 3.34255 11.2221C3.5687 11.7681 3.90017 12.2642 4.31804 12.682L12 20.364L19.682 12.682C20.526 11.8381 21.0001 10.6935 21.0001 9.50004C21.0001 8.30656 20.526 7.16196 19.682 6.31804C18.8381 5.47412 17.6935 5.00001 16.5 5.00001C15.3066 5.00001 14.162 5.47412 13.318 6.31804L12 7.63604L10.682 6.31804C10.2642 5.90017 9.7681 5.5687 9.22213 5.34255C8.67616 5.1164 8.09099 5 7.50004 5C6.90909 5 6.32392 5.1164 5.77795 5.34255C5.23198 5.5687 4.7359 5.90017 4.31804 6.31804V6.31804Z"
-                                                        stroke="#F01543" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                </svg>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="right-text">
-                                        <h5>20% Off </h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="featured-item-text">
-                            <div class="text-item">
-                                <div class="left">
-                                    <h3>$30.00</h3>
-                                </div>
-                                <div class="right">
-                                    <div class="icon">
-                                        <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M10.0328 3.27141C10.8375 1.5762 13.1625 1.5762 13.9672 3.27141L15.3579 6.20118C15.6774 6.87435 16.2951 7.34094 17.0096 7.44888L20.1193 7.91869C21.9187 8.19053 22.6371 10.4895 21.3351 11.8091L19.0849 14.0896C18.5679 14.6136 18.332 15.3685 18.454 16.1084L18.9852 19.3285C19.2926 21.1918 17.4116 22.6126 15.8022 21.7329L13.0208 20.2126C12.3817 19.8633 11.6183 19.8633 10.9792 20.2126L8.19776 21.7329C6.58839 22.6126 4.70742 21.1918 5.01479 19.3286L5.54599 16.1084C5.66804 15.3685 5.43211 14.6136 4.91508 14.0896L2.66488 11.8091C1.36287 10.4895 2.08133 8.19053 3.88066 7.91869L6.99037 7.44888C7.70489 7.34094 8.32257 6.87435 8.64211 6.20118L10.0328 3.27141Z"
-                                                    fill="#FFB23E"></path>
-                                            </svg></span>
-                                    </div>
-                                    <h5> 4.7(2.5K)</h5>
-                                </div>
-                            </div>
-
-                            <div class="text-item-center">
-                                <h3><a href="all-food.html">Baked Chicken Wings and Legs</a></h3>
-                            </div>
-
-                            <div class="text-item-center-item-box">
-                                <div class="text-item-center-item">
-                                    <div class="icon">
-                                        <span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                                                    stroke="#FE724C" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                    </div>
-
-                                    <div class="text">
-                                        <h5>4 Piece Chicken</h5>
-                                    </div>
-                                </div>
-                                <div class="text-item-center-item">
-                                    <div class="icon">
-                                        <span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                                                    stroke="#FE724C" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                    </div>
-
-                                    <div class="text">
-                                        <h5>Spicy Sauce</h5>
-                                    </div>
-                                </div>
-
-                                <div class="featured-item-btn">
-                                    <a href="shopping-cart.html" class="main-btn-three">
-                                        <span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                    stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                    stroke-width="1.5"></path>
-                                                <path
-                                                    d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                    stroke-width="1.5"></path>
-                                                <path d="M14 8L14 13" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                </path>
-                                                <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                        Add to Cart
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6" data-aos="fade-right" data-aos-delay="50">
-                    <div class="featured-item">
-                        <div class="featured-item-img">
-                            <img src="./assets/images/thumb/traditional-2.png" class="w-100" alt="featured-thumb">
-
-                            <div class="featured-item-img-overlay">
-                                <div class="featured-item-img-over-text">
-                                    <div class="left-text">
-                                        <div class="icon">
-                                            <span>
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M4.31804 6.31804C3.90017 6.7359 3.5687 7.23198 3.34255 7.77795C3.1164 8.32392 3 8.90909 3 9.50004C3 10.091 3.1164 10.6762 3.34255 11.2221C3.5687 11.7681 3.90017 12.2642 4.31804 12.682L12 20.364L19.682 12.682C20.526 11.8381 21.0001 10.6935 21.0001 9.50004C21.0001 8.30656 20.526 7.16196 19.682 6.31804C18.8381 5.47412 17.6935 5.00001 16.5 5.00001C15.3066 5.00001 14.162 5.47412 13.318 6.31804L12 7.63604L10.682 6.31804C10.2642 5.90017 9.7681 5.5687 9.22213 5.34255C8.67616 5.1164 8.09099 5 7.50004 5C6.90909 5 6.32392 5.1164 5.77795 5.34255C5.23198 5.5687 4.7359 5.90017 4.31804 6.31804V6.31804Z"
-                                                        stroke="#F01543" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                </svg>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="right-text">
-                                        <h5>20% Off </h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="featured-item-text">
-                            <div class="text-item">
-                                <div class="left">
-                                    <h3>$20.00</h3>
-                                </div>
-                                <div class="right">
-                                    <div class="icon">
-                                        <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M10.0328 3.27141C10.8375 1.5762 13.1625 1.5762 13.9672 3.27141L15.3579 6.20118C15.6774 6.87435 16.2951 7.34094 17.0096 7.44888L20.1193 7.91869C21.9187 8.19053 22.6371 10.4895 21.3351 11.8091L19.0849 14.0896C18.5679 14.6136 18.332 15.3685 18.454 16.1084L18.9852 19.3285C19.2926 21.1918 17.4116 22.6126 15.8022 21.7329L13.0208 20.2126C12.3817 19.8633 11.6183 19.8633 10.9792 20.2126L8.19776 21.7329C6.58839 22.6126 4.70742 21.1918 5.01479 19.3286L5.54599 16.1084C5.66804 15.3685 5.43211 14.6136 4.91508 14.0896L2.66488 11.8091C1.36287 10.4895 2.08133 8.19053 3.88066 7.91869L6.99037 7.44888C7.70489 7.34094 8.32257 6.87435 8.64211 6.20118L10.0328 3.27141Z"
-                                                    fill="#FFB23E"></path>
-                                            </svg></span>
-                                    </div>
-                                    <h5> 4.7(2.5K)</h5>
-                                </div>
-                            </div>
-
-                            <div class="text-item-center">
-                                <h3><a href="all-food.html">BBQ Pulled Pork Sandwich</a></h3>
-                            </div>
-
-                            <div class="text-item-center-item-box">
-                                <div class="text-item-center-item">
-                                    <div class="icon">
-                                        <span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                                                    stroke="#FE724C" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                    </div>
-
-                                    <div class="text">
-                                        <h5>4 Piece Chicken</h5>
-                                    </div>
-                                </div>
-                                <div class="text-item-center-item">
-                                    <div class="icon">
-                                        <span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                                                    stroke="#FE724C" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                    </div>
-
-                                    <div class="text">
-                                        <h5>Spicy Sauce</h5>
-                                    </div>
-                                </div>
-
-                                <div class="featured-item-btn">
-                                    <a href="shopping-cart.html" class="main-btn-three">
-                                        <span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                    stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                    stroke-width="1.5"></path>
-                                                <path
-                                                    d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                    stroke-width="1.5"></path>
-                                                <path d="M14 8L14 13" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                </path>
-                                                <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                        Add to Cart
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 d-md-none d-lg-block" data-aos="fade-right" data-aos-delay="100">
-                    <div class="featured-item">
-                        <div class="featured-item-img">
-                            <img src="./assets/images/thumb/traditional-3.png" class="w-100" alt="featured-thumb">
-
-                            <div class="featured-item-img-overlay">
-                                <div class="featured-item-img-over-text">
-                                    <div class="left-text">
-                                        <div class="icon">
-                                            <span>
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M4.31804 6.31804C3.90017 6.7359 3.5687 7.23198 3.34255 7.77795C3.1164 8.32392 3 8.90909 3 9.50004C3 10.091 3.1164 10.6762 3.34255 11.2221C3.5687 11.7681 3.90017 12.2642 4.31804 12.682L12 20.364L19.682 12.682C20.526 11.8381 21.0001 10.6935 21.0001 9.50004C21.0001 8.30656 20.526 7.16196 19.682 6.31804C18.8381 5.47412 17.6935 5.00001 16.5 5.00001C15.3066 5.00001 14.162 5.47412 13.318 6.31804L12 7.63604L10.682 6.31804C10.2642 5.90017 9.7681 5.5687 9.22213 5.34255C8.67616 5.1164 8.09099 5 7.50004 5C6.90909 5 6.32392 5.1164 5.77795 5.34255C5.23198 5.5687 4.7359 5.90017 4.31804 6.31804V6.31804Z"
-                                                        stroke="#F01543" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                </svg>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="right-text">
-                                        <h5>20% Off </h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="featured-item-text">
-                            <div class="text-item">
-                                <div class="left">
-                                    <h3>$18.00</h3>
-                                </div>
-                                <div class="right">
-                                    <div class="icon">
-                                        <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M10.0328 3.27141C10.8375 1.5762 13.1625 1.5762 13.9672 3.27141L15.3579 6.20118C15.6774 6.87435 16.2951 7.34094 17.0096 7.44888L20.1193 7.91869C21.9187 8.19053 22.6371 10.4895 21.3351 11.8091L19.0849 14.0896C18.5679 14.6136 18.332 15.3685 18.454 16.1084L18.9852 19.3285C19.2926 21.1918 17.4116 22.6126 15.8022 21.7329L13.0208 20.2126C12.3817 19.8633 11.6183 19.8633 10.9792 20.2126L8.19776 21.7329C6.58839 22.6126 4.70742 21.1918 5.01479 19.3286L5.54599 16.1084C5.66804 15.3685 5.43211 14.6136 4.91508 14.0896L2.66488 11.8091C1.36287 10.4895 2.08133 8.19053 3.88066 7.91869L6.99037 7.44888C7.70489 7.34094 8.32257 6.87435 8.64211 6.20118L10.0328 3.27141Z"
-                                                    fill="#FFB23E"></path>
-                                            </svg></span>
-                                    </div>
-                                    <h5> 4.7(2.5K)</h5>
-                                </div>
-                            </div>
-
-                            <div class="text-item-center">
-                                <h3><a href="all-food.html">Pork Chop with Apple Chutney</a></h3>
-                            </div>
-
-                            <div class="text-item-center-item-box">
-                                <div class="text-item-center-item">
-                                    <div class="icon">
-                                        <span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                                                    stroke="#FE724C" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                    </div>
-
-                                    <div class="text">
-                                        <h5>4 Piece Chicken</h5>
-                                    </div>
-                                </div>
-                                <div class="text-item-center-item">
-                                    <div class="icon">
-                                        <span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                                                    stroke="#FE724C" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                    </div>
-
-                                    <div class="text">
-                                        <h5>Spicy Sauce</h5>
-                                    </div>
-                                </div>
-
-                                <div class="featured-item-btn">
-                                    <a href="shopping-cart.html" class="main-btn-three">
-                                        <span>
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M6 4H18C20.2091 4 22 5.79086 22 8V13C22 15.2091 20.2091 17 18 17H10C7.79086 17 6 15.2091 6 13V4ZM6 4C6 2.89543 5.10457 2 4 2H2"
-                                                    stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                                <path
-                                                    d="M11 20.5C11 21.3284 10.3284 22 9.5 22C8.67157 22 8 21.3284 8 20.5C8 19.6716 8.67157 19 9.5 19C10.3284 19 11 19.6716 11 20.5Z"
-                                                    stroke-width="1.5"></path>
-                                                <path
-                                                    d="M20 20.5C20 21.3284 19.3284 22 18.5 22C17.6716 22 17 21.3284 17 20.5C17 19.6716 17.6716 19 18.5 19C19.3284 19 20 19.6716 20 20.5Z"
-                                                    stroke-width="1.5"></path>
-                                                <path d="M14 8L14 13" stroke-width="1.5" stroke-linecap="round"
-                                                    stroke-linejoin="round">
-                                                </path>
-                                                <path d="M16.5 10.5L11.5 10.5" stroke-width="1.5"
-                                                    stroke-linecap="round" stroke-linejoin="round">
-                                                </path>
-                                            </svg>
-                                        </span>
-                                        Add to Cart
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-
-
-
-
-
-
-    </section> --}}
     <!-- App part-start -->
     <section class="restaurant">
         <div class="container">
@@ -877,21 +493,21 @@
                 <div class="col-lg-6">
                     <div class="restaurant-taitel">
                         <h2>{{ $app->titel }}</h2>
-
+    
                         <h4>{!! $app->description !!}</h4>
                     </div>
-
+    
                     <div class="restaurant-taitel-btn">
                         <a href="{{ $app->play_store }}"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/Google_Play.png') }}" alt="icon">
-                            </span> Google Play</a>
+                            </span> {{$LangMessage->google_play}}</a>
                         <a href="{{ $app->i_store }}" class=" restaurant-taitel-btn-two"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/apple.png') }}" alt="icon">
-                            </span> I Store</a>
+                            </span> {{$LangMessage->i_store}}</a>
                     </div>
                 </div>
-
-
+    
+    
                 <div class="col-lg-6" data-aos="fade-left">
                     <div class="restaurant-img-main">
                         <div class="restaurant-img">
@@ -905,45 +521,59 @@
     <!-- App part-end -->
 </main>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-{{-- <script>
-    function updateQuantity(change) {
-        var quantityElement = document.getElementById('quantity');
-        var currentQuantity = parseInt(quantityElement.textContent);
-        var newQuantity = currentQuantity + change;
-        newQuantity = Math.max(newQuantity, 1);
-        quantityElement.textContent = newQuantity;
-        document.getElementById('qtyInput').value = newQuantity;
-    }
-</script> --}}
+
 <script>
-    // Add event listener to update size_price on radio button change
     document.querySelectorAll('input[name="size"]').forEach(function(radio) {
         radio.addEventListener('change', function() {
             document.getElementById('selected_size_price').value = this.getAttribute('data-price');
         });
     });
 </script>
-
 <script>
     $(document).ready(function () {
-        // Add quantity increment and decrement functionality
-        $('.btn-plus').click(function (e) {
-            e.preventDefault(); // Prevent the default form submission
-            var input = $('.product-qty');
-            var quantity = parseInt(input.val());
-            input.val(quantity + 1);
-        });
+        $(".btn-minus, .btn-plus").on("click", function (e) {
+            e.preventDefault();
 
-        $('.btn-minus').click(function (e) {
-            e.preventDefault(); // Prevent the default form submission
-            var input = $('.product-qty');
-            var quantity = parseInt(input.val());
-            if (quantity > 1) {
-                input.val(quantity - 1);
+            // Get the addon index from the data attribute
+            var addonIndex = $(this).data("addon-index");
+
+            // Get the current quantity
+            var currentQuantity = parseInt($("#quantityUpdate_" + addonIndex).text());
+
+            // Update quantity based on button clicked
+            if ($(this).hasClass("btn-minus")) {
+                // Ensure the quantity does not go below 0
+                currentQuantity = Math.max(currentQuantity - 1, 0);
+            } else if ($(this).hasClass("btn-plus")) {
+                currentQuantity++;
             }
+
+            // Update the quantity display
+            $("#quantityUpdate_" + addonIndex).text(currentQuantity);
+
+            // Update the hidden input field value
+            $("#qtyInput_" + addonIndex).val(currentQuantity);
         });
     });
 </script>
+<script>
+    $(document).ready(function () {
+        $("#btn-minus").on("click", function (e) {
+            e.preventDefault();
+            var currentQuantity = parseInt($("#qtyInput").val());
+            currentQuantity = Math.max(currentQuantity - 1, 1);
+            $("#qtyInput").val(currentQuantity);
+        });
+
+        $("#btn-plus").on("click", function (e) {
+            e.preventDefault();
+            var currentQuantity = parseInt($("#qtyInput").val());
+            currentQuantity++;
+            $("#qtyInput").val(currentQuantity);
+        });
+    });
+</script>
+
 
 
 @endsection

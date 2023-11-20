@@ -292,6 +292,7 @@
   }
   .header .menu-bg .nav-btn-main {
     gap: 5px;
+    padding-left: 110px;
   }
 
   .header .menu-bg .nav-main .nav-main {
@@ -327,6 +328,7 @@
   .header .menu-bg .nav-btn-main {
     display: flex;
     gap: 25px;
+    padding-left: 90px;
   }
 
   .traditional .featured-item .featured-item-img-populer {

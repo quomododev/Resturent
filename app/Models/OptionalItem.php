@@ -11,7 +11,8 @@ class OptionalItem extends Model
     use HasFactory;
     protected $fillable = [
         'price',
-        'status'
+        'status',
+        'total'
     ];
 
     public function translate_item()

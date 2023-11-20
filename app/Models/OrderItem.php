@@ -9,6 +9,6 @@ class OrderItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['order_id', 'product_id', 'size', 'addons', 'qty'];
+    protected $fillable = ['order_id', 'product_id', 'size', 'addons', 'qty','total'];
     protected $casts = ['size' => 'json', 'addons' => 'json'];
 }

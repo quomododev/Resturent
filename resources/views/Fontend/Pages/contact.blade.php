@@ -1,7 +1,7 @@
 @extends('Fontend.Layouts.master2')
 
 @section('title')
-    <title>{{$setting->app_name}} - Contact Page</title>
+    <title>{{$setting->app_name}} - {{$LangMessage->contact_us}}</title>
 @endsection
 
 @section('meta')
@@ -20,12 +20,12 @@
             <div class="row  ">
                 <div class="col-lg-12">
                     <div class="inner-banner-head">
-                        <h1>Contact Us</h1>
+                        <h1>{{$LangMessage->contact_us}}</h1>
                     </div>
 
                     <div class="inner-banner-item">
                         <div class="left">
-                            <a href="{{route('index')}}">Home</a>
+                            <a href="{{route('index')}}">{{$LangMessage->home}}</a>
                         </div>
                         <div class="icon">
                             <span>
@@ -37,7 +37,7 @@
                             </span>
                         </div>
                         <div class="left">
-                            <span>Contact Us</span>
+                            <span>{{$LangMessage->contact_us}}</span>
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                             <div class="from">
                                 <div class="from-item from-item-two">
                                     <div class="from-inner">
-                                        <label class="form-label">Name</label>
+                                        <label class="form-label">{{$LangMessage->name}}</label>
                                         <input type="text" class="form-control" name="name" value="{{old('name')}}" required id="exampleFormControlInput2"
                                             placeholder="Name">
                                     </div>
@@ -129,7 +129,7 @@
                                 </div>
                                 <div class="from-item from-item-two ">
                                     <div class="from-inner">
-                                        <label class="form-label">E-mail*</label>
+                                        <label class="form-label">{{$LangMessage->email}}*</label>
                                         <input type="email" class="form-control" name="email" value="{{old('email')}}" required id="exampleFormControlInput4"
                                             placeholder="example@gmail.com">
                                     </div>
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="from-item from-item-two">
                                     <div class="from-inner">
-                                        <label class="form-label">Subject</label>
+                                        <label class="form-label">{{$LangMessage->subject}}</label>
                                         <input type="text" class="form-control" name="subject" value="{{old('subject')}}" required id="exampleFormControlInput2"
                                             placeholder="Subject">
                                     </div>
@@ -149,7 +149,7 @@
                                 </div>
                                 <div class="from-item from-item-two ">
                                     <div class="from-inner">
-                                        <label for="exampleFormControlTextarea1" class="form-label">Message*</label>
+                                        <label for="exampleFormControlTextarea1" class="form-label">{{$LangMessage->message}}*</label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"
                                             placeholder="type here" name="message" required>{{old('message')}}</textarea>
                                     </div>
@@ -158,7 +158,7 @@
 
 
                                 <div class="from-btn">
-                                    <button class="main-btn-four" type="submit">Send now!</button>
+                                    <button class="main-btn-four" type="submit">{{$LangMessage->send_now}}!</button>
                                 </div>
                             </div>
                         </form>
@@ -255,8 +255,8 @@
                                                 {{$faqAbout->first_description}}
                                             </h2>
 
-                                            <h4>Success
-                                                <br> Event
+                                            <h4>{{$LangMessage->success}}
+                                                <br> {{$LangMessage->search}}
                                             </h4>
                                         </div>
                                     </div>
@@ -282,8 +282,8 @@
                                                 {{$faqAbout->secend_description}}
                                             </h2>
 
-                                            <h4>Success
-                                                <br> Event
+                                            <h4>{{$LangMessage->success}}
+                                                <br> {{$LangMessage->search}}
                                             </h4>
                                         </div>
                                     </div>
@@ -307,8 +307,7 @@
             </div>
         </div>
     </section>
-<!-- faq part-end -->
-<!-- App part-start -->
+    <!-- faq part-end -->
     <section class="restaurant">
         <div class="container">
             <div class="row align-items-center">
@@ -322,10 +321,10 @@
                     <div class="restaurant-taitel-btn">
                         <a href="{{ $app->play_store }}"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/Google_Play.png') }}" alt="icon">
-                            </span> Google Play</a>
+                            </span> {{$LangMessage->google_play}}</a>
                         <a href="{{ $app->i_store }}" class=" restaurant-taitel-btn-two"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/apple.png') }}" alt="icon">
-                            </span> I Store</a>
+                            </span> {{$LangMessage->i_store}}</a>
                     </div>
                 </div>
 
@@ -340,6 +339,5 @@
             </div>
         </div>
     </section>
-<!-- App part-end -->
 </main>
 @endsection

@@ -3,6 +3,7 @@ $language = App\Models\Language::get();
 $contact =  App\Models\contact_page::first();
 $section =  App\Models\SectionTitel::first();
 $setting =  App\Models\setting::first();
+$LangMessage =  App\Models\LangMessage::first();
 $cart = session()->get('cart', []);
 $totalPrice = 0;
 @endphp
@@ -99,11 +100,11 @@ $totalPrice = 0;
 
                                 <div class="menu">
                                     <ul>
-                                        <li><a href="{{route('index')}}">Home</a></li>
-                                        <li><a href="{{route('menu')}}">Menu</a></li>
-                                        <li><a href="{{route('about')}}">About Us</a></li>
-                                        <li><a href="{{route('contact')}}">Contact</a></li>
-                                        <li><a href="{{route('blog')}}">Blog</a></li>
+                                        <li><a href="{{route('index')}}">{{$LangMessage->home}}</a></li>
+                                        <li><a href="{{route('menu')}}">{{$LangMessage->menu}}</a></li>
+                                        <li><a href="{{route('about')}}">{{$LangMessage->about_us}}</a></li>
+                                        <li><a href="{{route('contact')}}">{{$LangMessage->contact_us}}</a></li>
+                                        <li><a href="{{route('blog')}}">{{$LangMessage->blog}}</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -176,7 +177,7 @@ $totalPrice = 0;
         
                                             <div class="cart-dropdown-text">
                                                 <div class="text">
-                                                    <h3>My Cart</h3>
+                                                    <h3>{{$LangMessage->my_cart}}</h3>
                                                 </div>
         
                                                 <div class="cart-dropdown-btn">
@@ -202,7 +203,6 @@ $totalPrice = 0;
                                                     $product = App\Models\product::where('status', 'active')->whereIn('id', [$item['product_id']])->first();
                                                     $total = 0;
                                                     $calculate = 0;
-                                                    $total = ($product['price'] * $item['qty']);
                                                 @endphp
         
                                                 <div class="cart-dropdown-item-box">
@@ -214,7 +214,7 @@ $totalPrice = 0;
                                                             <a href="{{route('menu-detils',$product->slug)}}">
                                                                 <h3>{{$product->name}}</h3>
                                                             </a>
-                                                            <p>${{$product->price}}</p>
+                                                            <p>{{ $setting->currency_icon }}{{$item['total']}}</p>
                                                         </div>
                                                     </div>
         
@@ -235,7 +235,7 @@ $totalPrice = 0;
                                                         </div>
         
                                                         @php
-                                                            $totalPrice +=$product->price;
+                                                            $totalPrice +=$item['total'];
                                                         @endphp
                                                        
         
@@ -249,16 +249,15 @@ $totalPrice = 0;
                                             <div class="cart-dropdown-sub-total">
                                                 <div class="cart-dropdown-sub-total-item">
                                                     <div class="text">
-                                                        <h3>Subtotal</h3>
+                                                        <h3>{{$LangMessage->subtotal}}</h3>
                                                     </div>
                                                     <div class="text">
-                                                        <h3><a href="#">${{ $totalPrice}}</a></h3>
+                                                        <h3><a href="#">{{ $setting->currency_icon }}{{ $totalPrice}}</a></h3>
                                                     </div>
                                                 </div>
         
                                                 <div class="cart-dropdown-sub-total-btn">
-                                                    <a href="{{route('cartlist')}}" class="main-btn-four">Proceed to
-                                                        Checkout</a>
+                                                    <a href="{{route('cartlist')}}" class="main-btn-four">{{$LangMessage->process_to_checkout}}</a>
                                                 </div>
         
                                             </div>
@@ -278,13 +277,11 @@ $totalPrice = 0;
         
                                         </div>
                                         <span>
-                                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <ellipse cx="13.9997" cy="20.4154" rx="8.16667" ry="4.08333"
-                                                    stroke-width="1.5" stroke-linejoin="round" />
-                                                <circle cx="13.9997" cy="8.16667" r="4.66667" stroke-width="1.5"
-                                                    stroke-linejoin="round" />
-                                            </svg>
+                                            @if(Auth::user()->image)
+                                                <img style="height: 55px; width: 55px; border-radius: 50%;" src="{{asset(Auth::user()->image)}}" alt="img">
+                                            @else
+                                                <img style="height: 55px; width: 55px; border-radius: 50%;" src="{{asset($setting->empty_cart)}}" alt="img">
+                                            @endif
                                         </span>
         
         
@@ -367,8 +364,8 @@ $totalPrice = 0;
 
 
                             <div class="nav-login-btn-main">
-                                <a href="{{route('login')}}" class="main-btn-four">Log In</a>
-                                <a href="{{route('register')}}" class="main-btn">Sign Up</a>
+                                <a href="{{route('login')}}" class="main-btn-four custom-btn">{{$LangMessage->login}}</a>
+                                <a href="{{route('register')}}" class="main-btn">{{$LangMessage->sign_up}}</a>
                             </div>
 
 
@@ -392,7 +389,7 @@ $totalPrice = 0;
                 <div class="p-left">
                     <div class="logo">
                         <a href="{{route('index')}}">
-                            <img src="{{asset($setting->logo)}}" alt="logo">
+                            <img src="{{asset($setting->stiky_logo)}}" alt="logo">
                         </a>
                     </div>
                 </div>
@@ -409,16 +406,16 @@ $totalPrice = 0;
         <nav class="m-nav">
             <button id="nav-cls-btn"><i class="fa-solid fa-xmark"></i></button>
             <div class="logo">
-                <a href="">
-                    <img src="{{asset($setting->logo)}}" alt="logo">
+                <a href="{{route('index')}}">
+                    <img src="{{asset($setting->stiky_logo)}}" alt="logo">
                 </a>
             </div>
             <ul class="nav-links">
-                <li><a href="{{route('index')}}">Home</a></li>
-                <li><a href="{{route('menu')}}">Menu</a></li>
-                <li><a href="{{route('about')}}">About Us</a></li>
-                <li><a href="{{route('contact')}}">Contact</a></li>
-                <li><a href="{{route('blog')}}">Blog</a></li>
+                <li><a href="{{route('index')}}">{{$LangMessage->home}}</a></li>
+                <li><a href="{{route('menu')}}">{{$LangMessage->menu}}</a></li>
+                <li><a href="{{route('about')}}">{{$LangMessage->about_us}}</a></li>
+                <li><a href="{{route('contact')}}">{{$LangMessage->contact_us}}</a></li>
+                <li><a href="{{route('blog')}}">{{$LangMessage->blog}}</a></li>
             </ul>
 
         </nav>

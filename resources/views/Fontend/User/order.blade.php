@@ -72,7 +72,7 @@
 
                             </div>
                             <div class="icon">
-                                <a href="#">
+                                <a href="{{route('user.order.last.week')}}">
                                     Last Week
                                     <span>
                                         <svg width="15" height="18" viewBox="0 0 15 18" fill="none"
@@ -101,7 +101,7 @@
                             <table class=" table w-100 ">
                                 <thead>
                                     <tr>
-                                        <th>Food Name</th>
+                                        <th>OrderId </th>
                                         <th>Date</th>
                                         <th>Amount</th>
                                         <th>Status</th>
@@ -109,254 +109,52 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Eggplant Baked with Cheese</td>
-                                        <td>May 01, 2023</td>
-                                        <td>$100</td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <a href="" class="active">
-                                                    Active
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <button class="view-btn">
-                                                    <span>
-                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M17.6084 11.7904C18.5748 10.7737 18.5748 9.22894 17.6084 8.21222C15.9786 6.49741 13.1794 4.16797 9.99984 4.16797C6.82024 4.16797 4.02108 6.49741 2.39126 8.21222C1.42492 9.22894 1.42492 10.7737 2.39126 11.7904C4.02108 13.5052 6.82024 15.8346 9.99984 15.8346C13.1794 15.8346 15.9786 13.5052 17.6084 11.7904ZM9.99984 12.5013C11.3805 12.5013 12.4998 11.382 12.4998 10.0013C12.4998 8.62059 11.3805 7.5013 9.99984 7.5013C8.61913 7.5013 7.49984 8.62059 7.49984 10.0013C7.49984 11.382 8.61913 12.5013 9.99984 12.5013Z"
-                                                                fill="white" />
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Baked with Cheese</td>
-                                        <td>May 01, 2023</td>
-                                        <td>$100</td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <a href="" class="successful">
-                                                    Successful
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <button class="view-btn">
-                                                    <span>
-                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M17.6084 11.7904C18.5748 10.7737 18.5748 9.22894 17.6084 8.21222C15.9786 6.49741 13.1794 4.16797 9.99984 4.16797C6.82024 4.16797 4.02108 6.49741 2.39126 8.21222C1.42492 9.22894 1.42492 10.7737 2.39126 11.7904C4.02108 13.5052 6.82024 15.8346 9.99984 15.8346C13.1794 15.8346 15.9786 13.5052 17.6084 11.7904ZM9.99984 12.5013C11.3805 12.5013 12.4998 11.382 12.4998 10.0013C12.4998 8.62059 11.3805 7.5013 9.99984 7.5013C8.61913 7.5013 7.49984 8.62059 7.49984 10.0013C7.49984 11.382 8.61913 12.5013 9.99984 12.5013Z"
-                                                                fill="white" />
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Eggplant Baked with Cheese</td>
-                                        <td>May 01, 2023</td>
-                                        <td>$200</td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <a href="" class="successful">
-                                                    Successful
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <button class="view-btn">
-                                                    <span>
-                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M17.6084 11.7904C18.5748 10.7737 18.5748 9.22894 17.6084 8.21222C15.9786 6.49741 13.1794 4.16797 9.99984 4.16797C6.82024 4.16797 4.02108 6.49741 2.39126 8.21222C1.42492 9.22894 1.42492 10.7737 2.39126 11.7904C4.02108 13.5052 6.82024 15.8346 9.99984 15.8346C13.1794 15.8346 15.9786 13.5052 17.6084 11.7904ZM9.99984 12.5013C11.3805 12.5013 12.4998 11.382 12.4998 10.0013C12.4998 8.62059 11.3805 7.5013 9.99984 7.5013C8.61913 7.5013 7.49984 8.62059 7.49984 10.0013C7.49984 11.382 8.61913 12.5013 9.99984 12.5013Z"
-                                                                fill="white" />
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Roasted Steak with Garnish</td>
-                                        <td>May 01, 2023</td>
-                                        <td>$200</td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <a href="" class="successful">
-                                                    Successful
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <button class="view-btn">
-                                                    <span>
-                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M17.6084 11.7904C18.5748 10.7737 18.5748 9.22894 17.6084 8.21222C15.9786 6.49741 13.1794 4.16797 9.99984 4.16797C6.82024 4.16797 4.02108 6.49741 2.39126 8.21222C1.42492 9.22894 1.42492 10.7737 2.39126 11.7904C4.02108 13.5052 6.82024 15.8346 9.99984 15.8346C13.1794 15.8346 15.9786 13.5052 17.6084 11.7904ZM9.99984 12.5013C11.3805 12.5013 12.4998 11.382 12.4998 10.0013C12.4998 8.62059 11.3805 7.5013 9.99984 7.5013C8.61913 7.5013 7.49984 8.62059 7.49984 10.0013C7.49984 11.382 8.61913 12.5013 9.99984 12.5013Z"
-                                                                fill="white" />
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Eggplant Baked with Cheese</td>
-                                        <td>May 01, 2023</td>
-                                        <td>$200</td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <a href="" class="successful">
-                                                    Successful
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <button class="view-btn">
-                                                    <span>
-                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M17.6084 11.7904C18.5748 10.7737 18.5748 9.22894 17.6084 8.21222C15.9786 6.49741 13.1794 4.16797 9.99984 4.16797C6.82024 4.16797 4.02108 6.49741 2.39126 8.21222C1.42492 9.22894 1.42492 10.7737 2.39126 11.7904C4.02108 13.5052 6.82024 15.8346 9.99984 15.8346C13.1794 15.8346 15.9786 13.5052 17.6084 11.7904ZM9.99984 12.5013C11.3805 12.5013 12.4998 11.382 12.4998 10.0013C12.4998 8.62059 11.3805 7.5013 9.99984 7.5013C8.61913 7.5013 7.49984 8.62059 7.49984 10.0013C7.49984 11.382 8.61913 12.5013 9.99984 12.5013Z"
-                                                                fill="white" />
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chicken Skewers with Slices</td>
-                                        <td>May 01, 2023</td>
-                                        <td>$200</td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <a href="" class="successful">
-                                                    Successful
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <button class="view-btn">
-                                                    <span>
-                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M17.6084 11.7904C18.5748 10.7737 18.5748 9.22894 17.6084 8.21222C15.9786 6.49741 13.1794 4.16797 9.99984 4.16797C6.82024 4.16797 4.02108 6.49741 2.39126 8.21222C1.42492 9.22894 1.42492 10.7737 2.39126 11.7904C4.02108 13.5052 6.82024 15.8346 9.99984 15.8346C13.1794 15.8346 15.9786 13.5052 17.6084 11.7904ZM9.99984 12.5013C11.3805 12.5013 12.4998 11.382 12.4998 10.0013C12.4998 8.62059 11.3805 7.5013 9.99984 7.5013C8.61913 7.5013 7.49984 8.62059 7.49984 10.0013C7.49984 11.382 8.61913 12.5013 9.99984 12.5013Z"
-                                                                fill="white" />
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chicken Skewers with Slices</td>
-                                        <td>May 01, 2023</td>
-                                        <td>$200</td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <a href="" class="cancel">
-                                                    Cancel
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <button class="view-btn">
-                                                    <span>
-                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M17.6084 11.7904C18.5748 10.7737 18.5748 9.22894 17.6084 8.21222C15.9786 6.49741 13.1794 4.16797 9.99984 4.16797C6.82024 4.16797 4.02108 6.49741 2.39126 8.21222C1.42492 9.22894 1.42492 10.7737 2.39126 11.7904C4.02108 13.5052 6.82024 15.8346 9.99984 15.8346C13.1794 15.8346 15.9786 13.5052 17.6084 11.7904ZM9.99984 12.5013C11.3805 12.5013 12.4998 11.382 12.4998 10.0013C12.4998 8.62059 11.3805 7.5013 9.99984 7.5013C8.61913 7.5013 7.49984 8.62059 7.49984 10.0013C7.49984 11.382 8.61913 12.5013 9.99984 12.5013Z"
-                                                                fill="white" />
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Chicken Skewers with Slices</td>
-                                        <td>May 01, 2023</td>
-                                        <td>$200</td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <a href="" class="cancel">
-                                                    Cancel
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="delete-action ">
-                                                <button class="view-btn">
-                                                    <span>
-                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M17.6084 11.7904C18.5748 10.7737 18.5748 9.22894 17.6084 8.21222C15.9786 6.49741 13.1794 4.16797 9.99984 4.16797C6.82024 4.16797 4.02108 6.49741 2.39126 8.21222C1.42492 9.22894 1.42492 10.7737 2.39126 11.7904C4.02108 13.5052 6.82024 15.8346 9.99984 15.8346C13.1794 15.8346 15.9786 13.5052 17.6084 11.7904ZM9.99984 12.5013C11.3805 12.5013 12.4998 11.382 12.4998 10.0013C12.4998 8.62059 11.3805 7.5013 9.99984 7.5013C8.61913 7.5013 7.49984 8.62059 7.49984 10.0013C7.49984 11.382 8.61913 12.5013 9.99984 12.5013Z"
-                                                                fill="white" />
-                                                        </svg>
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @foreach ($order as $order)
+                                        <tr>
+                                            <td><a href="{{route('user.order.detils',$order->id)}}"> #{{$order->id}}</a></td>
+                                            <td>{{$order->created_at->format('M d, Y h:i A')}}</td>
+                                            <td>{{ $setting->currency_icon }}{{$order->grand_total}}</td>
+                                            <td>
+                                                <div class="delete-action ">
+                                                    @if($order->order_status == 1)
+                                                        <a href="" class="cancel">
+                                                            Pending
+                                                        </a>
+                                                    @endif
+                                                    @if($order->order_status == 2)
+                                                        <a href="" class="active">
+                                                            Processing
+                                                        </a>
+                                                    @endif
+                                                    @if($order->order_status == 3)
+                                                        <a href="" class="successful">
+                                                            Confirmed
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                            </td> 
+                                            <td>
+                                                <div class="delete-action ">
+                                                    <a href="{{route('user.order.detils',$order->id)}}">
+                                                        <button class="view-btn">
+                                                            <span>
+                                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M17.6084 11.7904C18.5748 10.7737 18.5748 9.22894 17.6084 8.21222C15.9786 6.49741 13.1794 4.16797 9.99984 4.16797C6.82024 4.16797 4.02108 6.49741 2.39126 8.21222C1.42492 9.22894 1.42492 10.7737 2.39126 11.7904C4.02108 13.5052 6.82024 15.8346 9.99984 15.8346C13.1794 15.8346 15.9786 13.5052 17.6084 11.7904ZM9.99984 12.5013C11.3805 12.5013 12.4998 11.382 12.4998 10.0013C12.4998 8.62059 11.3805 7.5013 9.99984 7.5013C8.61913 7.5013 7.49984 8.62059 7.49984 10.0013C7.49984 11.382 8.61913 12.5013 9.99984 12.5013Z"
+                                                                        fill="white" />
+                                                                </svg>
+                                                            </span>
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    
                                 </tbody>
                             </table>
-
-                            <div class="row blog-mt-48px">
-                                <div class="col-lg-7 ">
-                                    <div class="next-prev-btn">
-                                        <ul>
-                                            <li><a href="#"> <span><svg width="24" height="24" viewBox="0 0 24 24"
-                                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M10 8L6 12M6 12L10 16M6 12L18 12"
-                                                                stroke="#F01543" stroke-width="1.5"
-                                                                stroke-linecap="round" stroke-linejoin="round">
-                                                            </path>
-                                                        </svg></span> </a></li>
-                                            <li><a href="#" class="active"> Next Page <span><svg width="24"
-                                                            height="24" viewBox="0 0 24 24" fill="none"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M14 16L18 12M18 12L14 8M18 12L6 12"
-                                                                stroke="white" stroke-width="1.5"
-                                                                stroke-linecap="round" stroke-linejoin="round">
-                                                            </path>
-                                                        </svg></span> </a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-5">
-                                    <nav aria-label="...">
-                                        <ul class="pagination">
-                                            <li class="page-item"><a class="page-link" href="#">Page</a></li>
-                                            <li class="page-item active " aria-current="page">
-                                                <span class="page-link">2</span>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">of 10</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
+                            {{ $data->links() }}
                         </div>
                     </div>
                   

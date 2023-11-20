@@ -1,12 +1,7 @@
 
-
-
-
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-
 
 
 use App\Http\Controllers\WEB\Admin\AdminOrderController;
@@ -110,7 +105,7 @@ use App\Http\Controllers\WEB\Admin\FooterController;
 use App\Http\Controllers\WEB\Admin\FooterSocialLinkController;
 use App\Http\Controllers\WEB\Admin\FooterLinkController;
 use App\Http\Controllers\WEB\Admin\AboutUsController;
-
+use App\Http\Controllers\WEB\Admin\FontendLanguageController;
 use App\Http\Controllers\WEB\Admin\PrivecyController;
 use App\Http\Controllers\WEB\Admin\SEOSetupController;
 
@@ -207,6 +202,8 @@ Route::post('/contact/message', [HomeController::class,'contactMessage'])->name(
 Route::post('/product/review', [HomeController::class,'ProductReview'])->name('product.review');
 Route::post('/blog/comment', [HomeController::class,'blogComment'])->name('blog.comment');
 Route::get('/search', [HomeController::class,'search'])->name('search');
+Route::get('/terms/of/service', [HomeController::class,'tremsOfServices'])->name('trems.of.service');
+Route::get('/privacy/policy', [HomeController::class,'privacyPolicy'])->name('privacy.policy');
 
 
 
@@ -216,6 +213,9 @@ Route::get('/add-to-cart/{product}', [CartController::class,'addToCart'])->name(
 Route::post('/cart/add', [CartController::class,'addProduct'])->name('cart.add.detils');
 Route::get('/cart', [CartController::class,'index'])->name('cart.index');
 Route::get('/cart/remove/{product_id}', [CartController::class,'removeProduct'])->name('cart.remove');
+Route::get('/cart/increment/{product_id}', [CartController::class,'cartIncrement'])->name('cart.increment');
+Route::get('/cart/decrement/{product_id}', [CartController::class,'cartDecremet'])->name('cart.decrement');
+Route::post('/cart/update/{product_id}', [CartController::class,'cartUpdate'])->name('update.order.cart');
 
 Route::get('/wishlist/add', [WishlistController::class,'index'])->name('wishlist.index');
 Route::get('/wishlist/add/{product_id}',[WishlistController::class,'add'])->name('wishlist.add');
@@ -260,6 +260,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'user'], function () {
     Route::post('/add/new/address', [UserDashboardController::class, 'addNewAddress'])->name('add.new.address');
     Route::get('/remove/address/{id}', [UserDashboardController::class, 'removeAddress'])->name('remove.address');
     Route::get('/order', [UserDashboardController::class, 'order'])->name('user.order');
+    Route::get('/order/last/week', [UserDashboardController::class, 'orderWeekly'])->name('user.order.last.week');
+    Route::get('/order/detils/{id}', [UserDashboardController::class, 'orderDetils'])->name('user.order.detils');
     Route::get('/wishlist', [UserDashboardController::class, 'wishlist'])->name('user.wishlist');
     Route::get('/review', [UserDashboardController::class, 'review'])->name('user.review');
     Route::get('/change-password', [UserDashboardController::class, 'changePassword'])->name('user.change.password');
@@ -306,6 +308,7 @@ Route::group(['middleware' =>'admin'], function () {
         Route::get('/inresturent/order',[OrderController::class,'inresturentOrder'])->name('inresturent.order');
         Route::get('/order/detils/{id}',[OrderController::class,'OrderDetils'])->name('order.detils');
         Route::get('/order/delete/{id}',[OrderController::class,'OrderDelete'])->name('order.delete');
+        Route::post('/order/change/{id}',[OrderController::class,'OrderChange'])->name('order.change');
         //***************** Category Route ***************************
         Route::get('/category-list',[CategoryController::class,'index'])->name('categories');
         Route::get('/category-create',[CategoryController::class,'create'])->name('category.create');
@@ -469,6 +472,13 @@ Route::group(['middleware' =>'admin'], function () {
          //*************** Seo Setup Route **********
          Route::get('/seo-setup-index',[SEOSetupController::class,'index'])->name('admin.seo.setup.index');
          Route::post('seo-setup-update/{id}',[SEOSetupController::class,'SEOUpdate'])->name('page.seo.update');
+          //*************** Language Route **********
+        Route::get('/language-status/{id}',[LanguageController::class,'status'])->name('language-status');
+        Route::get('/language-delete/{id}',[LanguageController::class,'delete'])->name('language.delete');
+        Route::resource('languages',LanguageController::class);
+        //***************Fontend Language Route **********
+        Route::get('/fontend/language/{langCode}',[FontendLanguageController::class,'index'])->name('fontend.language');
+        Route::post('/fontend/language/update/{id}',[FontendLanguageController::class,'update'])->name('fontend.language.update');
 
 
         ######################################################################################################################################
@@ -522,11 +532,7 @@ Route::group(['middleware' =>'admin'], function () {
         Route::post('testimonial-update-language/{id}',[TestimonialController::class,'updateLanguage'])->name('testimonial.language-update');
         Route::resource('testimonials',TestimonialController::class);
 
-        //*************** Language Route **********
-        Route::get('/language-status/{id}',[LanguageController::class,'status'])->name('language-status');
-        Route::get('/language-delete/{id}',[LanguageController::class,'delete'])->name('language.delete');
-        Route::resource('languages',LanguageController::class);
-
+       
         //*************** Why choose-us Route **********
         Route::get('whychooseus.language.edit/{langCode}',[WhyChooseUsController::class,'editLanguage'])->name('whychooseus.language.edit');
         Route::post('whychooseus.language-update/{id}',[WhyChooseUsController::class,'updateLanguage'])->name('whychooseus.language-update');
@@ -968,7 +974,7 @@ Route::resource('User-address',AddressController::class);
 
 
 //................Payment.............//
-Route::post('/paypal', [PaymentController::class, 'payWithpaypal'])->name('paypal');
+Route::get('/paypal', [PaymentController::class, 'payWithpaypal'])->name('paypal');
 Route::get('/paypal-payment-success-for-product', [PaymentController::class, 'paypalPaymentSuccess'])->name('paypal-payment-success');
 Route::get('/paypal-payment-cancled-for-product', [PaymentController::class, 'paypalPaymentCancled'])->name('paypal-payment-cancled');
 Route::get('/status', [PaymentController::class, 'getPaymentStatus'])->name('status');
@@ -978,7 +984,7 @@ Route::post('/pay-with-stripe', [PaymentController::class, 'payWithStripe'])->na
 //..................Razorpay Payment........................//
 Route::post('/razorpay-payment', [PaymentController::class, 'payWithRazorpay'])->name('pay-with-razorpay');
 //..................Flutterwave Payment........................//
-Route::post('/flutterwave-payment', [PaymentController::class, 'paywithFlutterwave'])->name('pay-with-flutterwave');
+Route::post('/pay-with-flutterwave', [PaymentController::class, 'paywithFlutterwave'])->name('pay-with-flutterwave');
 //..................Paystack Payment........................//
 Route::post('/paystack-payment', [PaymentController::class, 'paywithPaystack'])->name('pay-with-paystack');
 //..................Instamojo Payment........................//

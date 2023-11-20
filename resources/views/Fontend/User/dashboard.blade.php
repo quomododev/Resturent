@@ -79,7 +79,7 @@
                                         </span>
                                     </div>
                                     <div class="dashboard-item-text">
-                                        <h3>125+</h3>
+                                        <h3>{{$totalOrder}}</h3>
                                         <p>Total Orders</p>
                                     </div>
                                 </div>
@@ -108,7 +108,7 @@
                                         </span>
                                     </div>
                                     <div class="dashboard-item-text">
-                                        <h3>125+</h3>
+                                    <h3>{{$totalOrderComplte}}</h3>
                                         <p>Delivery Completed</p>
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@
                                         </span>
                                     </div>
                                     <div class="dashboard-item-text">
-                                        <h3>125+</h3>
+                                        <h3>{{$totalOrderNew}}</h3>
                                         <p>New Orders</p>
                                     </div>
                                 </div>
@@ -191,7 +191,7 @@
                         </div>
                     @endforeach
                     </div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-lg-12">
                             <div class="delete-account">
                                 <div class="delete-account-text">
@@ -204,7 +204,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

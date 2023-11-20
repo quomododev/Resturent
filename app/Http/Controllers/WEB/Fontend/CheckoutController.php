@@ -25,6 +25,8 @@ use App\Models\razorpay_payment;
 use App\Models\paystack;
 use App\Models\flutterwave;
 use App\Models\stripe_payment;
+use App\Models\LangMessage;
+use App\Models\Shipping;
 use App\Models\contact_page as ContactUs;
 use Validator;
 use Auth;
@@ -33,6 +35,7 @@ class CheckoutController extends Controller
 {
     public function delivery(Request $request){
         if(Auth::user()){
+            $data['LangMessage'] =  LangMessage::first();
             $data['seo_setting'] =  seo_setting::where('id',12)->first();
             $data['setting'] =  setting::first();
             $data['app'] =  MobileApp::first();
@@ -41,6 +44,7 @@ class CheckoutController extends Controller
             $data['countries'] = country::all();
             $data['address'] = addresse::with('GetCountry','GetState','GetCity')->where('user_id',Auth::user()->id)->get();
             $data['cart'] = $request->session()->get('cart', []);
+            $data['vatCharge'] = $data['setting']->vat_rate;
             $data['deleveryCharge'] = 0;
             $check = ApplyCoupon::with('coupon')->where(['user_id' => auth::user()->id])->first();
             if($check){
@@ -62,6 +66,7 @@ class CheckoutController extends Controller
 
     public function pickUp(Request $request){
         if(Auth::user()){
+            $data['LangMessage'] =  LangMessage::first();
             $data['seo_setting'] =  seo_setting::where('id',12)->first();
             $data['setting'] =  setting::first();
             $data['app'] =  MobileApp::first();
@@ -90,6 +95,7 @@ class CheckoutController extends Controller
 
     public function inResturent(Request $request){
         if(Auth::user()){
+            $data['LangMessage'] =  LangMessage::first();
             $data['seo_setting'] =  seo_setting::where('id',12)->first();
             $data['setting'] =  setting::first();
             $data['app'] =  MobileApp::first();
@@ -168,6 +174,7 @@ class CheckoutController extends Controller
 
     public function processOrder(Request $request){
         if(Auth::user()){
+            
             $rules = [
                 'delevery_day'=>'required',
                 'delevery_time'=>'required',
@@ -177,6 +184,23 @@ class CheckoutController extends Controller
                 'delevery_time.required' => 'Delevery Time is required',
             ];
             $this->validate($request, $rules,$customMessages);
+
+            if( $request->type = 'delivery'){
+                $findAddress = addresse::where('id',$request->address_id)->first();
+                if($findAddress){
+                    $shipping = Shipping::where('city_id',$findAddress->city_id)->first();
+                    if($shipping){
+                        $delevery_charge = $shipping->shipping_fee;
+                    }else{
+                        $delevery_charge = 0;
+                    }
+                    
+                }else{
+                    $delevery_charge = 0;
+                }
+            }else{
+                $delevery_charge = 0;
+            }
             $check = Cart::where(['user_id' => auth::user()->id])->first();
             if($check){
                 $cart = Cart::find($check->id);
@@ -187,10 +211,10 @@ class CheckoutController extends Controller
                 $cart->delevery_day = $request->delevery_day;
                 $cart->delevery_time_id = $request->delevery_time;
                 $cart->discount_amount = $request->discount_amount;
-                $cart->delevery_charge = $request->delevery_charge;
+                $cart->delevery_charge = $delevery_charge;
                 $cart->vat_charge = $request->vat_charge;
                 $cart->total = $request->total;
-                $cart->grand_total = $request->grand_total;
+                $cart->grand_total = $request->grand_total + $delevery_charge;
                 $cart->save();
             }else{
                 $cart = new Cart();
@@ -204,7 +228,7 @@ class CheckoutController extends Controller
                 $cart->delevery_charge = $request->delevery_charge;
                 $cart->vat_charge = $request->vat_charge;
                 $cart->total = $request->total;
-                $cart->grand_total = $request->grand_total;
+                $cart->grand_total = $request->grand_total + $delevery_charge;
                 $cart->save();
 
             }
@@ -219,6 +243,7 @@ class CheckoutController extends Controller
     }
 
     public function selectPayment(Request $request){
+        $data['LangMessage'] =  LangMessage::first();
         $data['razorpay'] = razorpay_payment::first();
         $data['paystack'] = paystack::first();
         $data['flutterwave'] = flutterwave::first();
@@ -230,12 +255,14 @@ class CheckoutController extends Controller
         $data['section'] =  SectionTitel::first();
         $data['cart_data'] =  Cart::where('user_id',auth::user()->id)->first();
         $data['cart'] = $request->session()->get('cart', []);
+        $cart =  Cart::where('user_id',Auth::user()->id)->first();
+        $data['order_total'] =  $cart->grand_total;
         return view('Fontend.Pages.select_payment',$data);
     }
 
     public function checkOut(Request $request){
         $cart_detils = Cart::where(['user_id' => auth::user()->id])->first();
-        $cartData = $request->session()->get('cart', []);
+         $cartData = $request->session()->get('cart', []);
     
         $payment_method = "CashOnDelivery";
         $payment_status = "Pending";
@@ -265,6 +292,7 @@ class CheckoutController extends Controller
                     'size' => $item['size'],
                     'addons' => $item['addons'],
                     'qty' => $item['qty'],
+                    'total' => $item['total'],
                 ]);
             }
 

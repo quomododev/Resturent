@@ -1,7 +1,7 @@
 @extends('Fontend.Layouts.master2')
 
 @section('title')
-    <title>{{$setting->app_name}} - Check-Out Page</title>
+    <title>{{$setting->app_name}} - {{$LangMessage->shopping_cart}}</title>
 @endsection
 
 @section('meta')
@@ -20,12 +20,12 @@
             <div class="row  ">
                 <div class="col-lg-12">
                     <div class="inner-banner-head">
-                        <h1>Shopping Cart</h1>
+                        <h1>{{$LangMessage->shopping_cart}}</h1>
                     </div>
 
                     <div class="inner-banner-item">
                         <div class="left">
-                            <a href="{{route('index')}}">Home</a>
+                            <a href="{{route('index')}}">{{$LangMessage->home}}</a>
                         </div>
                         <div class="icon">
                             <span>
@@ -37,7 +37,7 @@
                             </span>
                         </div>
                         <div class="left">
-                            <span>Shopping Cart</span>
+                            <span>{{$LangMessage->shopping_cart}}</span>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                                 <div class="col-lg-12">
                                     <div class="shopping-cart-address-btn-main">
                                         <div class="shopping-cart-address-taitel">
-                                            <h4>Select Addresses</h4>
+                                            <h4> {{$LangMessage->select_addresses}}</h4>
                                         </div>
 
 
@@ -76,7 +76,7 @@
                                                         d="M9.9974 6.66797V13.3346M13.3307 10.0013H6.66406M9.9974 18.3346C14.5998 18.3346 18.3307 14.6037 18.3307 10.0013C18.3307 5.39893 14.5998 1.66797 9.9974 1.66797C5.39502 1.66797 1.66406 5.39893 1.66406 10.0013C1.66406 14.6037 5.39502 18.3346 9.9974 18.3346Z"
                                                         stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
-                                            </span> Add new
+                                            </span> {{$LangMessage->add_new}}
                                         </button>
                                     </div>
 
@@ -98,11 +98,11 @@
                                                     <div class="col-lg-12">
                                                         <div class="shopping-cart-new-address-top-item">
                                                             <div class="shopping-cart-new-address-taitel">
-                                                                <h4>Add new Address</h4>
+                                                                <h4>{{$LangMessage->add_new_address}}</h4>
                                                             </div>
 
                                                             <div class="shopping-cart-new-address-top-btn">
-                                                                <a href="shopping-cart-address.html">
+                                                                <a href="{{route('checkout')}}">
                                                                     <span>
                                                                         <svg width="24" height="24" viewBox="0 0 24 24"
                                                                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,20 +114,20 @@
                                                                         </svg>
                                                                     </span>
 
-                                                                    Back
+                                                                    {{$LangMessage->back}}
                                                                 </a>
                                                             </div>
                                                         </div>
                                                         <div class="shopping-cart-new-address-from">
                                                             <div class="shopping-cart-new-address-from-item">
                                                                 <div class="shopping-cart-new-address-from-inner">
-                                                                    <label class="form-label">First Name</label>
+                                                                    <label class="form-label">{{$LangMessage->first_name}}</label>
                                                                     <input type="text" class="form-control"
                                                                         id="exampleFormControlInput7" name="fname" value="{{old('fname')}}" >
                                                                 </div>
                                                                 <div class="shopping-cart-new-address-from-inner">
                                                                     <label for="exampleFormControlInput1"
-                                                                        class="form-label">Last Name</label>
+                                                                        class="form-label">{{$LangMessage->last_name}}</label>
                                                                     <input type="text" class="form-control"
                                                                         id="exampleFormControlInput8"  name="lname" value="{{old('lname')}}" >
                                                                 </div>
@@ -135,44 +135,44 @@
                                                             <div class="shopping-cart-new-address-from-item">
                                                                 <div class="shopping-cart-new-address-from-inner">
                                                                     <label for="exampleFormControlInput1"
-                                                                        class="form-label">Phone</label>
+                                                                        class="form-label">{{$LangMessage->phone}}</label>
                                                                     <input type="text" class="form-control"
                                                                         id="exampleFormControlInput9"  name="phone" value="{{old('phone')}}" >
                                                                 </div>
                                                                 <div class="shopping-cart-new-address-from-inner">
                                                                     <label for="exampleFormControlInput1"
-                                                                        class="form-label">Email</label>
+                                                                        class="form-label">{{$LangMessage->email}}</label>
                                                                     <input type="email" class="form-control"
                                                                         id="exampleFormControlInput10" name="email" value="{{old('email')}}" >
                                                                 </div>
                                                             </div>
                                                             <div class="shopping-cart-new-address-from-item">
                                                                 <div class="shopping-cart-new-address-from-inner">
-                                                                    <label class="form-label">Country</label>
+                                                                    <label class="form-label">{{$LangMessage->country}}</label>
                                                                     <select class="form-select" name="country_id" id="country" aria-label="Default select example">
-                                                                        <option value="" aria-readonly="true">Select Country</option>
+                                                                        <option value="" aria-readonly="true">{{$LangMessage->select_country}}</option>
                                                                         @foreach ($countries as $country)
                                                                             <option value="{{ $country->id }}">{{ $country->name }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
                                                                 <div class="shopping-cart-new-address-from-inner">
-                                                                    <label class="form-label">State</label>
+                                                                    <label class="form-label">{{$LangMessage->state}}</label>
                                                                     <select class="form-select" name="state_id" id="state" aria-label="Default select example">
-                                                                        <option value="">Select State</option>
+                                                                        <option value="">{{$LangMessage->select_state}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="shopping-cart-new-address-from-item">
                                                                 <div class="shopping-cart-new-address-from-inner">
-                                                                    <label for="exampleFormControlInput1" class="form-label">City</label>
+                                                                    <label for="exampleFormControlInput1" class="form-label">{{$LangMessage->city}}</label>
                                                                     <select class="form-select" name="city_id" id="city" aria-label="Default select example">
-                                                                        <option value="">Select City</option>
+                                                                        <option value="">{{$LangMessage->select_city}}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="shopping-cart-new-address-from-inner">
                                                                     <label for="exampleFormControlInput1"
-                                                                        class="form-label">Address</label>
+                                                                        class="form-label">{{$LangMessage->address}}</label>
                                                                     <input type="text" class="form-control"
                                                                         id="exampleFormControlInput11" name="address" value="{{old('address')}}" >
                                                                 </div>
@@ -183,20 +183,20 @@
                                                                         <input class="form-check-input" type="checkbox" value="1"
                                                                             id="flexCheckDefault" name="home">
                                                                         <label class="form-check-label" for="flexCheckDefault">
-                                                                            Home
+                                                                            {{$LangMessage->home}}
                                                                         </label>
                                                                     </div>
                                                                     <div class="form-check">
                                                                         <input class="form-check-input" type="checkbox" value="1"
                                                                             id="flexCheckDefault1" name="office">
                                                                         <label class="form-check-label" for="flexCheckDefault1">
-                                                                            Office
+                                                                            {{$LangMessage->office}}
                                                                         </label>
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="check-btn-two">
-                                                                    <button type="submit" class="main-btn-four"> Save now</button>
+                                                                    <button type="submit" class="main-btn-four">{{$LangMessage->save_now}}</button>
                                                                 </div>
 
                                                             </div>
@@ -218,8 +218,8 @@
                                         <div class="shopping-cart-address-one-item">
                                             <div class="text">
                                                 <h4>
-                                                    <input class="form-check-input" required type="radio" value="1" id="flexCheckDefault" value="{{old('address_id')}}" name="address_id">
-                                                    Address #{{++$index}}</h4>
+                                                    <input class="form-check-input" required type="radio" value="{{$addres->id}}" id="flexCheckDefault" value="{{old('address_id')}}" name="address_id">
+                                                    {{$LangMessage->address}} #{{++$index}}</h4>
                                             </div>
                                             <div class="delet-btn">
                                                 <a href="{{route('remove.address',$addres->id)}}">
@@ -237,20 +237,20 @@
                                         </div>
 
 
-                                        <address>Full Name :<b>{{$addres->name}}</b>
-                                            <br>Email :
+                                        <address>{{$LangMessage->first_name}} & {{$LangMessage->last_name}} :<b>{{$addres->name}}</b>
+                                            <br>{{$LangMessage->email}} :
                                             <a href="mailto:{{$addres->email}}"><b>{{$addres->email}}</b></a>
-                                            <br>Phone
+                                            <br>{{$LangMessage->phone}}
                                             <a href="tel:{{$addres->phone}}"><b>{{$addres->phone}}</b>
                                             </a>
 
-                                            <br>Country :
+                                            <br>{{$LangMessage->country}} :
                                             <a href="#"><b>{{$addres->GetCountry->name}}</b></a>
-                                            <br>State :
+                                            <br>{{$LangMessage->state}} :
                                             <a href="#"><b>{{$addres->GetState->name}}</b></a>
-                                            <br>City :
+                                            <br>{{$LangMessage->city}} :
                                             <a href="#"><b>{{$addres->GetCity->name}}</b></a>
-                                            <br>Address :
+                                            <br>{{$LangMessage->address}} :
                                             <a href="#"> <b>{{$addres->address}}</b></a>
                                         </address>
                                         
@@ -268,18 +268,18 @@
                                         <div class="delivery-from">
 
                                             <div class="delivery-text">
-                                                <h4>Perfect Time for Delivery</h4>
+                                                <h4>{{$LangMessage->perfect_time_for_delivery}}</h4>
                                             </div>
                                             <div class="delivery-from-item">
                                                 <select class="form-select" aria-label="Default select example" required name="delevery_day">
-                                                    <option value="today" selected="">Today</option>
-                                                    <option value="tomorrow">Tomorrow</option>
+                                                    <option value="today" selected="">{{$LangMessage->today}}</option>
+                                                    <option value="tomorrow">{{$LangMessage->tomorrow}}</option>
                                                 </select>
                                             </div>
                                             <div class="delivery-from-item delivery-from-item-two ">
-                                                <label for="exampleFormControlInput1" class="form-label">Time Schedule</label>
+                                                <label for="exampleFormControlInput1" class="form-label">{{$LangMessage->time_schedule}}</label>
                                                 <select class="form-select" aria-label="Default select example" required name="delevery_time">
-                                                    <option disabled>Select Time Schedule</option>
+                                                    <option disabled>{{$LangMessage->select_time_schedule}}</option>
                                                     @foreach ($slots as $slot)
                                                         <option value="{{$slot->id}}">{{$slot->slot}}</option>
                                                     @endforeach
@@ -293,7 +293,7 @@
                         <div class="col-lg-5 pl-27px">
                             <div class="cart-summary-box">
                                 <div class="cart-summary-box-text">
-                                    <h3>Cart Summary</h3>
+                                    <h3>{{$LangMessage->cart_summary}}</h3>
                                 </div>
 
                                 <div class="cart-summary-box-top-btn">
@@ -313,7 +313,7 @@
                                                     </svg>
                                                 </span>
 
-                                                Delivery
+                                                {{$LangMessage->delivery}}
                                             </a></li>
 
                                         <li> <a href="{{route('pickup')}}" class="top-btn-two">
@@ -332,7 +332,7 @@
                                                     </svg>
                                                 </span>
 
-                                                Pick Up
+                                                {{$LangMessage->pick_up}}
                                             </a></li>
 
                                         <li>
@@ -352,7 +352,7 @@
                                                     </svg>
                                                 </span>
 
-                                                In Restaurant
+                                                {{$LangMessage->in_restaurant}}
                                             </a>
                                         </li>
                                     </ul>
@@ -382,22 +382,20 @@
                                                         <h4>{{ $product['name'] }}</h4>
                                                         <h5>
                                                             @if($item['size'])
-                                                                <span>Size :</span>
+                                                                <span>{{$LangMessage->size}} :</span>
                                                             @endif
                                                             @foreach ($item['size'] as $size => $price)
                                                                 {{ $size }}
-                                                                @php $total = $total + ($price * $item['qty']) @endphp
                                                             @endforeach
                                                         </h5>
                                                         @if (is_array($item['addons']))
                                                         <p>
                                                             @if($item['addons'])
-                                                            <span>Addons:</span>
+                                                            <span>{{$LangMessage->addons}}:</span>
                                                             @endif
                                                             @foreach ($item['addons'] as $addonId => $quantity)
                                                                     @php
                                                                         $addonsDb = App\Models\OptionalItem::whereIn('id', [$addonId])->get();
-                                                                        $calculate += ($addonsDb->first()->price * $quantity);
                                                                     @endphp
                                                                     @if ($addonsDb->isNotEmpty())
                                                                         {{ $addonsDb->first()->name }}</span>| 
@@ -410,7 +408,7 @@
                                                         <h5>
                                                             <div class="tabel-text">
                                                                 @if ($product)
-                                                                    <h6><strong>{{ $setting->currency_icon }}{{ $total = $total +$calculate }}</strong></h6>
+                                                                    <h6><strong>{{ $setting->currency_icon }}{{ $total = $item['total'] }}</strong></h6>
                                                                 @endif
                                                             </div>
                                                         </h5>
@@ -418,13 +416,13 @@
                                                 </div>
                                             </a>
                                         </div>
-                                        @php $subtotal += $total + $calculate; @endphp
+                                        @php $subtotal += $total @endphp
                                     @endforeach
                                 </div>
 
                                 <div class="apply-coupon">
                                     <div class="apply-coupon-taitel">
-                                        <h4>Apply Coupon</h4>
+                                        <h4>{{$LangMessage->apply_coupon}}</h4>
                                     </div>
                                     <form action="{{route('apply.coupon')}}" method="POST" >
                                         @csrf
@@ -434,7 +432,7 @@
                                                     placeholder="Coupon">
                                             </div>
                                             <div class="apply-coupon-btn-two">
-                                                <button type="submit" class="coupon-btn">Apply</button>
+                                                <button type="submit" class="coupon-btn">{{$LangMessage->apply}}</button>
                                             </div>
                                         </div>
                                     </form>
@@ -442,34 +440,39 @@
                                     <div class="apply-coupon-box">
                                         <div class="shopping-cart-list">
                                             <div class="shopping-cart-list-text">
-                                                <h4>Subtotal</h4>
+                                                <h4>{{$LangMessage->subtotal}}</h4>
                                                 <a href="#">{{ $setting->currency_icon }}{{$subtotal }}</a>
                                             </div>
                                             <input type="hidden" name="total" value="{{$subtotal }}">
                                             <div class="shopping-cart-list-text">
-                                                <h4>Discount</h4>
+                                                <h4>{{$LangMessage->discount}}</h4>
                                                 <a href="#">-{{ $setting->currency_icon }}{{$subtotal * $discount }}</a>
                                             </div>
                                             <input type="hidden" name="discount_amount" value="{{$subtotal * $discount }}">
                                             <div class="shopping-cart-list-text">
-                                                <h4>Delivery Charges</h4>
-                                                <a href="#">+{{ $setting->currency_icon }}{{$deleveryCharge }}</a>
+                                                <h4>{{$LangMessage->delivery_charges}}</h4>
+                                                <a href="#">+{{ $setting->currency_icon }}{{$deleveryCharge}}</a>
+                                            </div>
+                                            
+                                            <div class="shopping-cart-list-text">
+                                                <h4>{{$LangMessage->vat}}</h4>
+                                                <a href="#">+{{ $setting->currency_icon }}{{$vatChrg =  $subtotal * $vatCharge}}</a>
                                             </div>
                                             <input type="hidden" name="delevery_charge" value="{{$deleveryCharge }}">
-                                            <input type="hidden" name="vat_charge" value="0">
+                                            <input type="hidden" name="vat_charge" value="{{$vatChrg}}">
                                             <input type="hidden" name="type" value="delivery">
                                         </div>
                                         <div class="shopping-cart-list shopping-cart-list-btm ">
                                             <div class="shopping-cart-list-text">
-                                                <h4>Grand total</h4>
-                                                <a href="#">{{ $setting->currency_icon }}{{$grand_total = (($subtotal-($subtotal * $discount))+$deleveryCharge) }}</a>
+                                                <h4>{{$LangMessage->grand_total}}</h4>
+                                                <a href="#">{{ $setting->currency_icon }}{{$grand_total = (($subtotal-($subtotal * $discount))+$deleveryCharge+$vatChrg) }}</a>
                                             </div>
                                             <input type="hidden" name="grand_total" value="{{$grand_total}}">
                                         </div>
 
                                         <div class="shopping-cart-list-btn">
                                             <button type="submit" class="main-btn-six">
-                                                Process Order
+                                                {{$LangMessage->process_order}}
                                                 <span>
                                                     <svg width="14" height="10" viewBox="0 0 14 10" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -504,39 +507,39 @@
 
 
     <!-- Shopping Cart end  -->
-    <!-- App part-start -->
-    <section class="restaurant">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="restaurant-taitel">
-                        <h2>{{ $app->titel }}</h2>
+   <!-- App part-start -->
+   <section class="restaurant">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="restaurant-taitel">
+                    <h2>{{ $app->titel }}</h2>
 
-                        <h4>{!! $app->description !!}</h4>
-                    </div>
-
-                    <div class="restaurant-taitel-btn">
-                        <a href="{{ $app->play_store }}"> <span>
-                                <img src="{{asset('fontend/assets/images/icon/Google_Play.png') }}" alt="icon">
-                            </span> Google Play</a>
-                        <a href="{{ $app->i_store }}" class=" restaurant-taitel-btn-two"> <span>
-                                <img src="{{asset('fontend/assets/images/icon/apple.png') }}" alt="icon">
-                            </span> I Store</a>
-                    </div>
+                    <h4>{!! $app->description !!}</h4>
                 </div>
 
+                <div class="restaurant-taitel-btn">
+                    <a href="{{ $app->play_store }}"> <span>
+                            <img src="{{asset('fontend/assets/images/icon/Google_Play.png') }}" alt="icon">
+                        </span> {{$LangMessage->google_play}}</a>
+                    <a href="{{ $app->i_store }}" class=" restaurant-taitel-btn-two"> <span>
+                            <img src="{{asset('fontend/assets/images/icon/apple.png') }}" alt="icon">
+                        </span> {{$LangMessage->i_store}}</a>
+                </div>
+            </div>
 
-                <div class="col-lg-6" data-aos="fade-left">
-                    <div class="restaurant-img-main">
-                        <div class="restaurant-img">
-                            <img src="{{asset($app->image)}}" alt="img">
-                        </div>
+
+            <div class="col-lg-6" data-aos="fade-left">
+                <div class="restaurant-img-main">
+                    <div class="restaurant-img">
+                        <img src="{{asset($app->image)}}" alt="img">
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- App part-end -->
+    </div>
+</section>
+<!-- App part-end -->
 </main>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

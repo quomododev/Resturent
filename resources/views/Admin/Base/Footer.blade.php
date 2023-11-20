@@ -15,29 +15,11 @@
 
 				 <!--====== Toaster CDN ======-->
 				 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
 		<script src="{{asset('admin/js/bootstrapicon-iconpicker.js')}}"></script>
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-		<script>
-			$('#sherah-table__vendor').DataTable({
-					searching: true,
-					info: false,
-					lengthChange: true,
-					scrollCollapse: true,
-					paging: true,
-					language: {
-						paginate: {
-							next: '<i class="fas fa-angle-right"></i>', // Font Awesome class for next button
-							previous: '<i class="fas fa-angle-left"></i>' // Font Awesome class for previous button
-						},
-						lengthMenu: 'Showing _MENU_',
-						searchPlaceholder: 'Search...',
-						search: '<span class="sherah-data-table-label">Search</span>',
-						
-					}
-				});
-		</script>
+		
 		<style>
 			.btn-success {
 				color: #fff;

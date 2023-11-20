@@ -1,7 +1,7 @@
 @extends('Fontend.Layouts.master2')
 
 @section('title')
-    <title>{{$setting->app_name}} - Wishlist Page</title>
+    <title>{{$setting->app_name}} - {{$LangMessage->wishlist}}</title>
 @endsection
 
 @section('meta')
@@ -20,12 +20,12 @@
             <div class="row  ">
                 <div class="col-lg-12">
                     <div class="inner-banner-head">
-                        <h1>Wishlist</h1>
+                        <h1>{{$LangMessage->wishlist}}</h1>
                     </div>
 
                     <div class="inner-banner-item">
                         <div class="left">
-                            <a href="{{route('index')}}">Home</a>
+                            <a href="{{route('index')}}">{{$LangMessage->home}}</a>
                         </div>
                         <div class="icon">
                             <span>
@@ -37,7 +37,7 @@
                             </span>
                         </div>
                         <div class="left">
-                            <span>Wishlist</span>
+                            <span>{{$LangMessage->wishlist}}</span>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                                     <div class="popular-item-box-img">
                                         <img src="{{asset($product['tumb_image'])}}" alt="thumb">
                                         <div class="popular-item-box-img-overlay">
-                                            <div class="icon">
+                                            {{-- <div class="icon">
                                                 <span>
                                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -76,7 +76,7 @@
 
                                             <div class="text">
                                                 <p>4.7(2.5K)</p>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
 
@@ -120,7 +120,7 @@
                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M5.834 0.890599C6.20493 0.334202 6.8294 0 7.4981 0H9.35737C10.0261 0 10.6505 0.334202 11.0215 0.8906L11.9277 2.25H15.6777C16.0919 2.25 16.4277 2.58579 16.4277 3C16.4277 3.41421 16.0919 3.75 15.6777 3.75H1.17773C0.763521 3.75 0.427734 3.41421 0.427734 3C0.427734 2.58579 0.763521 2.25 1.17773 2.25H4.92773L5.834 0.890599ZM11.4277 20H5.42773C3.2186 20 1.42773 18.2091 1.42773 16V5H15.4277V16C15.4277 18.2091 13.6369 20 11.4277 20ZM6.42773 8.25C6.84195 8.25 7.17773 8.58579 7.17773 9V16C7.17773 16.4142 6.84195 16.75 6.42773 16.75C6.01352 16.75 5.67773 16.4142 5.67773 16L5.67773 9C5.67773 8.58579 6.01352 8.25 6.42773 8.25ZM10.4277 8.25C10.8419 8.25 11.1777 8.58579 11.1777 9V16C11.1777 16.4142 10.8419 16.75 10.4277 16.75C10.0135 16.75 9.67774 16.4142 9.67773 16V9C9.67773 8.58579 10.0135 8.25 10.4277 8.25Z" fill="white"></path>
                                                         </svg>
                                                     </span>
-                                                    Remove
+                                                    {{$LangMessage->remove}}
                                                 </a>
                                                
                                                 <a href="{{route('cart.add',$product->id)}}" class="main-btn-five">
@@ -145,7 +145,7 @@
                                                             </path>
                                                         </svg>
                                                     </span>
-                                                    Add to Cart
+                                                    {{$LangMessage->add_to_cart}}
                                                 </a>
                                             </div>
                                         </div>
@@ -175,21 +175,21 @@
                 <div class="col-lg-6">
                     <div class="restaurant-taitel">
                         <h2>{{ $app->titel }}</h2>
-
+    
                         <h4>{!! $app->description !!}</h4>
                     </div>
-
+    
                     <div class="restaurant-taitel-btn">
                         <a href="{{ $app->play_store }}"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/Google_Play.png') }}" alt="icon">
-                            </span> Google Play</a>
+                            </span> {{$LangMessage->google_play}}</a>
                         <a href="{{ $app->i_store }}" class=" restaurant-taitel-btn-two"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/apple.png') }}" alt="icon">
-                            </span> I Store</a>
+                            </span> {{$LangMessage->i_store}}</a>
                     </div>
                 </div>
-
-
+    
+    
                 <div class="col-lg-6" data-aos="fade-left">
                     <div class="restaurant-img-main">
                         <div class="restaurant-img">

@@ -13,6 +13,10 @@ use App\Models\State;
 use App\Models\city;
 use App\Models\product;
 use App\Models\Review;
+use App\Models\Order;
+use App\Models\LangMessage;
+use App\Models\OrderItem;
+use Carbon\Carbon;
 use Image;
 use Str;
 use File;
@@ -24,6 +28,9 @@ use Session;
 class DashboardController extends Controller
 {
     public function UserDashboard(){
+        $data['totalOrder'] = Order::where('user_id',auth::user()->id)->count();
+        $data['totalOrderNew'] = Order::where('user_id',auth::user()->id)->where('order_status',1)->count();
+        $data['totalOrderComplte'] = Order::where('user_id',auth::user()->id)->where('order_status',3)->count();
         $data['address'] = addresse::where('user_id', Auth::user()->id)->orderBy('id', 'asc')->limit(2)->get();
         return view('Fontend.User.dashboard',$data);
     }
@@ -37,6 +44,7 @@ class DashboardController extends Controller
     }
 
     public function address(){
+        $data['LangMessage'] =  LangMessage::first();
         $data['countries'] = country::all();
         $data['address'] = addresse::where('user_id', Auth::user()->id)->orderBy('id', 'asc')->get();
         return view('Fontend.User.address',$data);
@@ -86,7 +94,27 @@ class DashboardController extends Controller
     }
 
     public function order(){
-        return view('Fontend.User.order');
+        $data = Order::paginate(10);
+        $setting =  setting::first();
+        $order = Order::where('user_id',auth::user()->id)->orderBy('id','DESC')->paginate(10);
+        return view('Fontend.User.order',compact('data','setting','order'));
+    }
+
+    public function orderWeekly(){
+        $data['data'] = Order::paginate(10);
+        $data['setting'] =  setting::first();
+        $data['order'] = Order::where('user_id', auth()->user()->id)
+        ->whereBetween('created_at', [Carbon::now()->subDays(10), Carbon::now()])
+        ->orderBy('id','DESC')
+        ->paginate(10);
+        return view('Fontend.User.order',$data);
+    }
+
+    public function orderDetils($id){
+        $data['setting'] =  setting::first();
+        $data['order'] = Order::find($id);
+        $data['OrderItem'] = OrderItem::where('order_id',$id)->get();
+        return view('Fontend.User.order_detils',$data);
     }
 
     public function wishlist(){

@@ -290,7 +290,6 @@ p {
   display: flex;
   align-items: center;
   gap: 45px;
-  padding-right: 37px;
 }
 .header .menu-bg .nav-main .nav-main .menu ul {
   display: flex;
@@ -358,6 +357,7 @@ p {
   display: flex;
   align-items: center;
   gap: 24px;
+  padding-left: 180px;
 }
 .header .menu-bg .nav-btn-main .nav-btn-one {
   position: relative;
@@ -626,9 +626,10 @@ p {
 }
 .header .menu-bg .nav-btn-main .nav-btn-two .cart .active-dropdown {
   display: block;
+  box-shadow: 0px 30px 30px 0px rgba(90, 90, 90, 0.10);
 }
 .header .menu-bg .nav-btn-main .nav-btn-two .user {
-  background-color: var(--primary-color);
+  /* background-color: var(--primary-color); */
   transition: all 0.3s;
   position: relative;
 }
@@ -730,11 +731,31 @@ p {
   align-items: center;
   gap: 20px;
 }
+.header .menu-bg .nav-login-btn-main .main-btn-four.custom-btn{
+  border: 1px solid var(--primary-color);
+  color: var(--headding-color);
+  
+}
+.header .menu-bg .nav-login-btn-main .main-btn-four.custom-btn:hover{
+  color: #fff;
+}
 .header .menu-bg .nav-login-btn-main .main-btn-four {
   height: 52px;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
+  border: 1.5px solid #fff;
+  color: #fff;
+  background: transparent;
+}
+.header .menu-bg .nav-login-btn-main .main-btn-four:hover {
+  border: 1.5px solid var(--primary-color);
+}
+.header .menu-bg .nav-login-btn-main .main-btn-four:after {
+  background-color: var(--primary-color);
+}
+.header .menu-bg .nav-login-btn-main .main-btn-four::before {
+  background-color: var(--paragraph-color);
 }
 .header .menu-bg .nav-login-btn-main .main-btn {
   height: 52px;
@@ -743,7 +764,9 @@ p {
   font-weight: 400;
   border: 1.5px solid var(--grey-scale-500);
   color: var(--grey-scale-500);
+  display: none;
 }
+
 .header .menu-bg .nav-login-btn-main .main-btn:hover {
   border: 1.5px solid var(--primary-color);
   color: #fff;
@@ -790,6 +813,11 @@ p {
 }
 .header-two .nav-btn-main .nav-btn-two .love:hover {
   background-color: var(--primary-color) !important;
+}
+.header .menu-bg .nav-btn-main .nav-btn-two .love{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .header-two .nav-btn-main .nav-btn-two .user {
   background-color: var(--primary-color) !important;
@@ -855,7 +883,47 @@ p {
 .container-full {
   width: 100%;
 }
-
+#full-stars-example-two {
+  /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+  .rating-group {
+      display: inline-flex;
+  }
+  /* make hover effect work properly in IE */
+  .rating__icon {
+      pointer-events: none;
+  }
+  /* hide radio inputs */
+  .rating__input {
+      position: absolute !important;
+      left: -9999px !important;
+  }
+  /* hide 'none' input from screenreaders */
+  .rating__input--none {
+      display: none;
+  }
+  /* set icon padding and size */
+  .rating__label {
+      cursor: pointer;
+      padding: 0 0.1em;
+      font-size: 2rem;
+  }
+  /* set default star color */
+  .rating__icon--star {
+      color: orange;
+  }
+  /* if any input is checked, make its following siblings grey */
+  .rating__input:checked~.rating__label .rating__icon--star {
+      color: #ddd;
+  }
+  /* make all stars orange on rating group hover */
+  .rating-group:hover .rating__label .rating__icon--star {
+      color: orange;
+  }
+  /* make hovered input's following siblings grey on hover */
+  .rating__input:hover~.rating__label .rating__icon--star {
+      color: #ddd;
+  }
+}
 .mobile-header {
   display: none;
 }
@@ -1465,6 +1533,7 @@ p {
 
 .location-btn {
   position: relative;
+  border-left: 1px solid #fff;
 }
 .location-btn .btn-secondary {
   color: #fff;
@@ -1730,9 +1799,9 @@ p {
 .blog .news-item .news-img:hover img {
   transform: scale(1.2);
 }
-.blog .news-item .news-img:hover .news-img-overlay .news-img-overlay-text h3 a {
+/* .blog .news-item .news-img:hover .news-img-overlay .news-img-overlay-text h3 a {
   color: var(--primary-color);
-}
+} */
 .blog .news-item .news-img:hover .news-img-overlay .news-img-overlay-btn a {
   color: var(--primary-color);
 }
@@ -2367,6 +2436,9 @@ p {
   text-align: center;
   line-height: 114px;
   transition: all 0.8s ease 0s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .categories .categories-main-box .categories-item .categories-icon span svg {
   fill: currentColor;
@@ -3154,9 +3226,9 @@ p {
 }
 .dashboard .order-reorderingmain-box .order-reorderingmain-box-tabel .table .delete-action .active {
   padding: 4px 20px;
-  background-color: #4562FF;
+  background-color: #4561ff48;
   border-radius: 8px;
-  color: #fff;
+  color: #4562FF;
 }
 .dashboard .order-reorderingmain-box .order-reorderingmain-box-tabel .table .delete-action .successful {
   padding: 4px 20px;
@@ -3681,7 +3753,7 @@ p {
   gap: 27px;
 }
 .food-details .food-details-btn-box .form-select {
-  margin: 4px 5px 4px 5px;
+  margin: 4px 5px 4px 10px;
   height: 58px;
   font-size: 16px;
   font-weight: 400;
@@ -3702,13 +3774,14 @@ p {
   border: 1.5px solid var(--grey-scale-100);
   background-color: #fff;
   width: 100%;
+  gap: 10px;
 }
 .food-details .food-details-btn-search-box {
   display: flex;
   align-items: center;
   width: 100%;
   position: relative;
-  margin: 4px 0px 4px 5px;
+  margin: 4px 10px 4px 5px;
 }
 .food-details .food-details-btn-search-box .form-control {
   height: 58px;
@@ -3885,6 +3958,8 @@ p {
   box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.06);
   overflow: hidden;
   padding-right: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 .food-details .popular-item-box:hover .popular-item-box-img img {
   transform: scale(1.2);
@@ -3950,6 +4025,8 @@ p {
 }
 .food-details .popular-item-box .popular-item-box-img img {
   transition: all 0.3s ease-out 0s;
+  height: 100%;
+  width: 350px;
 }
 .food-details .popular-item-box .popular-inner-box {
   padding: 20px 0;
@@ -4503,7 +4580,15 @@ p {
   background-color: #FFF8ED;
   color: #FFC403;
 }
+.btn-minus-custom {
+  background-color: #FFF8ED;
+  color: #FFC403;
+}
 .food-details-section .together-box .together-box-item .form-check-btn .btn-plus {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+.btn-plus-custom {
   background-color: var(--primary-color);
   color: #fff;
 }
@@ -4523,7 +4608,7 @@ p {
   padding: 7px;
   display: flex;
   /* align-items: center; */
-  justify-content: center;
+  justify-content: space-between;
   /* gap: 16px; */
   font-size: 16px;
   font-weight: 500;
@@ -4537,7 +4622,11 @@ p {
   border: 1px solid #f0154467;
 }
 .food-details-section .together-box .together-box-inner-btn .grid .column {
-  text-align: center;
+    text-align: center;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    outline: 0;
+    width: 35%;
 }
 .food-details-section .together-box .together-box-inner-btn .btn-plus {
   background-color: var(--primary-color);
@@ -5793,7 +5882,7 @@ p {
   background-color: #fff;
   box-shadow: 0px 1px 40px 0px rgba(0, 0, 0, 0.04);
   border-bottom: 1px solid #FCCBD5;
-  border-radius: 8px;
+  /* border-radius: 8px; */
 }
 .faq .faq-main .accordion-body {
   padding: 14px 14px 17px 14px;
@@ -5880,6 +5969,7 @@ p {
   position: relative;
   overflow: hidden;
   transition: all linear 0.3s;
+  margin: 0 15px;
 }
 .customer .customer-item:hover {
   background-color: rgba(255, 255, 255, 0.1);
@@ -5920,6 +6010,12 @@ p {
   align-items: center;
   gap: 24px;
   margin-top: 44px;
+}
+.customer .customer-inner-img img{
+    border-radius: 40px 8px;
+    height: 108px;
+    width: 108px;
+    border: 2px solid #FFF;
 }
 .customer .customer-inner .customer-inner-text h3 {
   font-size: 24px;
@@ -6822,6 +6918,7 @@ p {
   padding: 13px 20px;
   color: #fff;
   border-radius: 0px 10px 10px 0px;
+  border: 1px solid var(--primary-color);
 }
 .shopping-cart-two .cart-summary-box .apply-coupon .apply-coupon-box .shopping-cart-list {
   margin-top: 16px;
@@ -7281,7 +7378,7 @@ p {
 }
 .copyright .copyright-text h4 span {
   text-decoration-line: underline;
-<<<<<<< HEAD
+
 }
 
 
@@ -7520,6 +7617,57 @@ p {
   color: #fff;
 }
 
+.customer .customer-inner .customer-inner-text .icon {
+  display: flex;
+}
+
+.ecom-wc__form-input{
+  width: 100%;
+  border: 1px solid var(--primary-color);
+  padding: 0px 15px;
+  border-radius: 5px;
+}
+
+
+.btn--payment,
+.homec-btn--payment{
+  padding: 15px 15px;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  margin-top: 17px;
+}
+
+.card-number,
+.card-expiry-month,
+.card-expiry-year,
+.card-cvc{
+  padding: 15px 15px;
+}
+.ecom-wc__form-input:focus{
+  border-color: gray;
+  outline: none;
+}
+
+.card-expiry-month,
+.card-expiry-year{
+  margin: 24px 0;
+}
+
+
+.payment-popup__heading{
+  padding: 10px 0 20px 0;
+}
+
+.flutterwave img{
+  height: 100px;
+  width: 150px;
+  margin-top: -10px;
+}
+
+
+
 
 
 
@@ -7528,6 +7676,5 @@ p {
 
 
 /*# sourceMappingURL=style.css.map */
-=======
-}/*# sourceMappingURL=style.css.map */
->>>>>>> 514cf8954ca77f4fb673a4324eb7c900319f2ea8
+
+

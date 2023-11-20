@@ -17,7 +17,12 @@ class terms_and_condition extends Model
     }
     public function termsandcondition_translate_lang()
     {
-        $lang_code = Session::get('front_lang');
+        if(Session::get('front_lang')){
+            $lang_code = Session::get('front_lang');
+        }
+        else{
+            $lang_code = 'en';
+        }
         return  $this->belongsTo(TranslateTermsandCondition::class,'id','tandc_id')->where('lang_code',$lang_code);
     }
     protected $appends = ['termsandcondition','privacy'];

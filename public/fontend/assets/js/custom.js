@@ -250,3 +250,55 @@ new VenoBox({
 });
 
 
+$('.customer-item-slick').slick({
+  slidesToShow: 5,
+  slidesToScroll: 1,
+  arrows:false,
+  dots:false,
+  autoplay:true,
+  speed:"1500",
+  autoplaySpeed:"1500",
+
+  responsive: [
+    {
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 2,
+      }
+    },
+    {
+      breakpoint: 767,
+      settings: {
+        slidesToShow: 1,
+      }
+    }
+  ]
+});
+
+
+$('.customer-item-slick-testonimal').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  arrows:false,
+  dots:false,
+  autoplay:false,
+  speed:"1500",
+  autoplaySpeed:"1500",
+
+  responsive: [
+    {
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 2,
+      }
+    },
+    {
+      breakpoint: 767,
+      settings: {
+        slidesToShow: 1,
+      }
+    }
+  ]
+});
+
+

@@ -1,7 +1,7 @@
 @extends('Fontend.Layouts.master2')
 
 @section('title')
-    <title>{{$setting->app_name}} - Check-Out Page</title>
+    <title>{{$setting->app_name}} - {{$LangMessage->shopping_cart}}</title>
 @endsection
 
 @section('meta')
@@ -20,12 +20,12 @@
             <div class="row  ">
                 <div class="col-lg-12">
                     <div class="inner-banner-head">
-                        <h1>Shopping Cart</h1>
+                        <h1>{{$LangMessage->shopping_cart}}</h1>
                     </div>
 
                     <div class="inner-banner-item">
                         <div class="left">
-                            <a href="{{route('index')}}">Home</a>
+                            <a href="{{route('index')}}">{{$LangMessage->home}}</a>
                         </div>
                         <div class="icon">
                             <span>
@@ -37,7 +37,7 @@
                             </span>
                         </div>
                         <div class="left">
-                            <span>Shopping Cart</span>
+                            <span>{{$LangMessage->shopping_cart}}</span>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
 
 
                             <div class="delivery-addres">
-                                <p><span>Address :</span>{{$contact->address}}</p>
+                                <p><span>{{$LangMessage->address}} :</span>{{$contact->address}}</p>
 
                                 <a href="tel:{{$contact->phone}}" class="main-btn-four">
                                     <span>
@@ -78,7 +78,7 @@
                                             <path d="M21.5 19V17.3541C21.5 16.5363 21.0021 15.8008 20.2428 15.4971L18.2086 14.6835C17.2429 14.2971 16.1422 14.7156 15.677 15.646L15.5 16C15.5 16 13 15.5 11 13.5C9 11.5 8.5 9 8.5 9L8.85402 8.82299C9.78438 8.35781 10.2029 7.25714 9.81654 6.29136L9.00289 4.25722C8.69916 3.4979 7.96374 3 7.14593 3H5.5C4.39543 3 3.5 3.89543 3.5 5C3.5 13.8366 10.6634 21 19.5 21C20.6046 21 21.5 20.1046 21.5 19Z" stroke-width="1.5" stroke-linejoin="round" />
                                         </svg>
                                     </span>
-                                    Call Restaurant
+                                    {{$LangMessage->call_restaurant}}
                                 </a>
                                 
                             </div>
@@ -90,28 +90,27 @@
                             <div class="delivery-from">
 
                                 <div class="delivery-text">
-                                    <h4>Perfect Time for Delivery</h4>
+                                    <h4>{{$LangMessage->perfect_time_for_delivery}}</h4>
                                 </div>
                                 <div class="delivery-from-item">
                                     <select class="form-select" aria-label="Default select example" required name="delevery_day">
-                                        <option value="today" selected="">Today</option>
-                                        <option value="tomorrow">Tomorrow</option>
+                                        <option value="today" selected="">{{$LangMessage->today}}</option>
+                                        <option value="tomorrow">{{$LangMessage->tomorrow}}</option>
                                     </select>
                                 </div>
                                 <div class="delivery-from-item delivery-from-item-two ">
-                                    <label for="exampleFormControlInput1" class="form-label">Time
-                                        Schedule</label>
+                                    <label for="exampleFormControlInput1" class="form-label">{{$LangMessage->time_schedule}}</label>
                                     <select class="form-select" aria-label="Default select example" required name="delevery_time">
-                                        <option disabled>Select Time Schedule</option>
+                                        <option disabled>{{$LangMessage->select_time_schedule}}</option>
                                         @foreach ($slots as $slot)
                                             <option value="{{$slot->id}}">{{$slot->slot}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="delivery-from-item delivery-from-item-two ">
-                                    <label for="exampleFormControlInput1" class="form-label">Number of Guest</label>
+                                    <label for="exampleFormControlInput1" class="form-label">{{$LangMessage->number_of_guest}}</label>
                                     <select class="form-select" aria-label="Default select example" required name="number_of_gest">
-                                        <option disabled>Select Guest</option>
+                                        <option disabled>{{$LangMessage->select_guest}}</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -135,7 +134,7 @@
                     <div class="col-lg-5 pl-27px">
                         <div class="cart-summary-box">
                             <div class="cart-summary-box-text">
-                                <h3>Cart Summary</h3>
+                                <h3>{{$LangMessage->cart_summary}}</h3>
                             </div>
 
                             <div class="cart-summary-box-top-btn">
@@ -155,7 +154,7 @@
                                                 </svg>
                                             </span>
 
-                                            Delivery
+                                            {{$LangMessage->delivery}}
                                         </a></li>
 
                                     <li> <a href="{{route('pickup')}}" class="top-btn-two">
@@ -174,7 +173,7 @@
                                                 </svg>
                                             </span>
 
-                                            Pick Up
+                                            {{$LangMessage->pick_up}}
                                         </a></li>
 
                                     <li class="active">
@@ -194,7 +193,7 @@
                                                 </svg>
                                             </span>
 
-                                            In Restaurant
+                                            {{$LangMessage->in_restaurant}}
                                         </a>
                                     </li>
                                 </ul>
@@ -224,7 +223,7 @@
                                                     <h4>{{ $product['name'] }}</h4>
                                                     <h5>
                                                         @if($item['size'])
-                                                            <span>Size :</span>
+                                                            <span>{{$LangMessage->size}}  :</span>
                                                         @endif
                                                         @foreach ($item['size'] as $size => $price)
                                                             {{ $size }}
@@ -234,7 +233,7 @@
                                                     @if (is_array($item['addons']))
                                                     <p>
                                                         @if($item['addons'])
-                                                        <span>Addons:</span>
+                                                        <span>{{$LangMessage->addons}}:</span>
                                                         @endif
                                                         @foreach ($item['addons'] as $addonId => $quantity)
                                                                 @php
@@ -266,7 +265,7 @@
 
                             <div class="apply-coupon">
                                 <div class="apply-coupon-taitel">
-                                    <h4>Apply Coupon</h4>
+                                    <h4>{{$LangMessage->apply_coupon}}</h4>
                                 </div>
                                 <form action="{{route('apply.coupon')}}" method="POST" >
                                     @csrf
@@ -276,7 +275,7 @@
                                                 placeholder="Coupon">
                                         </div>
                                         <div class="apply-coupon-btn-two">
-                                            <button type="submit" class="coupon-btn">Apply</button>
+                                            <button type="submit" class="coupon-btn">{{$LangMessage->apply}}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -284,17 +283,17 @@
                                 <div class="apply-coupon-box">
                                     <div class="shopping-cart-list">
                                         <div class="shopping-cart-list-text">
-                                            <h4>Subtotal</h4>
+                                            <h4>{{$LangMessage->subtotal}}</h4>
                                             <a href="#">{{ $setting->currency_icon }}{{$subtotal }}</a>
                                         </div>
                                         <input type="hidden" name="total" value="{{$subtotal }}">
                                         <div class="shopping-cart-list-text">
-                                            <h4>Discount</h4>
+                                            <h4>{{$LangMessage->discount}}</h4>
                                             <a href="#">-{{ $setting->currency_icon }}{{$subtotal * $discount }}</a>
                                         </div>
                                         <input type="hidden" name="discount_amount" value="{{$subtotal * $discount }}">
                                         <div class="shopping-cart-list-text">
-                                            <h4>Delivery Charges</h4>
+                                            <h4>{{$LangMessage->delivery_charges}}</h4>
                                             <a href="#">+{{ $setting->currency_icon }}{{$deleveryCharge }}</a>
                                         </div>
                                         <input type="hidden" name="delevery_charge" value="{{$deleveryCharge }}">
@@ -303,7 +302,7 @@
                                     </div>
                                     <div class="shopping-cart-list shopping-cart-list-btm ">
                                         <div class="shopping-cart-list-text">
-                                            <h4>Grand total</h4>
+                                            <h4>{{$LangMessage->grand_total}}</h4>
                                             <a href="#">{{ $setting->currency_icon }}{{$grand_total = (($subtotal-($subtotal * $discount))+$deleveryCharge) }}</a>
                                         </div>
                                         <input type="hidden" name="grand_total" value="{{$grand_total}}">
@@ -311,7 +310,7 @@
 
                                     <div class="shopping-cart-list-btn">
                                         <button type="submit" class="main-btn-six">
-                                            Process Order
+                                            {{$LangMessage->process_order}}
                                             <span>
                                                 <svg width="14" height="10" viewBox="0 0 14 10" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -351,7 +350,8 @@
 
     <!-- Shopping Cart end  -->
     <!-- App part-start -->
-    <section class="restaurant">
+       <!-- App part-start -->
+   <section class="restaurant">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
@@ -364,10 +364,10 @@
                     <div class="restaurant-taitel-btn">
                         <a href="{{ $app->play_store }}"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/Google_Play.png') }}" alt="icon">
-                            </span> Google Play</a>
+                            </span> {{$LangMessage->google_play}}</a>
                         <a href="{{ $app->i_store }}" class=" restaurant-taitel-btn-two"> <span>
                                 <img src="{{asset('fontend/assets/images/icon/apple.png') }}" alt="icon">
-                            </span> I Store</a>
+                            </span> {{$LangMessage->i_store}}</a>
                     </div>
                 </div>
 

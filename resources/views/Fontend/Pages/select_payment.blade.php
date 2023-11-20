@@ -1,7 +1,7 @@
 @extends('Fontend.Layouts.master2')
 
 @section('title')
-    <title>{{$setting->app_name}} - Select Payment Page</title>
+    <title>{{$setting->app_name}} - {{$LangMessage->shopping_cart}}<</title>
 @endsection
 
 @section('meta')
@@ -20,12 +20,12 @@
             <div class="row  ">
                 <div class="col-lg-12">
                     <div class="inner-banner-head">
-                        <h1>Shopping Cart</h1>
+                        <h1>{{$LangMessage->shopping_cart}}</h1>
                     </div>
 
                     <div class="inner-banner-item">
                         <div class="left">
-                            <a href="{{route('index')}}">Home</a>
+                            <a href="{{route('index')}}">{{$LangMessage->home}}</a>
                         </div>
                         <div class="icon">
                             <span>
@@ -37,7 +37,7 @@
                             </span>
                         </div>
                         <div class="left">
-                            <span>Payment</span>
+                            <span>{{$LangMessage->shopping_cart}}</span>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,6 @@
     </div>
 
     <!-- banner  -->
-
 
 
     <!-- Shopping Cart  start -->
@@ -62,14 +61,11 @@
                         <div class="row shopping-payment-top ">
                             <div class="col-lg-6">
                                 <div class="shopping-payment-btn">
-                                    <form action="{{route('paypal')}}" method="POST">
-                                        @csrf
-                                        <button type="submit"><span>
+                                    <form ></form>
+                                    <a href="{{route('paypal')}}">
+                                        <span>
                                             <img src="{{asset('fontend/assets/images/small/address-cart-1.png') }}" alt="img">
-                                        </span></button>
-                                    </form>
-                                    <a href="">
-                                        
+                                        </span>
                                     </a>
                                     <div class="btn-two">
                                         <span>
@@ -90,7 +86,6 @@
                             <div class="col-lg-6">
                                 <div class="shopping-payment-btn">
                                     <a href="javascript:;" id="razorpayBtn">
-                                        <input class="form-check-input " type="radio" value="" id="payment-2"  name="payment-method">
                                         <span>
                                             <img src="{{asset('fontend/assets/images/small/address-cart-3.png') }}" alt="img">
                                         </span>
@@ -114,7 +109,9 @@
                             <form id="myForm" action="{{ route('pay-with-razorpay') }}" method="POST" class="d-none">
                                 @csrf
                                 @php
-                                    $payable_amount = 100 * $razorpay->currency_rate;
+                                    
+                                   
+                                    $payable_amount =  $order_total * $razorpay->currency_rate;
                                     $payable_amount = round($payable_amount, 2);
                                 @endphp
                                 <script src="https://checkout.razorpay.com/v1/checkout.js"
@@ -203,14 +200,9 @@
                             </div>
                             <div class="col-lg-6 shopping-payment-btn-mt15px">
                                 <div class="shopping-payment-btn">
-                                    <a href="javascript:;" data-toggle="modal"     
-                                    data-target=".bd-example-modal-lg" >
-                                        <span>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            Stripe
-                                            </button>
-                                            <img src="{{asset('fontend/assets/images/small/address-cart-6.png') }}" alt="img">
-                                        </span>
+                                    
+                                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        <img src="{{asset('fontend/assets/images/small/address-cart-6.png') }}" alt="img">
                                     </a>
                                     <div class="btn-two">
                                         <span>
@@ -230,9 +222,11 @@
                             </div>
                             <div class="col-lg-6 shopping-payment-btn-mt15px">
                                 <div class="shopping-payment-btn">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bankPayment">
-                                            Bank Payment
-                                            </button>
+                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bankPayment">
+                                        <span>
+                                            <img src="{{asset('fontend/assets/images/small/address-cart-7.png') }}" alt="img">
+                                        </span>
+                                </a>
                                     <div class="btn-two">
                                         <span>
                                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
@@ -252,8 +246,8 @@
                             <div class="col-lg-6 shopping-payment-btn-mt15px">
                                 <div class="shopping-payment-btn">
                                     <a onclick="flutterwavePayment()" href="javascript:;">
-                                        <span>
-                                            <img src="{{asset('fontend/assets/images/small/address-cart-8.png') }}" alt="img">
+                                        <span class="flutterwave">
+                                            <img  src="{{asset('fontend/assets/images/small/address-cart-8.png') }}" alt="img">
                                         </span>
                                     </a>
                                     <div class="btn-two">
@@ -278,7 +272,7 @@
                     <div class="col-lg-5">
                         <div class="cart-summary-box">
                             <div class="cart-summary-box-text">
-                                <h3>Cart Summary</h3>
+                                <h3>{{$LangMessage->cart_summary}}</h3>
                             </div>
 
                             <div class="cart-summary-box-top-btn">
@@ -298,7 +292,7 @@
                                                 </svg>
                                             </span>
 
-                                            Delivery
+                                            {{$LangMessage->delivery}}
                                         </a>
                                     </li>
                                 <li @if($cart_data->type == 'pickup') class="active" @endif >   
@@ -318,7 +312,7 @@
                                                 </svg>
                                             </span>
 
-                                            Pick Up
+                                            {{$LangMessage->pick_up}}
                                         </a>
                                     </li>
                                     <li @if($cart_data->type == 'inresturent') class="active" @endif > 
@@ -338,7 +332,7 @@
                                                 </svg>
                                             </span>
 
-                                            In Restaurant
+                                            {{$LangMessage->in_restaurant}}
                                         </a>
                                     </li>
                                 </ul>
@@ -366,7 +360,7 @@
                                                     <h4>{{ $product['name'] }}</h4>
                                                     <h5>
                                                         @if($item['size'])
-                                                            <span>Size :</span>
+                                                            <span>{{$LangMessage->size}}:</span>
                                                         @endif
                                                         @foreach ($item['size'] as $size => $price)
                                                             {{ $size }}
@@ -376,7 +370,7 @@
                                                     @if (is_array($item['addons']))
                                                     <p>
                                                         @if($item['addons'])
-                                                        <span>Addons:</span>
+                                                        <span>{{$LangMessage->addons}}:</span>
                                                         @endif
                                                         @foreach ($item['addons'] as $addonId => $quantity)
                                                                 @php
@@ -411,21 +405,25 @@
                                 <div class="apply-coupon-box">
                                     <div class="shopping-cart-list">
                                         <div class="shopping-cart-list-text">
-                                            <h4>Subtotal</h4>
+                                            <h4>{{$LangMessage->subtotal}}</h4>
                                             <a href="#">{{ $setting->currency_icon }}{{$cart_data->total }}</a>
                                         </div>
                                         <div class="shopping-cart-list-text">
-                                            <h4>Discount</h4>
+                                            <h4>{{$LangMessage->discount}}</h4>
                                             <a href="#">-{{ $setting->currency_icon }}{{$cart_data->discount_amount }}</a>
                                         </div>
                                         <div class="shopping-cart-list-text">
-                                            <h4>Delivery Charges</h4>
+                                            <h4>{{$LangMessage->delivery_charges}}</h4>
                                             <a href="#">+{{ $setting->currency_icon }}{{$cart_data->delevery_charge }}</a>
+                                        </div>
+                                        <div class="shopping-cart-list-text">
+                                            <h4>{{$LangMessage->vat}}</h4>
+                                            <a href="#">+{{ $setting->currency_icon }}{{$cart_data->vat_charge }}</a>
                                         </div>
                                     </div>
                                     <div class="shopping-cart-list shopping-cart-list-btm ">
                                         <div class="shopping-cart-list-text">
-                                            <h4>Subtotal</h4>
+                                            <h4>{{$LangMessage->grand_total}}</h4>
                                             <a href="#">{{ $setting->currency_icon }}{{$cart_data->grand_total }}</a>
                                         </div>
                                     </div>
@@ -456,7 +454,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Payment with stripe</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -465,7 +463,7 @@
                 <h4 class="payment-popup__title">Stripe Payment</h4>
                 <div class="payment-popup__inner">
                     <div class="payment-popup__header">
-                        <h4 class="payment-popup__heading">Total<b></b></h4>
+                        <h4 class="payment-popup__heading">Total : {{$order_total}}<b></b></h4>
                     </div>
                     <!-- Sign in Form -->
     
@@ -519,7 +517,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Payment with bank</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -527,7 +525,7 @@
             <h4 class="payment-popup__title">Bank Payment</h4>
             <div class="payment-popup__inner">
                 <div class="payment-popup__header">
-                    <h4 class="payment-popup__heading">Total<b></b></h4>
+                    <h4 class="payment-popup__heading">Total : {{$order_total}}<b></b></h4>
                 </div>
                 <ul class="payment-popup__bank-list">
                     
@@ -538,12 +536,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group homec-form-input">
-                                <textarea class="ecom-wc__form-input" type="text" name="tnx_info" placeholder="Transaction information"></textarea>
+                                <textarea rows="4" class="ecom-wc__form-input" type="text" name="tnx_info" placeholder="Transaction information"></textarea>
                             </div>
     
                         </div>
                         <div class="col-12 mg-top-20">
-                            <button type="submit" class="homec-btn homec-btn__second  homec-btn--payment"><span>Payment Now</span></button>
+                            <button type="submit" class=" btn--payment"><span>Payment Now</span></button>
                         </div>
                     </div>
                 </form>
@@ -764,9 +762,9 @@
     {{-- start flutterwave payment --}}
     <script src="https://checkout.flutterwave.com/v3.js"></script>
     @php
-        $payable_amount = 100 * $flutterwave->currency_rate;
+        $payable_amount = $order_total * $flutterwave->currency_rate;
         $payable_amount = round($payable_amount, 2);
-
+        $user = Auth::user();
     @endphp
 
     <script>
@@ -780,9 +778,9 @@
                 country: "{{ $flutterwave->country_code }}",
                 payment_options: " ",
                 customer: {
-                email: "{{ 'user@gmail.com' }}",
-                phone_number: "{{ '0185974455' }}",
-                name: "{{ 'shihab' }}",
+                email: "{{ $user->email }}",
+                phone_number: "{{ $user->phone }}",
+                name: "{{ $user->name }}",
                 },
                 callback: function (data) {
                     var tnx_id = data.transaction_id;
@@ -838,7 +836,7 @@
 
             var handler = PaystackPop.setup({
                 key: '{{ $public_key }}',
-                email: '{{ 'shihab@gmail.com' }}',
+                email: '{{ Auth::User()->email }}',
                 amount: '{{ $ngn_amount }}',
                 currency: "{{ $currency }}",
                 callback: function(response){
